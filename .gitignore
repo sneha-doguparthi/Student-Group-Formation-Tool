@@ -1,0 +1,6 @@
+## MacOS file ##
+.DS_Store
+
+.gradle
+build/
+bin/
