@@ -20,7 +20,7 @@ import com.asdc.group6.Group6Application;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes = { Group6Application.class,
-		AdminController.class })
+		DeleteCourseController.class })
 @AutoConfigureMockMvc
 public class DeleteCourseControllerTest {
 
