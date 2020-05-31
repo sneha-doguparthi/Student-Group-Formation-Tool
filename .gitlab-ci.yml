@@ -8,7 +8,7 @@ before_script:
   - chmod +x ./gradlew
   - export GRADLE_USER_HOME=`pwd`/.gradle
 
-# Build Stage Instructions
+# Build Stage Instructions for develop and all feature branches
 build:
   stage: build
   tags:
@@ -16,6 +16,7 @@ build:
   script: ./gradlew --build-cache assemble
   only:
   - develop
+  - /^feature_.*$/
   cache:
     key: "$CI_COMMIT_REF_NAME"
     policy: push
@@ -23,7 +24,7 @@ build:
       - build
       - .gradle
 
-# Test Stage Instructions
+# Test Stage Instructions for develop and all feature branches
 test:
   stage: test
   tags:
@@ -31,6 +32,7 @@ test:
   script: ./gradlew check
   only:
   - develop
+  - /^feature_.*$/
   cache:
     key: "$CI_COMMIT_REF_NAME"
     policy: pull
@@ -38,7 +40,7 @@ test:
       - build
       - .gradle
 
-# Deployment Instructions
+# Deployment Instructions only for *develop* branch
 deploy:
     stage: deploy
     tags:
