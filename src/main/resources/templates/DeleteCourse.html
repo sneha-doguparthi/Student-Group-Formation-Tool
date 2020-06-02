@@ -1,13 +1,41 @@
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Delete Course</title>
 </head>
 <body>
-	<div>
-		<h2>Delete Course Panel</h2>
+	<ul lang="en" th:replace="fragments/header :: header"></ul>
+	<div class="container center-text">
 		<div>
-			<input type="text" name="course_code" /> 
-			<button>Submit</button>
+			<h2>Delete Course Panel</h2>
+			<div>
+				<form th:if="${courseList.size() > 0}" th:action="@{/deleteCourse}"
+					method="post">
+					<table class="delete-table table table-bordered">
+						<thead>
+							<th>Course Code</th>
+							<th>Course Name</th>
+							<th class="center-text">Select Course</th>
+						</thead>
+						<tbody>
+							<tr th:each="cData, iterstat: ${courseList}">
+								<td th:text="${cData.getCourseCode()}"
+									th:id="|td${iterstat.index}|"></td>
+								<td th:text="${cData.getCourseName()}"
+									th:id="|td${iterstat.index}|"></td>
+								<td class="center-text"><input type="checkbox"
+									name="course-checkbox" th:value="${cData.getCourseCode()}"></td>
+							</tr>
+						</tbody>
+					</table>
+					<button class="btn btn-primary">Submit</button>
+				</form>
+				<ul th:if="${deleteResultList.size() > 0}">
+					<li th:each="data, iterstat: ${deleteResultList}"><span
+						th:text="${data}"></span></li>
+				</ul>
+			</div>
 		</div>
 	</div>
 </body>

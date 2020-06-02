@@ -1,5 +1,9 @@
 package com.asdc.group6.ToolAdmin.Service;
 
-public interface ViewCoursesService {
+import java.util.ArrayList;
 
+import com.asdc.group6.Models.Course;
+
+public interface ViewCoursesService {
+	public ArrayList<Course> getCourseList();
 }

@@ -1,15 +1,25 @@
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>Add Course</title>
 </head>
 <body>
-	<div>
-		<h2>Add Course Panel</h2>
-		<div>
-			<input type="text" name="course_code" /> 
-			<input type="text" name="course_name" />
-			<button>Submit</button>
+	<ul lang="en" th:replace="fragments/header :: header"></ul>
+	<div class="container center-text">
+		<div class="page-block">
+			<h2>Add Course Panel</h2>
+			<form th:action="@{/addNewCourse}" th:object="${course}"
+				method="post">
+				<p>
+					Enter Course Code: <input type="text" th:field="*{courseCode}">
+				</p>
+				<p>
+					Enter Course Name: <input type="text" th:field="*{courseName}">
+				</p>
+				<button class="btn btn-primary">Submit</button>
+			</form>
 		</div>
+		<span th:text="${result_message}"></span>
 	</div>
 </body>
 </html>

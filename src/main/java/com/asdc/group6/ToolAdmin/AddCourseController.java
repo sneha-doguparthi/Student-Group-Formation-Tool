@@ -1,13 +1,28 @@
 package com.asdc.group6.ToolAdmin;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import com.asdc.group6.Models.Course;
+import com.asdc.group6.ToolAdmin.Service.AddCourseServiceImpl;
 
 @Controller
 public class AddCourseController {
-	
+
 	@GetMapping("/addCourseView")
-	public String addCourse() {
+	public String addCourse(Model model) {
+		model.addAttribute("course", new Course());
+		return "AddCourse.Html";
+	}
+
+	@PostMapping("/addNewCourse")
+	public String addNewCourse(Course course, Model model) {
+		AddCourseServiceImpl addCourseServiceImpl = new AddCourseServiceImpl();
+		String courseAddResult = addCourseServiceImpl.addNewCourse(course);
+		model.addAttribute("course", new Course());
+		model.addAttribute("result_message", courseAddResult);
 		return "AddCourse.Html";
 	}
 }

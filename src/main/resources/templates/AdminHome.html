@@ -1,21 +1,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<title>
-			Home - Administrator
-		</title>
-	</head>
-	<body>
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Home - Administrator</title>
+</head>
+<body>
+	<ul lang="en" th:replace="fragments/header :: header"></ul>
+	<div class="container center-text">
 		<div>
 			<h2>Group Formation Tool Admin</h2>
-			<div>
-				<a th:href="@{viewCoursesView}">View Courses</a>
-				<a th:href="@{addCourseView}">Add Course</a>
-				<a th:href="@{deleteCourseView}">Delete Course</a>
-				<a th:href="@{assignInstructorView}">Assign Instructor</a>
-			<div>
-			</div>
-			</div>
-		</div>	
-	</body>
+		</div>
+	</div>
+</body>
 </html>

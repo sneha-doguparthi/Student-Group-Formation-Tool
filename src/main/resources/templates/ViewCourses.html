@@ -3,10 +3,26 @@
 <title>View Courses</title>
 </head>
 <body>
-	<div>
-		<h2>View Courses Panel</h2>
+	<ul lang="en" th:replace="fragments/header :: header"></ul>
+	<div class="container center-text">
 		<div>
-			list of courses goes here
+			<h2>View Courses Panel</h2>
+			<div>
+				<table class="delete-table table table-bordered">
+					<thead>
+						<th>Course Code</th>
+						<th>Course Name</th>
+					</thead>
+					<tbody>
+						<tr th:each="cData, iterstat: ${courseList}">
+							<td th:text="${cData.getCourseCode()}"
+								th:id="|td${iterstat.index}|"></td>
+							<td th:text="${cData.getCourseName()}"
+								th:id="|td${iterstat.index}|"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</div>
 </body>
