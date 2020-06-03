@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+import com.asdc.group6.Models.User;
+
 class UserTest {
 
 	@Test

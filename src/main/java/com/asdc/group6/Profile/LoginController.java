@@ -1,4 +1,4 @@
-package com.asdc.group6.controller;
+package com.asdc.group6.Profile;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
