@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.asdc.group6.Models.Course;
 import com.asdc.group6.Models.User;
+import com.asdc.group6.ToolAdmin.Service.AssignInstructorService;
 import com.asdc.group6.ToolAdmin.Service.AssignInstructorServiceImpl;
+import com.asdc.group6.ToolAdmin.Service.ViewCoursesService;
 import com.asdc.group6.ToolAdmin.Service.ViewCoursesServiceImpl;
 
 @Controller
@@ -21,12 +23,13 @@ public class AssignInstructorController {
 
 	@GetMapping("/assignInstructorView")
 	public String getAdminView(Model model) {
-		ViewCoursesServiceImpl viewCourseServiceImpl = new ViewCoursesServiceImpl();
-		courseList = viewCourseServiceImpl.getCourseList();
+		ViewCoursesService viewCourseService = new ViewCoursesServiceImpl();
+		courseList = viewCourseService.getCourseList();
 		model.addAttribute("courseList", courseList);
-		AssignInstructorServiceImpl assignInstructorServiceImpl = new AssignInstructorServiceImpl();
-		userList = assignInstructorServiceImpl.getUserList();
+		AssignInstructorService assignInstructorService = new AssignInstructorServiceImpl();
+		userList = assignInstructorService.getUserList();
 		model.addAttribute("userList", userList);
+		model.addAttribute("resultMessage", "");
 		return "AssignInstructor.html";
 	}
 
@@ -34,9 +37,11 @@ public class AssignInstructorController {
 	public String assignRole(@RequestParam("CourseCode") String courseCode, User user, Model model) {
 		model.addAttribute("courseList", courseList);
 		model.addAttribute("userList", userList);
+		model.addAttribute("resultMessage", "");
 		if (null != courseCode) {
-			AssignInstructorServiceImpl assignInstructorServiceImpl = new AssignInstructorServiceImpl();
-			assignInstructorServiceImpl.assignRoleToUser(user, courseCode);
+			AssignInstructorService assignInstructorService = new AssignInstructorServiceImpl();
+			String resultMessage = assignInstructorService.assignRoleToUser(user, courseCode);
+			model.addAttribute("resultMessage", resultMessage);
 		}
 		return "AssignInstructor.html";
 	}

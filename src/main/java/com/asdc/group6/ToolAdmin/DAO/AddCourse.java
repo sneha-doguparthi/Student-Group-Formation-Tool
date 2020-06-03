@@ -4,5 +4,6 @@ import com.asdc.group6.Models.Course;
 
 public interface AddCourse {
 	public String addNewCourse(Course course);
+
 	public boolean checkIfCourseExists(Course course);
 }

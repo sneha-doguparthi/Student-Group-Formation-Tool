@@ -10,8 +10,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.asdc.group6.DBConnection.CreateDatabaseConnection;
 import com.asdc.group6.Models.Course;
-
-import Utilities.ApplicationConstants;
+import com.asdc.group6.Utilities.ApplicationConstants;
 
 public class AddCourseImpl implements AddCourse {
 

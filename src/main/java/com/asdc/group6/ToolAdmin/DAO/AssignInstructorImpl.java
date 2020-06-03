@@ -11,8 +11,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.asdc.group6.DBConnection.CreateDatabaseConnection;
 import com.asdc.group6.Models.User;
-
-import Utilities.ApplicationConstants;
+import com.asdc.group6.Utilities.ApplicationConstants;
 
 public class AssignInstructorImpl implements AssignInstructor {
 
@@ -30,6 +29,7 @@ public class AssignInstructorImpl implements AssignInstructor {
 			ResultSet resultSet = statement.executeQuery();
 			while (resultSet.next()) {
 				User user = new User();
+				user.setUserId(resultSet.getString("user_id"));
 				user.setFirstName(resultSet.getString("first_name"));
 				user.setLastName(resultSet.getString("last_name"));
 				user.setBannerId(resultSet.getString("banner_id"));
@@ -59,12 +59,14 @@ public class AssignInstructorImpl implements AssignInstructor {
 			if (checkIfCourseExistsForUser(user, courseCode))
 				return ApplicationConstants.COURSE_ALREADY_ADDED_FOR_USER;
 			connection = CreateDatabaseConnection.createConnection();
-			String insertQuery = "INSERT INTO course_association (course_code,course_name) values(?,?);";
+			String insertQuery = "INSERT INTO course_association (course_id,user_id, role_id) values(?,?,?);";
 			statement = connection.prepareStatement(insertQuery);
 			statement.setString(1, courseCode);
+			statement.setString(2, user.getUserId());
+			statement.setInt(3, ApplicationConstants.INSTRUCTOR_ROLE_ID);
 			int result = statement.executeUpdate();
 			if (result > 0)
-				return ApplicationConstants.COURSE_ADDED;
+				return ApplicationConstants.COURSE_ROLE_SUCCESS;
 		} catch (SQLException e) {
 			logger.error("Exception occured while adding new course", e);
 		} finally {
@@ -77,15 +79,16 @@ public class AssignInstructorImpl implements AssignInstructor {
 				logger.error("Exception occured while closing connection/statement", e);
 			}
 		}
-		return ApplicationConstants.COURSE_ADD_FAILED;
+		return ApplicationConstants.COURSE_ROLE_FAILED;
 	}
 
+	@Override
 	public boolean checkIfCourseExistsForUser(User user, String course) {
 		Connection connection = null;
 		PreparedStatement statement = null;
 		try {
 			connection = CreateDatabaseConnection.createConnection();
-			String selectQuery = "SELECT ca.course_id FROM course_association ca JOIN User u ON u.user_id = c.course_id WHERE c.course_code = ?;";
+			String selectQuery = "SELECT ca.course_id FROM course_association ca JOIN User u ON u.user_id = ca.user_id WHERE ca.course_id = ?;";
 			statement = connection.prepareStatement(selectQuery);
 			statement.setString(1, course);
 			ResultSet resultSet = statement.executeQuery();

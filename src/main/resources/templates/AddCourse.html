@@ -19,7 +19,7 @@
 				<button class="btn btn-primary">Submit</button>
 			</form>
 		</div>
-		<span th:text="${result_message}"></span>
+		<h3 th:if="${resultMessage.length()>0}" th:text="${resultMessage}"></h3>
 	</div>
 </body>
 </html>

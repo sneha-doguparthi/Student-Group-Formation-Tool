@@ -24,13 +24,16 @@
 							<td th:value="${userModel.getLastName()}"
 								th:text="${userModel.getLastName()}">Smith</td>
 							<td th:text="${userModel.getEmail()}">rob.smith@gmail.com</td> <input
-								type="hidden" th:value="${userModel.getEmail()}" name="email">
+								type="hidden" th:value="${userModel.getUserId()}" name="userId">
 							<td><select name="CourseCode">
 									<option>Select courses</option>
 									<div th:each="courseModel : ${courseList}">
 										<div>
 											<option
-												th:text="${courseModel.getCourseCode()}+' - '+${courseModel.getCourseName()}"></option>
+												th:text="${courseModel.getCourseCode()}+' - '+${courseModel.getCourseName()}"
+												th:value="${courseModel.getCourseId()}+' - '+
+												${courseModel.getCourseCode()}+' - '+
+												${courseModel.getCourseName()}"></option>
 										</div>
 									</div>
 							</select></td>
@@ -41,6 +44,7 @@
 					</tr>
 				</tbody>
 			</table>
+			<h3 th:if="${resultMessage.length()>0}" th:text="${resultMessage}"></h3>
 		</div>
 	</div>
 </body>

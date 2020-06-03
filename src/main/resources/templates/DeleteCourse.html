@@ -32,8 +32,9 @@
 					<button class="btn btn-primary">Submit</button>
 				</form>
 				<ul th:if="${deleteResultList.size() > 0}">
-					<li th:each="data, iterstat: ${deleteResultList}"><span
-						th:text="${data}"></span></li>
+					<li th:each="data, iterstat: ${deleteResultList}">
+						<h3 th:text="${data}"></h3>
+					</li>
 				</ul>
 			</div>
 		</div>

@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.asdc.group6.Models.Course;
+import com.asdc.group6.ToolAdmin.Service.AddCourseService;
 import com.asdc.group6.ToolAdmin.Service.AddCourseServiceImpl;
 
 @Controller
@@ -19,10 +20,10 @@ public class AddCourseController {
 
 	@PostMapping("/addNewCourse")
 	public String addNewCourse(Course course, Model model) {
-		AddCourseServiceImpl addCourseServiceImpl = new AddCourseServiceImpl();
-		String courseAddResult = addCourseServiceImpl.addNewCourse(course);
+		AddCourseService addCourseService = new AddCourseServiceImpl();
+		String courseAddResult = addCourseService.addNewCourse(course);
 		model.addAttribute("course", new Course());
-		model.addAttribute("result_message", courseAddResult);
+		model.addAttribute("resultMessage", courseAddResult);
 		return "AddCourse.Html";
 	}
 }

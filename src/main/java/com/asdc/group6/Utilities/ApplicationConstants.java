@@ -1,4 +1,4 @@
-package Utilities;
+package com.asdc.group6.Utilities;
 
 public class ApplicationConstants {
 
@@ -13,5 +13,7 @@ public class ApplicationConstants {
 	public static final String COURSE_ALREADY_ADDED_FOR_USER = "Course already added for User!";
 	public static final String COURSE_ROLE_SUCCESS = "Course assigned successfully!";
 	public static final String COURSE_ROLE_FAILED = "Failed to assign course!";
+
+	public static final int INSTRUCTOR_ROLE_ID = 4;
 
 }
