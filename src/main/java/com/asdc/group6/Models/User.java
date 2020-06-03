@@ -8,7 +8,7 @@ public class User {
 	private String email;
 	private String password;
 	private String confirmPassword;
-	private String user_type;
+	private String userType;
 	
 	public int getUserId() {
 		return userId;
@@ -52,11 +52,11 @@ public class User {
 	public void setConfirmPassword(String confirmPassword) {
 		this.confirmPassword = confirmPassword;
 	}
-	public String getUser_type() {
-		return user_type;
+	public String getUserType() {
+		return userType;
 	}
-	public void setUser_type(String user_type) {
-		this.user_type = user_type;
+	public void setUserType(String userType) {
+		this.userType = userType;
 	}
 	
 }
