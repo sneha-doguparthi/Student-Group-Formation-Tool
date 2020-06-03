@@ -1,18 +1,15 @@
 package com.asdc.group6.ToolAdmin.DAO;
 
+import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
-
 import com.asdc.group6.Models.Course;
 import com.asdc.group6.Utilities.ApplicationConstants;
 
-@RunWith(MockitoJUnitRunner.class)
 public class AddCourseTest {
 	AddCourse addCourse = mock(AddCourseImpl.class);
 	Course course;

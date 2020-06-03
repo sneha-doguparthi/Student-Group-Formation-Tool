@@ -15,6 +15,7 @@ public class AddCourseController {
 	@GetMapping("/addCourseView")
 	public String addCourse(Model model) {
 		model.addAttribute("course", new Course());
+		model.addAttribute("resultMessage", "");
 		return "AddCourse.Html";
 	}
 

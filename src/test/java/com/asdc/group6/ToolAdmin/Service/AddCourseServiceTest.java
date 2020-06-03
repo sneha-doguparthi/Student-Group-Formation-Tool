@@ -5,14 +5,11 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.jupiter.api.Test;
 
 import com.asdc.group6.Models.Course;
 import com.asdc.group6.Utilities.ApplicationConstants;
 
-@RunWith(MockitoJUnitRunner.class)
 public class AddCourseServiceTest {
 	AddCourseService addCourseService = mock(AddCourseServiceImpl.class);
 	Course course;

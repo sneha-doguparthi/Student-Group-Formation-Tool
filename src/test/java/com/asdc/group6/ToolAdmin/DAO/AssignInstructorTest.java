@@ -7,16 +7,13 @@ import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import org.mockito.stubbing.Answer;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.mockito.invocation.InvocationOnMock;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import com.asdc.group6.Models.Course;
 import com.asdc.group6.Models.User;
 import com.asdc.group6.Utilities.ApplicationConstants;
 
-@RunWith(MockitoJUnitRunner.class)
 public class AssignInstructorTest {
 	AssignInstructor assignInstructor = mock(AssignInstructorImpl.class);
 	Course course;

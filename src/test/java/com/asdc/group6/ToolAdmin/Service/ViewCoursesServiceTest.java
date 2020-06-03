@@ -7,14 +7,11 @@ import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import org.mockito.stubbing.Answer;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.mockito.invocation.InvocationOnMock;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import com.asdc.group6.Models.Course;
 
-@RunWith(MockitoJUnitRunner.class)
 public class ViewCoursesServiceTest {
 	ViewCoursesService viewCoursesService = mock(ViewCoursesServiceImpl.class);
 	Course course;

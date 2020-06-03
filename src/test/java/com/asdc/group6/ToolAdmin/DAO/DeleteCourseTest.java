@@ -7,15 +7,12 @@ import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.mockito.invocation.InvocationOnMock;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
 
 import com.asdc.group6.Models.Course;
 
-@RunWith(MockitoJUnitRunner.class)
 public class DeleteCourseTest {
 	DeleteCourse deleteCourse = mock(DeleteCourseImpl.class);
 	Course course;
