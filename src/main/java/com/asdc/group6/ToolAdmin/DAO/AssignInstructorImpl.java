@@ -29,7 +29,7 @@ public class AssignInstructorImpl implements AssignInstructor {
 			ResultSet resultSet = statement.executeQuery();
 			while (resultSet.next()) {
 				User user = new User();
-				user.setUserId(resultSet.getString("user_id"));
+				user.setUserId(resultSet.getInt("user_id"));
 				user.setFirstName(resultSet.getString("first_name"));
 				user.setLastName(resultSet.getString("last_name"));
 				user.setBannerId(resultSet.getString("banner_id"));
@@ -62,7 +62,7 @@ public class AssignInstructorImpl implements AssignInstructor {
 			String insertQuery = "INSERT INTO course_association (course_id,user_id, role_id) values(?,?,?);";
 			statement = connection.prepareStatement(insertQuery);
 			statement.setString(1, courseCode);
-			statement.setString(2, user.getUserId());
+			statement.setInt(2, user.getUserId());
 			statement.setInt(3, ApplicationConstants.INSTRUCTOR_ROLE_ID);
 			int result = statement.executeUpdate();
 			if (result > 0)

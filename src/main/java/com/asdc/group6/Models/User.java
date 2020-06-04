@@ -1,19 +1,20 @@
 package com.asdc.group6.Models;
 
 public class User {
-	private String userId;
+	private int userId;
 	private String firstName;
 	private String lastName;
 	private String bannerId;
 	private String email;
 	private String password;
 	private String confirmPassword;
+	private String userType;
 
-	public String getUserId() {
+	public int getUserId() {
 		return userId;
 	}
 
-	public void setUserId(String userId) {
+	public void setUserId(int userId) {
 		this.userId = userId;
 	}
 
@@ -63,6 +64,14 @@ public class User {
 
 	public void setConfirmPassword(String confirmPassword) {
 		this.confirmPassword = confirmPassword;
+	}
+
+	public String getUserType() {
+		return userType;
+	}
+
+	public void setUserType(String userType) {
+		this.userType = userType;
 	}
 
 }
