@@ -30,5 +30,4 @@ public class SignUpController {
 			return "existing_user";
 		}
 	}
-
 }
