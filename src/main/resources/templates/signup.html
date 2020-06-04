@@ -34,9 +34,15 @@
 			<label class="col-sm-2">Confirm Password</label>
 			<span class="col-sm-5"><input type= "password" th:field="*{confirmPassword}" required></span>
 		</div>
-			<span><button type="submit" class="btn btn-primary">Submit</button></span>
+		<span><button type="submit" class="btn btn-primary">Submit</button></span>
 			<div><label>Already have an account?</label>
 			<a href = "/login">Login here</a></div>
+		<div th:if="${success}">
+			<h2 th:text ="${success}"></h2>
+		</div>
+		<div th:if ="${error}">
+			<h2 th:text ="${error}"></h2>
+		</div>
 		</form>
 	</div>
 </div>

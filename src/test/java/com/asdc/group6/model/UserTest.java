@@ -4,7 +4,23 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+import com.asdc.group6.Models.User;
+
 class UserTest {
+
+	@Test
+	void testGetUserId() {
+		User user = new User();
+		user.setUserId(1);
+		assertEquals(user.getUserId(), 1);
+	}
+
+	@Test
+	void testSetUserId() {
+		User user = new User();
+		user.setUserId(1);
+		assertEquals(user.getUserId(), 1);
+	}
 
 	@Test
 	void testGetFirstName() {
@@ -60,6 +76,48 @@ class UserTest {
 		User user = new User();
 		user.setEmail("alex.gomez@dal.ca");
 		assertTrue(user.getEmail().equals("alex.gomez@dal.ca"));
+	}
+
+	@Test
+	void testGetPassword() {
+		User user = new User();
+		user.setPassword("abc");
+		assertTrue(user.getPassword().equals("abc"));
+	}
+
+	@Test
+	void testSetPassword() {
+		User user = new User();
+		user.setPassword("abc");
+		assertTrue(user.getPassword().equals("abc"));
+	}
+
+	@Test
+	void testGetConfirmPassword() {
+		User user = new User();
+		user.setConfirmPassword("abc");
+		assertTrue(user.getConfirmPassword().equals("abc"));
+	}
+
+	@Test
+	void testSetConfirmPassword() {
+		User user = new User();
+		user.setConfirmPassword("abc");
+		assertTrue(user.getConfirmPassword().equals("abc"));
+	}
+
+	@Test
+	void testGetUser_type() {
+		User user = new User();
+		user.setUserType("G");
+		assertTrue(user.getUserType().equals("G"));
+	}
+
+	@Test
+	void testSetUser_type() {
+		User user = new User();
+		user.setUserType("G");
+		assertTrue(user.getUserType().equals("G"));
 	}
 
 }
