@@ -106,11 +106,6 @@
           }
         }
       }
-
-      function onAssignClick(userId) {
-        document.getElementById("userId").value = userId;
-        document.getElementById("userInfo").submit();
-      }
     </script>
 
     <title>Assign TA</title>
@@ -179,37 +174,40 @@
               <td><span th:text="${user.firstName}"> First Name </span></td>
               <td><span th:text="${user.lastName}"> Last Name </span></td>
               <td>
-                <button
-                  style="
-                    border-radius: 5px;
-                    background-color: #4caf50;
-                    border-width: 0px;
-                    padding-left: 10px;
-                    padding-right: 20px;
-                    padding-top: 3px;
-                    padding-bottom: 3px;
-                  "
-                  th:onclick="'onAssignClick(\'' + ${user.userId} + '\');'"
-                >
-                  <i class="material-icons md-light">add_circle</i>
-                  <b style="color: white;">Assign</b>
-                </button>
+                <form action="#" th:action="@{/do-assign-ta}" method="POST">
+                  <input
+                    type="hidden"
+                    name="courseId"
+                    id="courseId"
+                    th:value="${id}"
+                  />
+
+                  <input
+                    type="hidden"
+                    name="userId"
+                    id="userId"
+                    th:value="${user.userId}"
+                  />
+
+                  <button
+                    style="
+                      border-radius: 5px;
+                      background-color: #4caf50;
+                      border-width: 0px;
+                      padding-left: 10px;
+                      padding-right: 20px;
+                      padding-top: 3px;
+                      padding-bottom: 3px;
+                    "
+                  >
+                    <i class="material-icons md-light">add_circle</i>
+                    <b style="color: white;">Assign</b>
+                  </button>
+                </form>
               </td>
             </tr>
           </tbody>
         </table>
-      </div>
-
-      <div>
-        <form
-          id="userInfo"
-          action="#"
-          th:action="@{/assign-ta}"
-          method="POST"
-          hidden
-        >
-          <input name="userId" id="userId" type="number" value="" />
-        </form>
       </div>
     </div>
   </body>

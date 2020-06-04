@@ -47,7 +47,25 @@
         margin-left: 30px;
       "
     >
-     <form action="#" th:action="@{/course-admin}" method="GET">
+     <form action="#" th:action="@{/course-admin}" method="POST">
+       <input
+         type="hidden"
+         name="id"
+         id="id"
+         th:value="${id}"/>
+
+      <input
+		type="hidden"
+        name="name"
+        id="name"
+        th:value="${name}"/>
+
+       <input
+         type="hidden"
+         name="code"
+         id="code"
+         th:value="${code}"/>
+     
       <button
         style="
           margin-top: 20px;
