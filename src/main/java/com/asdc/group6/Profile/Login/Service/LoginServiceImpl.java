@@ -20,7 +20,7 @@ public class LoginServiceImpl implements LoginService {
 		if (userLoginDao.checkAccess(user)) {
 			switch (user.getUserType()) {
 			case "A":
-				return "admin";
+				return "AdminHome";
 			case "S":
 				Course c = new Course();
 				if (usercourses.fetchCourses(user, c))

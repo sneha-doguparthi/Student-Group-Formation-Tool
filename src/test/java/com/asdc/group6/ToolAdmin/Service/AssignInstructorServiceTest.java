@@ -22,7 +22,6 @@ public class AssignInstructorServiceTest {
 
 	public AssignInstructorServiceTest() {
 		user = new User();
-		user.setUserId("111");
 		user.setFirstName("James");
 		user.setLastName("Smith");
 		user.setEmail("james@dal.ca");
