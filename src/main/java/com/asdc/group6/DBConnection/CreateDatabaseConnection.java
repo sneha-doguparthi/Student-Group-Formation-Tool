@@ -15,7 +15,6 @@ import java.util.Map;
 import java.util.Properties;
 
 public class CreateDatabaseConnection {
-
 	static Connection dbConnection;
 	private static Properties applicationProperties, dbProperties;
 	private static String applicationConfigFile;
