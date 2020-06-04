@@ -15,7 +15,6 @@ import java.util.Map;
 import java.util.Properties;
 
 public class CreateDatabaseConnection {
-
 	static Connection dbConnection;
 	private static Properties applicationProperties, dbProperties;
 	private static String applicationConfigFile;
@@ -55,7 +54,6 @@ public class CreateDatabaseConnection {
 		String server = dbCredentials.get("server");
 		String port = dbCredentials.get("port");
 		String connectionUrl = "jdbc:mysql://" + server + ":" + port + "/" + database + "?serverTimezone=UTC";
-
 		try {
 			Class.forName(ApplicationConstants.DB_DRIVER_NAME).getClass();
 			dbConnection = DriverManager.getConnection(connectionUrl, user, password);

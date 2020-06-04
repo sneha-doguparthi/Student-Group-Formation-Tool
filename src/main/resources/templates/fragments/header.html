@@ -1,0 +1,19 @@
+<ul th:fragment="header" class="nav-ul">
+	<li class="nav-li"><a class="nav-btn" th:href="@{adminHomeView}">Home</a></li>
+	<li class="nav-li"><a class="nav-btn" th:href="@{viewCoursesView}">View
+			Courses</a></li>
+	<li class="nav-li"><a class="nav-btn" th:href="@{addCourseView}">Add
+			Course</a></li>
+	<li class="nav-li"><a class="nav-btn"
+		th:href="@{deleteCourseView}">Delete Course</a></li>
+	<li class="nav-li"><a class="nav-btn"
+		th:href="@{assignInstructorView}">Assign Instructor</a></li>
+
+	<link href="../../static/admin.css" th:href="@{admin.css}"
+		rel="stylesheet" />
+	<link
+		href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+		rel="stylesheet"
+		integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+		crossorigin="anonymous">
+</ul>

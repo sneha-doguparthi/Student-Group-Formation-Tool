@@ -4,6 +4,8 @@
 .gradle
 build/
 bin/
+mysql-connector-java-8.0.20.jar
+application-local.properties
 .classpath
-.settings/
 .project
+.settings/
