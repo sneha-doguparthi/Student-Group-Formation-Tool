@@ -23,7 +23,7 @@ public class DeleteCourseController {
 		ArrayList<Course> courseList = viewCourseService.getCourseList();
 		model.addAttribute("courseList", courseList);
 		model.addAttribute("deleteResultList", new ArrayList<>());
-		return "DeleteCourse.html";
+		return "DeleteCourse";
 	}
 
 	@PostMapping("deleteCourse")
@@ -35,6 +35,6 @@ public class DeleteCourseController {
 			model.addAttribute("deleteResultList", deleteResultList);
 			model.addAttribute("courseList", new ArrayList<>());
 		}
-		return "DeleteCourse.html";
+		return "DeleteCourse";
 	}
 }

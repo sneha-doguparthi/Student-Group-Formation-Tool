@@ -30,7 +30,7 @@ public class AssignInstructorController {
 		userList = assignInstructorService.getUserList();
 		model.addAttribute("userList", userList);
 		model.addAttribute("resultMessage", "");
-		return "AssignInstructor.html";
+		return "AssignInstructor";
 	}
 
 	@PostMapping("/assignRole")
@@ -43,7 +43,7 @@ public class AssignInstructorController {
 			String resultMessage = assignInstructorService.assignRoleToUser(user, courseCode);
 			model.addAttribute("resultMessage", resultMessage);
 		}
-		return "AssignInstructor.html";
+		return "AssignInstructor";
 	}
 
 }

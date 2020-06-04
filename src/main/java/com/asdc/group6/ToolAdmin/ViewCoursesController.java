@@ -18,7 +18,7 @@ public class ViewCoursesController {
 		ViewCoursesService viewCourseService = new ViewCoursesServiceImpl();
 		ArrayList<Course> courseList = viewCourseService.getCourseList();
 		model.addAttribute("courseList", courseList);
-		return "ViewCourses.html";
+		return "ViewCourses";
 	}
 
 }

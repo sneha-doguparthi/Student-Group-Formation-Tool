@@ -16,7 +16,7 @@ public class AddCourseController {
 	public String addCourse(Model model) {
 		model.addAttribute("course", new Course());
 		model.addAttribute("resultMessage", "");
-		return "AddCourse.Html";
+		return "AddCourse";
 	}
 
 	@PostMapping("/addNewCourse")
@@ -25,6 +25,6 @@ public class AddCourseController {
 		String courseAddResult = addCourseService.addNewCourse(course);
 		model.addAttribute("course", new Course());
 		model.addAttribute("resultMessage", courseAddResult);
-		return "AddCourse.Html";
+		return "AddCourse";
 	}
 }

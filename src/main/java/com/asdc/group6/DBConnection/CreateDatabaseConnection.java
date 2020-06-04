@@ -53,7 +53,7 @@ public class CreateDatabaseConnection {
 		String database = dbCredentials.get("dbname");
 		String server = dbCredentials.get("server");
 		String port = dbCredentials.get("port");
-		String connectionUrl = "jdbc:mysql://" + server + ":" + port + "/" + database + "?serverTimezone=AST";
+		String connectionUrl = "jdbc:mysql://" + server + ":" + port + "/" + database + "?serverTimezone=UTC";
 		try {
 			Class.forName(ApplicationConstants.DB_DRIVER_NAME).getClass();
 			dbConnection = DriverManager.getConnection(connectionUrl, user, password);
