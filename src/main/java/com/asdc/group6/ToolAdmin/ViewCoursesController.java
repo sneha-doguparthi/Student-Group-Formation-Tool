@@ -13,12 +13,12 @@ import com.asdc.group6.ToolAdmin.Service.ViewCoursesServiceImpl;
 @Controller
 public class ViewCoursesController {
 
-	@GetMapping("/viewCoursesView")
+	@GetMapping("/view-courses")
 	public String getAdminView(Model model) {
 		ViewCoursesService viewCourseService = new ViewCoursesServiceImpl();
 		ArrayList<Course> courseList = viewCourseService.getCourseList();
 		model.addAttribute("courseList", courseList);
-		return "ViewCourses";
+		return "view-courses";
 	}
 
 }

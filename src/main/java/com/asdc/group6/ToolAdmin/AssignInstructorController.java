@@ -22,7 +22,7 @@ public class AssignInstructorController {
 	ArrayList<Course> courseList;
 	ArrayList<User> userList;
 
-	@GetMapping("/assignInstructorView")
+	@GetMapping("/assign-instructor")
 	public String getAdminView(Model model) {
 		ViewCoursesService viewCourseService = new ViewCoursesServiceImpl();
 		courseList = viewCourseService.getCourseList();
@@ -31,10 +31,10 @@ public class AssignInstructorController {
 		userList = assignInstructorService.getUserList();
 		model.addAttribute("userList", userList);
 		model.addAttribute("resultMessage", "");
-		return "AssignInstructor";
+		return "assign-instructor";
 	}
 
-	@PostMapping("/assignRole")
+	@PostMapping("/assign-role")
 	public String assignRole(@RequestParam("CourseCode") String courseCode, User user, Model model) {
 		model.addAttribute("courseList", courseList);
 		model.addAttribute("userList", userList);
@@ -46,7 +46,7 @@ public class AssignInstructorController {
 		} else {
 			model.addAttribute("resultMessage", ApplicationConstants.SELECT_COURSE_ERR);
 		}
-		return "AssignInstructor";
+		return "assign-instructor";
 	}
 
 }

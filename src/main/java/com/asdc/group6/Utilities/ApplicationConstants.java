@@ -13,7 +13,11 @@ public class ApplicationConstants {
 	public static final String COURSE_ALREADY_ADDED_FOR_USER = "Course already added for User!";
 	public static final String COURSE_ROLE_SUCCESS = "Instructor assigned successfully!";
 	public static final String COURSE_ROLE_FAILED = "Failed to assign course!";
+	public static final int GUEST_ROLE_ID = 1;
+	public static final int STUDENT_ROLE_ID = 2;
+	public static final int TA_ROLE_ID = 3;
 	public static final int INSTRUCTOR_ROLE_ID = 4;
+	public static final int ADMIN_ROLE_ID = 5;
 
 	public static final String SELECT_COURSE_ERR = "Please select a course!";
 }
