@@ -80,8 +80,10 @@ public class OtpServiceImpl implements OtpService {
 		// set time 10 minutes past generation of otp
 		latestStamp = current.getTime();
 
+		
 		// check if time is more than 10 minutes, if so then return response otp_expired
-		if (latestStamp.compareTo(new Date()) < 0) {
+		if (latestStamp.compareTo(new Date()) > 0) {
+			System.out.println(new Date());
 			return "otp_expired";
 		} else {
 
@@ -95,9 +97,11 @@ public class OtpServiceImpl implements OtpService {
 				userToUpdate.setPassword(password);
 				userDao.update(userToUpdate);
 
+				System.out.println("updated");
 				return "password_updated";
 			} else {
 				// if user provided otp does not match then return response otp_invalid
+				System.out.println("invalid");
 				return "otp_invalid";
 			}
 		}
