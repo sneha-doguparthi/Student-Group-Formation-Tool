@@ -88,7 +88,7 @@ public class AssignInstructorImpl implements AssignInstructor {
 		PreparedStatement statement = null;
 		try {
 			connection = CreateDatabaseConnection.createConnection();
-			String selectQuery = "SELECT ca.course_id FROM course_association ca JOIN User u ON u.user_id = ca.user_id WHERE ca.course_id = ?;";
+			String selectQuery = "SELECT ca.course_id FROM course_association ca JOIN user u ON u.user_id = ca.user_id WHERE ca.course_id = ?;";
 			statement = connection.prepareStatement(selectQuery);
 			statement.setString(1, course);
 			ResultSet resultSet = statement.executeQuery();

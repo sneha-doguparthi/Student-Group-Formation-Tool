@@ -74,14 +74,12 @@ public class AssociationDaoImpl implements AssociationDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			
 			try {
 				if (null != statement)
 					statement.close();
 				
 				if (null != connection)
 					connection.close();
-				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

@@ -1,13 +1,15 @@
 <ul th:fragment="header" class="nav-ul">
-	<li class="nav-li"><a class="nav-btn" th:href="@{adminHomeView}">Home</a></li>
-	<li class="nav-li"><a class="nav-btn" th:href="@{viewCoursesView}">View
+	<li class="nav-li"><a class="nav-btn" th:href="@{admin-home}">Home</a></li>
+	<li class="nav-li"><a class="nav-btn" th:href="@{view-courses}">View
 			Courses</a></li>
-	<li class="nav-li"><a class="nav-btn" th:href="@{addCourseView}">Add
+	<li class="nav-li"><a class="nav-btn" th:href="@{add-course}">Add
 			Course</a></li>
 	<li class="nav-li"><a class="nav-btn"
-		th:href="@{deleteCourseView}">Delete Course</a></li>
+		th:href="@{delete-course}">Delete Course</a></li>
 	<li class="nav-li"><a class="nav-btn"
-		th:href="@{assignInstructorView}">Assign Instructor</a></li>
+		th:href="@{assign-instructor}">Assign Instructor</a></li>
+	<li class="nav-li"><a class="nav-btn"
+		th:href="@{logout}">Logout</a></li>
 
 	<link href="../../static/admin.css" th:href="@{admin.css}"
 		rel="stylesheet" />

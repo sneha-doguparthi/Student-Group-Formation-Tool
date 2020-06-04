@@ -17,16 +17,16 @@ import com.asdc.group6.ToolAdmin.Service.ViewCoursesServiceImpl;
 @Controller
 public class DeleteCourseController {
 
-	@GetMapping("/deleteCourseView")
+	@GetMapping("/delete-course")
 	public String getAdminView(Model model) {
 		ViewCoursesService viewCourseService = new ViewCoursesServiceImpl();
 		ArrayList<Course> courseList = viewCourseService.getCourseList();
 		model.addAttribute("courseList", courseList);
 		model.addAttribute("deleteResultList", new ArrayList<>());
-		return "DeleteCourse";
+		return "delete-course";
 	}
 
-	@PostMapping("deleteCourse")
+	@PostMapping("delete-course-request")
 	public String deleteCourseFromList(@RequestParam("course-checkbox") ArrayList<String> deleteCourseList,
 			Model model) {
 		if (null != deleteCourseList) {
@@ -35,6 +35,6 @@ public class DeleteCourseController {
 			model.addAttribute("deleteResultList", deleteResultList);
 			model.addAttribute("courseList", new ArrayList<>());
 		}
-		return "DeleteCourse";
+		return "delete-course";
 	}
 }

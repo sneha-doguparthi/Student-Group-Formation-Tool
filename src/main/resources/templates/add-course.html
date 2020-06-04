@@ -8,13 +8,13 @@
 	<div class="container center-text">
 		<div class="page-block">
 			<h2>Add Course Panel</h2>
-			<form th:action="@{/addNewCourse}" th:object="${course}"
+			<form th:action="@{/add-new-course}" th:object="${course}"
 				method="post">
 				<p>
-					Enter Course Code: <input type="text" th:field="*{courseCode}">
+					Enter Course Code: <input type="text" th:field="*{courseCode}" required>
 				</p>
 				<p>
-					Enter Course Name: <input type="text" th:field="*{courseName}">
+					Enter Course Name: <input type="text" th:field="*{courseName}" required>
 				</p>
 				<button class="btn btn-primary">Submit</button>
 			</form>

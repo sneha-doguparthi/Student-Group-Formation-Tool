@@ -12,19 +12,19 @@ import com.asdc.group6.ToolAdmin.Service.AddCourseServiceImpl;
 @Controller
 public class AddCourseController {
 
-	@GetMapping("/addCourseView")
+	@GetMapping("/add-course")
 	public String addCourse(Model model) {
 		model.addAttribute("course", new Course());
 		model.addAttribute("resultMessage", "");
-		return "AddCourse";
+		return "add-course";
 	}
 
-	@PostMapping("/addNewCourse")
+	@PostMapping("/add-new-course")
 	public String addNewCourse(Course course, Model model) {
 		AddCourseService addCourseService = new AddCourseServiceImpl();
 		String courseAddResult = addCourseService.addNewCourse(course);
 		model.addAttribute("course", new Course());
 		model.addAttribute("resultMessage", courseAddResult);
-		return "AddCourse";
+		return "add-course";
 	}
 }

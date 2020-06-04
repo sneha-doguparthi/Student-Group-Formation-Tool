@@ -14,6 +14,7 @@ import com.asdc.group6.ToolAdmin.Service.AssignInstructorService;
 import com.asdc.group6.ToolAdmin.Service.AssignInstructorServiceImpl;
 import com.asdc.group6.ToolAdmin.Service.ViewCoursesService;
 import com.asdc.group6.ToolAdmin.Service.ViewCoursesServiceImpl;
+import com.asdc.group6.Utilities.ApplicationConstants;
 
 @Controller
 public class AssignInstructorController {
@@ -21,7 +22,7 @@ public class AssignInstructorController {
 	ArrayList<Course> courseList;
 	ArrayList<User> userList;
 
-	@GetMapping("/assignInstructorView")
+	@GetMapping("/assign-instructor")
 	public String getAdminView(Model model) {
 		ViewCoursesService viewCourseService = new ViewCoursesServiceImpl();
 		courseList = viewCourseService.getCourseList();
@@ -30,10 +31,10 @@ public class AssignInstructorController {
 		userList = assignInstructorService.getUserList();
 		model.addAttribute("userList", userList);
 		model.addAttribute("resultMessage", "");
-		return "AssignInstructor";
+		return "assign-instructor";
 	}
 
-	@PostMapping("/assignRole")
+	@PostMapping("/assign-role")
 	public String assignRole(@RequestParam("CourseCode") String courseCode, User user, Model model) {
 		model.addAttribute("courseList", courseList);
 		model.addAttribute("userList", userList);
@@ -42,8 +43,10 @@ public class AssignInstructorController {
 			AssignInstructorService assignInstructorService = new AssignInstructorServiceImpl();
 			String resultMessage = assignInstructorService.assignRoleToUser(user, courseCode);
 			model.addAttribute("resultMessage", resultMessage);
+		} else {
+			model.addAttribute("resultMessage", ApplicationConstants.SELECT_COURSE_ERR);
 		}
-		return "AssignInstructor";
+		return "assign-instructor";
 	}
 
 }
