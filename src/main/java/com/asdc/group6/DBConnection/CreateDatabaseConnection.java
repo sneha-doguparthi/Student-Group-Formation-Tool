@@ -2,7 +2,6 @@ package com.asdc.group6.DBConnection;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.stereotype.Component;
 
 import com.asdc.group6.Utilities.ApplicationConstants;
 
@@ -15,9 +14,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-@Component
 public class CreateDatabaseConnection {
-	
+
 	static Connection dbConnection;
 	private static Properties applicationProperties, dbProperties;
 	private static String applicationConfigFile;
@@ -56,7 +54,8 @@ public class CreateDatabaseConnection {
 		String database = dbCredentials.get("dbname");
 		String server = dbCredentials.get("server");
 		String port = dbCredentials.get("port");
-		String connectionUrl = "jdbc:mysql://" + server + ":" + port + "/" + database+"?serverTimezone=UTC";
+		String connectionUrl = "jdbc:mysql://" + server + ":" + port + "/" + database + "?serverTimezone=UTC";
+
 		try {
 			Class.forName(ApplicationConstants.DB_DRIVER_NAME).getClass();
 			dbConnection = DriverManager.getConnection(connectionUrl, user, password);
