@@ -14,6 +14,7 @@ public class LoginServiceImpl implements LoginService {
 	UserCourses usercourses;
 
 	public String checkAccessService(User user) {
+		
 		UserLoginDao userLoginDao = new UserLoginDaoImpl();
 		// String initialPage;
 		if (userLoginDao.checkAccess(user)) {
