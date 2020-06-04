@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        text-align: center;
+      }
+    </style>
+
+    <title>Student Home</title>
+  </head>
+
+  <body>
+    <div style="text-align: center; margin-top: 50px;">
+      <div>
+        <h1>Student</h1>
+
+        <hr />
+      </div>
+
+      <div style="padding-top: 50px;">
+        <h1>
+          Welcome to
+          <h1 th:text="${name}"></h1>
+        </h1>
+      </div>
+    </div>
+  </body>
+</html>
