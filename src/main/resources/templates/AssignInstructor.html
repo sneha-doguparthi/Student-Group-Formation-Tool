@@ -8,6 +8,7 @@
 	<div class="container center-text">
 		<h2>Assign Instructor Panel</h2>
 		<div>
+			<h3 th:if="${resultMessage.length()>0}" th:text="${resultMessage}"></h3>
 			<table class="assign-i-table table table-bordered">
 				<thead>
 					<th>First Name</th>
@@ -25,8 +26,8 @@
 								th:text="${userModel.getLastName()}">Smith</td>
 							<td th:text="${userModel.getEmail()}">rob.smith@gmail.com</td> <input
 								type="hidden" th:value="${userModel.getUserId()}" name="userId">
-							<td><select name="CourseCode">
-									<option>Select courses</option>
+							<td><select name="CourseCode" required>
+									<option th:value="''">Select courses</option>
 									<div th:each="courseModel : ${courseList}">
 										<div>
 											<option
@@ -44,7 +45,7 @@
 					</tr>
 				</tbody>
 			</table>
-			<h3 th:if="${resultMessage.length()>0}" th:text="${resultMessage}"></h3>
+
 		</div>
 	</div>
 </body>

@@ -14,6 +14,7 @@ import com.asdc.group6.ToolAdmin.Service.AssignInstructorService;
 import com.asdc.group6.ToolAdmin.Service.AssignInstructorServiceImpl;
 import com.asdc.group6.ToolAdmin.Service.ViewCoursesService;
 import com.asdc.group6.ToolAdmin.Service.ViewCoursesServiceImpl;
+import com.asdc.group6.Utilities.ApplicationConstants;
 
 @Controller
 public class AssignInstructorController {
@@ -42,6 +43,8 @@ public class AssignInstructorController {
 			AssignInstructorService assignInstructorService = new AssignInstructorServiceImpl();
 			String resultMessage = assignInstructorService.assignRoleToUser(user, courseCode);
 			model.addAttribute("resultMessage", resultMessage);
+		} else {
+			model.addAttribute("resultMessage", ApplicationConstants.SELECT_COURSE_ERR);
 		}
 		return "AssignInstructor";
 	}

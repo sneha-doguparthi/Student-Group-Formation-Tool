@@ -15,4 +15,5 @@ public class ApplicationConstants {
 	public static final String COURSE_ROLE_FAILED = "Failed to assign course!";
 	public static final int INSTRUCTOR_ROLE_ID = 4;
 
+	public static final String SELECT_COURSE_ERR = "Please select a course!";
 }
