@@ -253,118 +253,90 @@ public class UserDaoImpl implements UserDao {
 	}
 	
 	
+	@Override
+	public ArrayList<User> getByEmail(String email) {
+		
+		Connection connection = null;
+		Statement statement = null;
+		
+		// filtering user on basis of provided email
+		String query = "SELECT * FROM user WHERE email = '" + email + "'";
+		
+		ArrayList<User> users = new ArrayList<>();
+		
+		try {
+			
+			connection = CreateDatabaseConnection.createConnection();
+			statement = connection.createStatement();
+			ResultSet rs = statement.executeQuery(query);
+						
+			while(rs.next()) {
+				User user = new User();
+				
+				user.setUserId(rs.getInt("user_id"));
+				user.setBannerId(rs.getString("banner_id"));
+				user.setFirstName(rs.getString("first_name"));
+				user.setLastName(rs.getString("last_name"));
+				user.setEmail(rs.getString("email"));
+				user.setPassword(rs.getString("password"));
+				user.setUserType(rs.getString("user_type"));
+				
+				users.add(user);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			
+			try {
+				if (null != statement)
+					statement.close();
+				
+				if (null != connection)
+					connection.close();
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	
-//	@Override
-//	public ArrayList<User> getByUserID(ArrayList<Integer> userIds) {
-//		
-//		Connection connection = null;
-//		PreparedStatement statement = null;
-//		ResultSet rs;
-//		ArrayList<User> users = new ArrayList<>();
-//		int listSize = userIds.size();
-//		
-//		try {
-//			
-//			connection = DatabaseConnection.createConnection();
-//			
-//			for(int i=0; i<listSize; i++) {
-//				String reqQuery = "SELECT * FROM user WHERE user_id = '" + userIds.get(i) + "'";
-//				statement = connection.prepareStatement(reqQuery);
-//				rs = statement.executeQuery(reqQuery);
-//							
-//				while(rs.next()) {
-//					User user = new User();
-//					user.setUserId(rs.getInt("user_id"));
-//					user.setBannerId(rs.getString("banner_id"));
-//					user.setFirstName(rs.getString("first_name"));
-//					user.setLastName(rs.getString("last_name"));
-//					user.setEmail(rs.getString("email"));
-//					user.setPassword(rs.getString("password"));
-//					user.setUserType(rs.getString("user_type"));
-//					users.add(user);
-//				}
-//			}
-//		
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		} finally {
-//			try {
-//				if (null != statement)
-//					statement.close();
-//				
-//				if (null != connection)
-//					connection.close();
-//				
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//		}
-//	
-//		return users;
-//	}
+		return users;
+	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-//	@Override
-//	public void associateUserToCourse(List<Student> newToCourseList) {
-//	
-//		Connection connection = null;
-//		PreparedStatement statement1 = null;
-//		PreparedStatement statement2 = null;
-//		ResultSet rs = null;
-//		
-//		int listSize = newToCourseList.size();
-//		
-//		try {
-//			connection = DatabaseConnection.createConnection();
-//
-//			for(int i=0; i<listSize; i++) {
-//				
-//				String reqQuery = "SELECT user_id FROM user WHERE banner_id=?";
-//				statement1 = connection.prepareStatement(reqQuery);
-//				statement1.setString(1, newToCourseList.get(i).getbId());
-//				
-//				rs = statement1.executeQuery();
-//				
-//				reqQuery = "INSERT INTO course_association (user_id, course_id, role_id) values(?,?,?);";
-//				statement2 = connection.prepareStatement(reqQuery);
-//				if (rs.next()) statement2.setInt(1, rs.getInt("user_id"));
-//				statement2.setInt(2, 2);
-//				statement2.setInt(3, 2);
-//				statement2.executeUpdate();
-//			
-//			}
-//			
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		} finally {
-//			try {
-//				if (statement1 != null)
-//					statement1.close();
-//				if (rs != null)
-//					rs.close();
-//				if (statement2 != null)
-//					statement2.close();
-//				if (connection != null)
-//					connection.close();
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//		}
-//		
-//	}
+	@Override
+	public Boolean update(User user) {
+		
+		Connection connection = null;
+		PreparedStatement statement = null;
+		
+		try {
+			connection = CreateDatabaseConnection.createConnection();
 
+			String insertQuery = "UPDATE user SET banner_id = ?, first_name = ?, last_name = ?, email = ?,"
+					+ " password = ?, user_type = ? WHERE user_id = ?";
+			
+			statement = connection.prepareStatement(insertQuery);
+			statement.setString(1, user.getBannerId());
+			statement.setString(2, user.getFirstName());
+			statement.setString(3, user.getLastName());
+			statement.setString(4, user.getEmail());
+			statement.setString(5, user.getPassword());
+			statement.setString(6, user.getUserType());
+			statement.setInt(7, user.getUserId());
+			
+			statement.executeUpdate();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			try {
+				if (statement != null)
+					statement.close();
+				if (connection != null)
+					connection.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }

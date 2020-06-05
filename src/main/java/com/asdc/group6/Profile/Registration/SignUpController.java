@@ -27,7 +27,7 @@ public class SignUpController {
 			model.addAttribute("success", "Sign up succesful, Click on Login");
 			return "signup";
 		} else {
-			return "existing_user";
+			return "existing-user";
 		}
 	}
 }

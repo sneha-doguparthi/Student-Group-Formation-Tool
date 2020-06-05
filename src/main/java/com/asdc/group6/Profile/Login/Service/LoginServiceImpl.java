@@ -3,22 +3,22 @@ package com.asdc.group6.Profile.Login.Service;
 import java.util.ArrayList;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
-import com.asdc.group6.Models.Association;
+import com.asdc.group6.CourseAdmin.DAO.CourseAssociationDAO;
+import com.asdc.group6.CourseAdmin.DAO.UserDao;
 import com.asdc.group6.Models.Course;
+import com.asdc.group6.Models.CourseAssociation;
 import com.asdc.group6.Models.User;
-import com.asdc.group6.Profile.Login.DAO.AssociationDao;
 import com.asdc.group6.Profile.Login.DAO.CourseDao;
-import com.asdc.group6.Profile.Login.DAO.UserDao;
 import com.asdc.group6.Utilities.ApplicationConstants;
 
 @Component
 public class LoginServiceImpl implements LoginService {
-	private AssociationDao associationDao;
+	private CourseAssociationDAO courseAssociationDao;
 	private UserDao userDao;
 	private CourseDao courseDao;
 
-	public LoginServiceImpl(AssociationDao associationDao, UserDao userDao, CourseDao courseDao) {
-		this.associationDao = associationDao;
+	public LoginServiceImpl(CourseAssociationDAO courseAssociationDao, UserDao userDao, CourseDao courseDao) {
+		this.courseAssociationDao = courseAssociationDao;
 		this.userDao = userDao;
 		this.courseDao = courseDao;
 	}
@@ -44,7 +44,7 @@ public class LoginServiceImpl implements LoginService {
 		}
 
 		// check inside association table for logged in user
-		ArrayList<Association> associationList = associationDao.getByUserId(validUser.getUserId());
+		ArrayList<CourseAssociation> associationList = courseAssociationDao.getByUserId(validUser.getUserId());
 
 		// if user is not enrolled in any courses then list all courses
 		// this would be the guest user case
@@ -59,12 +59,12 @@ public class LoginServiceImpl implements LoginService {
 		ArrayList<Course> studentCourse = new ArrayList<Course>();
 		ArrayList<Course> instructorAndTaCourse = new ArrayList<Course>();
 
-		for (Association a : associationList) {
+		for (CourseAssociation a : associationList) {
 
-			if (Integer.parseInt(a.getRoleId()) == (ApplicationConstants.STUDENT_ROLE_ID)) {
+			if (a.getRoleId() == (ApplicationConstants.STUDENT_ROLE_ID)) {
 				studentCourse.add(courseDao.getById(a.getCourseId()));
-			} else if (Integer.parseInt(a.getRoleId()) == (ApplicationConstants.TA_ROLE_ID)
-					|| Integer.parseInt(a.getRoleId()) == (ApplicationConstants.INSTRUCTOR_ROLE_ID)) {
+			} else if (a.getRoleId() == (ApplicationConstants.TA_ROLE_ID)
+					|| a.getRoleId() == (ApplicationConstants.INSTRUCTOR_ROLE_ID)) {
 				instructorAndTaCourse.add(courseDao.getById(a.getCourseId()));
 			}
 		}

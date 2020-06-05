@@ -32,9 +32,10 @@ public class AssignTaController {
 	}
 	
 	@PostMapping("/do-assign-ta")
-	public String assignTa(@RequestParam String courseId, @RequestParam String userId) {
+	public String assignTa(@RequestParam String id, @RequestParam String code, 
+			@RequestParam String name, @RequestParam String userId) {
 		
-		assignTaService.assignTa(userId, Integer.valueOf(courseId));
+		assignTaService.assignTa(userId, Integer.valueOf(id));
 		
 		return "assign-ta-success";
 	}

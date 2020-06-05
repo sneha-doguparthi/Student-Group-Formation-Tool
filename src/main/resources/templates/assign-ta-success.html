@@ -35,10 +35,42 @@
         Congratulations, you assigned new TA for the course!
       </h2>
 
-      <a style="background-color: rgba(255, 255, 255, 0); border: 0;" href="/course-admin">
-        <i class="material-icons md-blue">keyboard_arrow_left</i>
-        <span style="color: rgb(0, 118, 255);">Back to Home Page</span>
-      </a>
+     <form action="#" th:action="@{/course-admin}" method="POST">
+       <input
+         type="hidden"
+         name="id"
+         id="id"
+         th:value="${id}"/>
+
+      <input
+		type="hidden"
+        name="name"
+        id="name"
+        th:value="${name}"/>
+
+       <input
+         type="hidden"
+         name="code"
+         id="code"
+         th:value="${code}"/>
+     
+      <button
+        style="
+          margin-top: 20px;
+          border-radius: 5px;
+          background-color: rgb(0, 118, 255);
+          border-width: 0px;
+          padding-left: 15px;
+          padding-right: 15px;
+          padding-top: 5px;
+          padding-bottom: 5px;
+          color: white;
+        "
+      >
+        <i class="material-icons md-light">settings</i>
+        <b>Back to Course Admin</b>
+      </button>
+	</form>
     </div>
   </body>
 </html>

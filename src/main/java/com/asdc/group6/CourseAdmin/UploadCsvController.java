@@ -50,6 +50,9 @@ public class UploadCsvController {
 			model.addAttribute("students", resStudentList);
 		}
 		
+		model.addAttribute("id", id);
+		model.addAttribute("code", code);
+		model.addAttribute("name", name);
 		return "file-upload-status";
 	}
 }		

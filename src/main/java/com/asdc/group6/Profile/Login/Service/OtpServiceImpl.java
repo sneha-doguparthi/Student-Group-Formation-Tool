@@ -7,10 +7,11 @@ import java.util.Random;
 
 import org.springframework.stereotype.Component;
 
+import com.asdc.group6.CourseAdmin.DAO.UserDao;
 import com.asdc.group6.Models.Otp;
 import com.asdc.group6.Models.User;
 import com.asdc.group6.Profile.Login.DAO.OtpDao;
-import com.asdc.group6.Profile.Login.DAO.UserDao;
+
 
 @Component
 public class OtpServiceImpl implements OtpService {
@@ -82,7 +83,7 @@ public class OtpServiceImpl implements OtpService {
 
 		
 		// check if time is more than 10 minutes, if so then return response otp_expired
-		if (latestStamp.compareTo(new Date()) > 0) {
+		if (latestStamp.compareTo(new Date()) < 0) {
 			System.out.println(new Date());
 			return "otp_expired";
 		} else {

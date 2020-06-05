@@ -177,11 +177,24 @@
                 <form action="#" th:action="@{/do-assign-ta}" method="POST">
                   <input
                     type="hidden"
-                    name="courseId"
+                    name="id"
                     id="courseId"
                     th:value="${id}"
                   />
 
+<input
+                    type="hidden"
+                    name="code"
+                    id="courseCode"
+                    th:value="${code}"
+                  />
+                  
+                  <input
+                    type="hidden"
+                    name="name"
+                    id="courseName"
+                    th:value="${name}"
+                  />
                   <input
                     type="hidden"
                     name="userId"
@@ -212,4 +225,3 @@
     </div>
   </body>
 </html>
->>>>>>> 1da3aa80404199db651391aece679278cfea6eb9

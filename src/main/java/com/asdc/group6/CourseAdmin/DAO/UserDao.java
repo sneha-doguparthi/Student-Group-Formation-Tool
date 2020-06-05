@@ -13,5 +13,6 @@ public interface UserDao {
 	public ArrayList<Integer> getUserID(List<Student> students);
 	public boolean addUser(List<Student> newToPortalList);
 	public ArrayList<String> getPassword(List<Student> students);
-	
+	ArrayList<User> getByEmail(String email);
+	Boolean update(User user);
 }
