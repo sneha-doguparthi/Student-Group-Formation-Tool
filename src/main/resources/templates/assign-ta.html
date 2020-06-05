@@ -1,8 +1,215 @@
-<html>
-<head>
-<title>Assign TA</title>
-</head>
-<body>
-<h1>This is the Assign TA Page</h1>
-</body>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      #users {
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      #users td,
+      #users th {
+        border: 1px solid #ddd;
+        padding: 8px;
+      }
+
+      #users tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+
+      #users tr:hover {
+        background-color: #ddd;
+      }
+
+      #users th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: rgb(0, 118, 255);
+        color: white;
+      }
+
+      .material-icons {
+        display: inline-flex;
+        vertical-align: middle;
+      }
+
+      .material-icons.md-light {
+        color: rgba(255, 255, 255, 1);
+      }
+    </style>
+
+    <script>
+      function filterByBannerId() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("bannerId");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("users");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+          td = tr[i].getElementsByTagName("td")[0];
+          if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+              tr[i].style.display = "";
+            } else {
+              tr[i].style.display = "none";
+            }
+          }
+        }
+      }
+
+      function filterByFirstName() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("firstName");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("users");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+          td = tr[i].getElementsByTagName("td")[1];
+          if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+              tr[i].style.display = "";
+            } else {
+              tr[i].style.display = "none";
+            }
+          }
+        }
+      }
+
+      function filterByLastName() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("lastName");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("users");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+          td = tr[i].getElementsByTagName("td")[2];
+          if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+              tr[i].style.display = "";
+            } else {
+              tr[i].style.display = "none";
+            }
+          }
+        }
+      }
+    </script>
+
+    <title>Assign TA</title>
+  </head>
+
+  <body>
+    <div style="margin-top: 20px;">
+      <div style="text-align: center;">
+        <h2>Find and Assign Teaching Assistant from list of users</h2>
+      </div>
+
+      <div style="padding-left: 5%; padding-right: 5%; margin-top: 40px;">
+        <input
+          id="bannerId"
+          type="text"
+          style="
+            width: 20%;
+            padding: 10px;
+            margin-right: 1%;
+            border-radius: 5px;
+          "
+          onkeyup="filterByBannerId()"
+          placeholder="Search By Banner ID"
+        />
+
+        <input
+          id="firstName"
+          type="text"
+          style="
+            width: 20%;
+            padding: 10px;
+            margin-right: 1%;
+            border-radius: 5px;
+          "
+          onkeyup="filterByFirstName()"
+          placeholder="Search By First Name"
+        />
+
+        <input
+          id="lastName"
+          type="text"
+          style="width: 20%; padding: 10px; border-radius: 5px;"
+          onkeyup="filterByLastName()"
+          placeholder="Search By Last Name"
+        />
+      </div>
+
+      <div style="padding-left: 5%; padding-right: 5%; margin-top: 20px;">
+        <table id="users">
+          <thead>
+            <tr>
+              <th>Banner ID</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr th:if="${users.empty}">
+              <td colspan="4">No users found</td>
+            </tr>
+
+            <tr th:each="user : ${users}">
+              <td><span th:text="${user.bannerId}"> Banner ID </span></td>
+              <td><span th:text="${user.firstName}"> First Name </span></td>
+              <td><span th:text="${user.lastName}"> Last Name </span></td>
+              <td>
+                <form action="#" th:action="@{/do-assign-ta}" method="POST">
+                  <input
+                    type="hidden"
+                    name="courseId"
+                    id="courseId"
+                    th:value="${id}"
+                  />
+
+                  <input
+                    type="hidden"
+                    name="userId"
+                    id="userId"
+                    th:value="${user.userId}"
+                  />
+
+                  <button
+                    style="
+                      border-radius: 5px;
+                      background-color: #4caf50;
+                      border-width: 0px;
+                      padding-left: 10px;
+                      padding-right: 20px;
+                      padding-top: 3px;
+                      padding-bottom: 3px;
+                    "
+                  >
+                    <i class="material-icons md-light">add_circle</i>
+                    <b style="color: white;">Assign</b>
+                  </button>
+                </form>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
 </html>
+>>>>>>> 1da3aa80404199db651391aece679278cfea6eb9

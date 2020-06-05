@@ -14,25 +14,25 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-public class DatabaseConnection {
+public class CreateDatabaseConnection {
 	
 	static Connection dbConnection;
 	private static Properties applicationProperties, dbProperties;
 	private static String applicationConfigFile;
 	private static InputStream applicationPropertiesStream, activeDbPropertiesStream;
 	private static Map<String, String> dbCredentials = new HashMap<String, String>();
-	private static Logger logger = LogManager.getLogger(DatabaseConnection.class);
+	private static Logger logger = LogManager.getLogger(CreateDatabaseConnection.class);
 
 	private static void setDatabaseConfigurations() {
 		try {
 			applicationConfigFile = "application.properties";
-			applicationPropertiesStream = DatabaseConnection.class.getClassLoader()
+			applicationPropertiesStream = CreateDatabaseConnection.class.getClassLoader()
 					.getResourceAsStream(applicationConfigFile);
 			applicationProperties = new Properties();
 			applicationProperties.load(applicationPropertiesStream);
 			String activeDb = applicationProperties.getProperty("database.active");
 
-			activeDbPropertiesStream = DatabaseConnection.class.getClassLoader().getResourceAsStream(activeDb);
+			activeDbPropertiesStream = CreateDatabaseConnection.class.getClassLoader().getResourceAsStream(activeDb);
 			dbProperties = new Properties();
 			dbProperties.load(activeDbPropertiesStream);
 

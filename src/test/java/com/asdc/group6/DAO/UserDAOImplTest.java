@@ -9,13 +9,13 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import com.asdc.group6.CourseAdmin.DAO.UserDAOImpl;
+import com.asdc.group6.CourseAdmin.DAO.UserDaoImpl;
 import com.asdc.group6.Models.User;
 import com.asdc.group6.Models.Student;
 
 public class UserDAOImplTest {
 
-	UserDAOImpl userDaoImplMock = mock(UserDAOImpl.class);
+	UserDaoImpl userDaoImplMock = mock(UserDaoImpl.class);
 	
 	@Test
 	void testGetByUserID() {

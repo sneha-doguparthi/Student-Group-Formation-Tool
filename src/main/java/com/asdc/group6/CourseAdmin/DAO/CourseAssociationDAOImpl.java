@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import org.springframework.stereotype.Component;
 
-import com.asdc.group6.DBConnection.DatabaseConnection;
+import com.asdc.group6.DBConnection.CreateDatabaseConnection;
 import com.asdc.group6.Models.CourseAssociation;
 
 @Component
@@ -23,7 +23,7 @@ public class CourseAssociationDAOImpl implements CourseAssociationDAO {
 		
 		try {
 			
-			connection = DatabaseConnection.createConnection();
+			connection = CreateDatabaseConnection.createConnection();
 			statement = connection.createStatement();
 		
 			String query = "SELECT user_id FROM course_association WHERE course_id = '" + courseId + "'";
@@ -63,7 +63,7 @@ public class CourseAssociationDAOImpl implements CourseAssociationDAO {
 		
 		try {
 			
-			connection = DatabaseConnection.createConnection();
+			connection = CreateDatabaseConnection.createConnection();
 			
 			for(int i=0; i<listSize; i++) {
 				String reqQuery = "INSERT INTO course_association (user_id, course_id, role_id) values(?,?,?);";

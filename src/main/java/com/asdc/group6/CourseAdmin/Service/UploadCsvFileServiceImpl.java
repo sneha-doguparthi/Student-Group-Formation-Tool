@@ -9,8 +9,8 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.asdc.group6.CourseAdmin.DAO.UserDAO;
 import com.asdc.group6.CourseAdmin.DAO.CourseAssociationDAO;
+import com.asdc.group6.CourseAdmin.DAO.UserDao;
 import com.asdc.group6.Models.Student;
 import com.asdc.group6.Models.User;
 import com.asdc.group6.Utilities.ApplicationConstants;
@@ -24,12 +24,12 @@ public class UploadCsvFileServiceImpl implements UploadCsvFileService {
 	private Boolean resStatus;
 	private List<Student> resStudentList;
 	
-	private UserDAO userDao;
+	private UserDao userDao;
 	private GetStudentListService getStudentListService;
 	private SendInvitationEmailService sendEmailService;
 	private CourseAssociationDAO courseAssociationDao;
 	
-	public UploadCsvFileServiceImpl(UserDAO userDao, GetStudentListService getStudentListService, 
+	public UploadCsvFileServiceImpl(UserDao userDao, GetStudentListService getStudentListService, 
 									SendInvitationEmailService sendEmailService, CourseAssociationDAO courseAssociationDao) {
 		this.userDao = userDao;
 		this.getStudentListService = getStudentListService;
