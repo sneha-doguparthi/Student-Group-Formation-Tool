@@ -2,6 +2,7 @@ package com.asdc.group6.model;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+
 import org.junit.jupiter.api.Test;
 
 import com.asdc.group6.Models.Association;
@@ -25,22 +26,22 @@ public class AssociationTest {
 	@Test
 	void testGetUserId() {
 		Association association = new Association();
-		association.setUserId(3);
-		assertTrue(association.getUserId().equals(3));
+		association.setUserId(12);
+		assertTrue(association.getUserId().equals(12));
 	}
 	
 	@Test
 	void testSetUserId() {
 		Association association = new Association();
-		association.setUserId(4);
-		assertTrue(association.getUserId().equals(4));
+		association.setUserId(12);
+		assertTrue(association.getUserId().equals(12));
 	}
 	
 	@Test
 	void testGetCourseId() {
 		Association association = new Association();
-		association.setCourseId(5);
-		assertTrue(association.getCourseId().equals(5));
+		association.setCourseId(3);
+		assertTrue(association.getCourseId().equals(3));
 	}
 	
 	@Test
@@ -55,12 +56,13 @@ public class AssociationTest {
 		Association association = new Association();
 		association.setRoleId("7");
 		assertTrue(association.getRoleId().equals("7"));
+
 	}
 	
 	@Test
 	void testSetRoleId() {
 		Association association = new Association();
-		association.setRoleId("8");
-		assertTrue(association.getRoleId().equals("8"));
+		association.setRoleId("5");
+		assertTrue(association.getRoleId().equals("5"));
 	}
 }
