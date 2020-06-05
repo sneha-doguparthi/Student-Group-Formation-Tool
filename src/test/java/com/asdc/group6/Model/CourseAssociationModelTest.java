@@ -1,4 +1,4 @@
-package com.asdc.group6.Model;
+package com.asdc.group6.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
