@@ -52,4 +52,4 @@ deploy:
     - gem install dpl
     - dpl --provider=heroku --app=HEROKU_APP_PROD --api-key=$API_KEY
     only:
-    - develop
+    - master
