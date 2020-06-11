@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Course Admin Page</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    </head>
+    <body>
+        <div style="margin-top: 5px; text-align: center; font-size: 50px; border-bottom: 3px dotted grey;">
+            <p>Course Admin</p>
+        </div>
+        <br>
+        <div style="border: 3px dotted grey; margin-top: 90px; margin-left: 100px; 
+        			width: 30%; height: 100px; border-radius: 10px; padding: 40px;">
+            <div>
+                <form method="POST" th:action="@{/upload-csv-home}">
+                	
+                	<input type="hidden" name="name" id="name" th:value="${name}"/>
+                	<input type="hidden" name="id" id="id" th:value="${id}"/>
+                	<input type="hidden" name="code" id="code" th:value="${code}"/>
+                
+                	<button style="background-color:dodgerblue; border-radius: 12px; 
+                				color: white; font-size: 18px; padding: 15px; border: none; 
+                				text-decoration: none;" type="submit" value="value">
+                				
+                		<i class="material-icons" style="display: inline-flex; 
+                			vertical-align: middle;">
+                			add_circle_outline
+                		</i> 
+                		
+                		Import
+                	</button>
+                
+                </form>
+            </div>
+            <div style="margin-top: 20px;">Import CSV file with Banner ID, Last Name, First Name and Email ID 
+            								of students to enroll them to the existing course.
+            </div>
+        </div>
+        <br>
+        <div style="border: 3px dotted grey; margin-top: 30px; margin-left: 100px; 
+        		width: 30%; height: 100px; border-radius: 10px; padding: 40px;">
+            <div>
+                <form method="POST" th:action="@{/assign-ta}">
+                
+                	<input type="hidden" name="name" id="name" th:value="${name}"/>
+                	<input type="hidden" name="id" id="id" th:value="${id}"/>
+                	<input type="hidden" name="code" id="code" th:value="${code}"/>
+                
+            		<button style="background-color: dodgerblue; border-radius: 12px; 
+            					color: white; font-size: 18px; padding: 15px; border: none; 
+            					text-decoration: none;" type="submit" value="value">
+            				
+            				<i class="material-icons" style="display: inline-flex; 
+            					vertical-align: middle;">
+            					add_circle_outline
+            				</i> 
+            				
+            				Assign TA
+            			</button>
+                
+                </form>
+            </div>
+            <div style="margin-top: 20px;">Assign TA role to the existing user. 
+            								TA would be allowed to perform the Course Admin tasks.</div>
+        </div>
+    </body>
+</html>
