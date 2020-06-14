@@ -12,14 +12,14 @@ import CSCI5308.GroupFormationTool.ToolAdmin.Service.AddCourseServiceImpl;
 @Controller
 public class AddCourseController {
 
-	@GetMapping("/add-course")
+	@GetMapping("admin//add-course")
 	public String addCourse(Model model) {
 		model.addAttribute("course", new Course());
 		model.addAttribute("resultMessage", "");
 		return "admin/add-course";
 	}
 
-	@PostMapping("/add-new-course")
+	@PostMapping("admin/add-new-course")
 	public String addNewCourse(Course course, Model model) {
 		AddCourseService addCourseService = new AddCourseServiceImpl();
 		String courseAddResult = addCourseService.addNewCourse(course);

@@ -4,17 +4,19 @@
 <title>Add Course</title>
 </head>
 <body>
-	<ul lang="en" th:replace="fragments/header :: header"></ul>
+	<ul lang="en" th:replace="fragments/admin-header :: admin-header"></ul>
 	<div class="container center-text">
 		<div class="page-block">
 			<h2>Add Course Panel</h2>
-			<form th:action="@{/add-new-course}" th:object="${course}"
+			<form th:action="@{/admin/add-new-course}" th:object="${course}"
 				method="post">
 				<p>
-					Enter Course Code: <input type="text" th:field="*{courseCode}" required>
+					Enter Course Code: <input type="text" th:field="*{courseCode}"
+						required>
 				</p>
 				<p>
-					Enter Course Name: <input type="text" th:field="*{courseName}" required>
+					Enter Course Name: <input type="text" th:field="*{courseName}"
+						required>
 				</p>
 				<button class="btn btn-primary">Submit</button>
 			</form>

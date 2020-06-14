@@ -13,7 +13,7 @@ import CSCI5308.GroupFormationTool.ToolAdmin.Service.ViewCoursesServiceImpl;
 @Controller
 public class ViewCoursesController {
 
-	@GetMapping("/view-courses")
+	@GetMapping("admin/view-courses")
 	public String getAdminView(Model model) {
 		ViewCoursesService viewCourseService = new ViewCoursesServiceImpl();
 		ArrayList<Course> courseList = viewCourseService.getCourseList();

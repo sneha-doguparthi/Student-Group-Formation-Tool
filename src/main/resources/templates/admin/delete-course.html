@@ -5,15 +5,15 @@
 <title>Delete Course</title>
 </head>
 <body>
-	<ul lang="en" th:replace="fragments/header :: header"></ul>
+	<ul lang="en" th:replace="fragments/admin-header :: admin-header"></ul>
 	<div class="container center-text">
 		<div>
 			<h2>Delete Course Panel</h2>
 			<div>
-				<form th:if="${courseList.size() > 0}" th:action="@{/delete-course-request}"
-					method="post">
+				<form th:if="${courseList.size() > 0}"
+					th:action="@{/admin/delete-course-request}" method="post">
 					<table class="delete-table table table-bordered">
-						<thead>
+						<thead class="thead-dark">
 							<th>Course Code</th>
 							<th>Course Name</th>
 							<th class="center-text">Select Course</th>
@@ -24,10 +24,9 @@
 									th:id="|td${iterstat.index}|"></td>
 								<td th:text="${courseModel.getCourseName()}"
 									th:id="|td${iterstat.index}|"></td>
-								<td class="center-text">
-								<input type="checkbox"
-									name="course-checkbox" th:value="${courseModel.getCourseCode()}">
-									</td>
+								<td class="center-text"><input type="checkbox"
+									name="course-checkbox"
+									th:value="${courseModel.getCourseCode()}"></td>
 							</tr>
 						</tbody>
 					</table>

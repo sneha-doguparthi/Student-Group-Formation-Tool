@@ -17,7 +17,7 @@ import CSCI5308.GroupFormationTool.ToolAdmin.Service.ViewCoursesServiceImpl;
 @Controller
 public class DeleteCourseController {
 
-	@GetMapping("/delete-course")
+	@GetMapping("admin/delete-course")
 	public String getAdminView(Model model) {
 		ViewCoursesService viewCourseService = new ViewCoursesServiceImpl();
 		ArrayList<Course> courseList = viewCourseService.getCourseList();
@@ -26,7 +26,7 @@ public class DeleteCourseController {
 		return "admin/delete-course";
 	}
 
-	@PostMapping("delete-course-request")
+	@PostMapping("admin/delete-course-request")
 	public String deleteCourseFromList(@RequestParam("course-checkbox") ArrayList<String> deleteCourseList,
 			Model model) {
 		if (null != deleteCourseList) {

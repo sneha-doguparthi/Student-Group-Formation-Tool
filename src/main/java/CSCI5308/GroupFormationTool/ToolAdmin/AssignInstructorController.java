@@ -22,7 +22,7 @@ public class AssignInstructorController {
 	ArrayList<Course> courseList;
 	ArrayList<User> userList;
 
-	@GetMapping("/assign-instructor")
+	@GetMapping("admin/assign-instructor")
 	public String getAdminView(Model model) {
 		ViewCoursesService viewCourseService = new ViewCoursesServiceImpl();
 		courseList = viewCourseService.getCourseList();
@@ -34,7 +34,7 @@ public class AssignInstructorController {
 		return "admin/assign-instructor";
 	}
 
-	@PostMapping("/assign-role")
+	@PostMapping("admin/assign-role")
 	public String assignRole(@RequestParam("CourseCode") String courseCode, User user, Model model) {
 		model.addAttribute("courseList", courseList);
 		model.addAttribute("userList", userList);

@@ -1,20 +1,20 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
 <head>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
-<meta charset="ISO-8859-1">
 <title>Logout</title>
 <style type="text/css">
-	.home-buttons{
-	display:inline-block;
-	}
-	.home-page{
-		margin-top: 50px;
-		text-align:center;
-	}
+.home-buttons {
+	display: inline-block;
+}
+
+.home-page {
+	margin-top: 50px;
+	text-align: center;
+}
 </style>
 </head>
 <body>
+	<ul lang="en" th:replace="fragments/login-header :: login-header"></ul>
 	<div class="container center-text">
 		<div class="page-block">
 			<h2>Logout Successful!!</h2>

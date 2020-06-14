@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Home - Courses</title>
+</head>
+<body>
+	<ul lang="en" th:replace="fragments/course-header :: course-header"></ul>
+	<div class="container" th:if="${!allCourses.empty}">
+		<h2>List of Courses</h2>
+		<table class="table table-bordered table-striped">
+			<thead class="thead-dark">
+				<tr>
+					<th>Course Code</th>
+					<th>Course Name</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:if="${allCourses.empty}">
+					<td colspan="2">No courses found</td>
+				</tr>
+				<tr th:each="course : ${allCourses}">
+					<td><span th:text="${course.courseCode}"> Course Code </span></td>
+					<td><span th:text="${course.courseName}"> Course Name </span></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="container" th:if="${!courseListAsInstructor.empty}">
+		<h2>Instructor for Courses</h2>
+		<table class="table table-bordered table-striped">
+			<thead class="thead-dark">
+				<tr>
+					<th>Course Code</th>
+					<th>Course Name</th>
+					<th class="center-text">Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:if="${courseListAsInstructor.empty}">
+					<td colspan="2">No courses found</td>
+				</tr>
+				<tr th:each="course : ${courseListAsInstructor}">
+					<td><span th:text="${course.courseCode}"> Course Code </span></td>
+					<td><span th:text="${course.courseName}"> Course Name </span></td>
+					<td class="center-text">
+						<form method="POST" th:action="@{/course/course-admin-home}">
+							<input type="hidden" name="courseName" id="courseName"
+								th:value="${course.courseName}" /> <input type="hidden"
+								name="courseId" id="courseId" th:value="${course.courseId}" />
+							<input type="hidden" name="courseCode" id="courseCode"
+								th:value="${course.courseCode}" />
+							<button type="submit" name="submit" value="value"
+								class="btn btn-primary">View Course</button>
+						</form>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="container" th:if="${!courseListAsTA.empty}">
+		<h2>TA for Courses</h2>
+		<table class="table table-bordered table-striped">
+			<thead class="thead-dark">
+				<tr>
+					<th>Course Code</th>
+					<th>Course Name</th>
+					<th class="center-text">Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:if="${courseListAsTA.empty}">
+					<td colspan="2">No courses found</td>
+				</tr>
+				<tr th:each="course : ${courseListAsTA}">
+					<td><span th:text="${course.courseCode}"> Course Code </span></td>
+					<td><span th:text="${course.courseName}"> Course Name </span></td>
+					<td class="center-text">
+						<form method="POST" th:action="@{/course/course-admin-home}">
+							<input type="hidden" name="courseName" id="courseName"
+								th:value="${course.courseName}" /> <input type="hidden"
+								name="courseId" id="courseId" th:value="${course.courseId}" />
+							<input type="hidden" name="courseCode" id="courseCode"
+								th:value="${course.courseCode}" />
+							<button type="submit" name="submit" value="value"
+								class="btn btn-primary">View Course</button>
+						</form>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="container" th:if="${!courseListAsStudent.empty}">
+		<h2>Enrolled Courses</h2>
+		<table class="table table-bordered table-striped">
+			<thead class="thead-dark">
+				<tr>
+					<th>Course Code</th>
+					<th>Course Name</th>
+					<th class="center-text">Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:if="${courseListAsStudent.empty}">
+					<td colspan="2">No courses found</td>
+				</tr>
+				<tr th:each="course : ${courseListAsStudent}">
+					<td><span th:text="${course.courseCode}"> Course Code </span></td>
+					<td><span th:text="${course.courseName}"> Course Name </span></td>
+					<td class="center-text">
+						<form method="POST" th:action="@{/course/student-course-home}">
+							<input type="hidden" name="courseName" id="courseName"
+								th:value="${course.courseName}" />
+							<button type="submit" name="submit" value="value"
+								class="btn btn-primary">View Course</button>
+						</form>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

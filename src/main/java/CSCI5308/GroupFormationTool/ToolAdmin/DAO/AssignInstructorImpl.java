@@ -24,7 +24,7 @@ public class AssignInstructorImpl implements AssignInstructor {
 		ArrayList<User> userList = new ArrayList<>();
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
-			String selectQuery = "SELECT first_name, last_name, user_id, banner_id, email FROM user;";
+			String selectQuery = "SELECT first_name, last_name, user_id, banner_id, email FROM user WHERE user_type != 'A';";
 			statement = connection.prepareStatement(selectQuery);
 			ResultSet resultSet = statement.executeQuery();
 			while (resultSet.next()) {

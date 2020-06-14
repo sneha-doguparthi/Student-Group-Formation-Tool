@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Course Admin Actions</title>
+</head>
+<body>
+	<ul lang="en" th:replace="fragments/course-header :: course-header"></ul>
+	<div class="container">
+		<div>
+			<h1 th:text="${courseCode +': '+ courseName}"
+				class="course-txt-header"></h1>
+		</div>
+		<div class="action-btn-container">
+			<div class="action-block">
+				<div class="action-txt">Import CSV file with Banner ID, Last Name, First Name and
+					Email ID of students to enroll them to the existing course.</div>
+				<form method="POST" th:action="@{/course-admin/upload-csv-home}">
+					<input type="hidden" name="courseName" th:value="${courseName}" />
+					<input type="hidden" name="courseCode" th:value="${courseCode}" />
+					<input type="hidden" name="courseId" th:value="${courseId}" />
+					<button class="btn btn-primary" type="submit" value="value">Import</button>
+				</form>
+			</div>
+			<div class="action-block">
+				<div class="action-txt">Assign TA role to the existing user. TA would be allowed
+					to perform the Course Admin tasks.</div>
+				<form method="POST" th:action="@{/course-admin/assign-ta}">
+					<input type="hidden" name="courseName" th:value="${courseName}" />
+					<input type="hidden" name="courseCode" th:value="${courseCode}" />
+					<input type="hidden" name="courseId" th:value="${courseId}" />
+					<button class="btn btn-primary" type="submit" value="value">Assign
+						TA</button>
+				</form>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

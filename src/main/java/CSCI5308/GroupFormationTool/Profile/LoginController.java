@@ -6,7 +6,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import CSCI5308.GroupFormationTool.Model.User;
 import CSCI5308.GroupFormationTool.Profile.Service.LoginService;
 
@@ -26,24 +28,16 @@ public class LoginController {
 	}
 
 	@PostMapping("/login")
-	public String userLogin(@ModelAttribute User user, Model model) {
-
+	public ModelAndView userLogin(@ModelAttribute User user, Model model, RedirectAttributes rattrs) {
 		LoginService loginService = new LoginServiceImpl();
-
 		String initialPage = loginService.checkAccessService(user, model);
-
 		if (initialPage == "login") {
 			model.addAttribute("error", "Invalid Credentials");
-			return initialPage;
-		} else
-			return initialPage;
-	}
+			return new ModelAndView(initialPage);
+		} else {
+			return new ModelAndView(initialPage);
+		}
 
-	@PostMapping("/student-home")
-	public String studentHome(@RequestParam String name, Model model) {
-
-		model.addAttribute("name", name);
-		return "profile/student-home";
 	}
 
 	@GetMapping("/logout")

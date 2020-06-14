@@ -4,13 +4,13 @@
 <title>Assign Instructor</title>
 </head>
 <body>
-	<ul lang="en" th:replace="fragments/header :: header"></ul>
+	<ul lang="en" th:replace="fragments/admin-header :: admin-header"></ul>
 	<div class="container center-text">
 		<h2>Assign Instructor Panel</h2>
 		<div>
 			<h3 th:if="${resultMessage.length()>0}" th:text="${resultMessage}"></h3>
 			<table class="assign-i-table table table-bordered">
-				<thead>
+				<thead class="thead-dark">
 					<th>First Name</th>
 					<th>Last Name</th>
 					<th>Email Address</th>
@@ -19,7 +19,7 @@
 				</thead>
 				<tbody>
 					<tr th:each="userModel, iterstat:${userList}">
-						<form action="/assign-role" method="post">
+						<form action="/admin/assign-role" method="post">
 							<td th:value="${userModel.getFirstName()}"
 								th:text="${userModel.getFirstName()}">Rob</td>
 							<td th:value="${userModel.getLastName()}"

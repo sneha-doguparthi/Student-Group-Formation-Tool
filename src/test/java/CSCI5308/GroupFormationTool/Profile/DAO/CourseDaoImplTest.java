@@ -7,8 +7,8 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
-import CSCI5308.GroupFormationTool.CourseAdmin.DAO.CourseDao;
-import CSCI5308.GroupFormationTool.CourseAdmin.DAO.CourseDaoImpl;
+import CSCI5308.GroupFormationTool.Course.DAO.CourseDao;
+import CSCI5308.GroupFormationTool.Course.DAO.CourseDaoImpl;
 import CSCI5308.GroupFormationTool.Model.Course;
 
 public class CourseDaoImplTest {
