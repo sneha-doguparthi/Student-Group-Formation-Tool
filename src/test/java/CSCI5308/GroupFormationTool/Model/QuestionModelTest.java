@@ -5,7 +5,6 @@ import java.sql.Date;
 import static org.junit.jupiter.api.Assertions.*;
 
 class QuestionModelTest {
-
     @Test
     void getTitle() {
         Question question = new Question();

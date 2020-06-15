@@ -1,6 +1,4 @@
 package CSCI5308.GroupFormationTool.Model;
-
-
 import java.sql.Date;
 
 public class Question {
