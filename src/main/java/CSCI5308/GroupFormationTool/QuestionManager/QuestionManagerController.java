@@ -20,18 +20,10 @@ public class QuestionManagerController {
     }
 
     @PostMapping("/editor-page")
-    public ModelAndView storeQuestion(@ModelAttribute("questionObject") Question questionObject , Model model){
+    public String storeQuestion(@ModelAttribute("questionObject") Question questionObject){
         QuestionManagerService questionManagerService = new QuestionManagerServiceImpl();
-        boolean message;
-        message= questionManagerService.storeQuestionService(questionObject);
-        if(message){
-            model.addAttribute("message","Question created");
-        }
-        else{
-            model.addAttribute("message","Not created");
-        }
-        ModelAndView mav = new ModelAndView("redirect:editor-page");
-        return mav;
+        questionManagerService.storeQuestionService(questionObject);
+        return "question/questions-page";
     }
 
 }
