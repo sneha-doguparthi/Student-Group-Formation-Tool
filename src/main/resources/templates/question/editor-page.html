@@ -4,13 +4,24 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" />
     <title>Question Manager</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <script>
+        function typeChange(){
+            var type = document.getElementById("question-type").value;
+            if(type == "Numeric" || type == "Free text"){
+                document.querySelector('#Next').innerHTML ='Save';
+            }
+            else{
+                document.querySelector('#Next').innerHTML ='Next';
+            }
+        }
+    </script>
 </head>
 <body>
 <div class="container" style="margin-top:30px">
     <h3>Basic Question Information</h3>
     <hr style="border-top: 1px solid" />
     <br>
-    <form th:action="@{/editor-page}" th:object="${questionObject}">
+    <form th:action="@{/editor-page}" method="post" th:object="${questionObject}">
         <div class="form-group row">
             <label class="col-sm-1">Title:</label><span class="col-sm-3"><input
                 type="text" th:field="*{title}" required></span>
@@ -22,7 +33,7 @@
         <div class="form-group row">
             <label class="col-sm-1"> Type:</label>
             <span class="col-sm-4">
-					<select id="question-type" th:field="*{type}">
+					<select id="question-type" onchange="typeChange()" th:field="*{type}">
 						<option value="ques-type">Question type</option>
 						<option value="Numeric">Numeric</option>
 						<option value="MCQ-One">Multiple Choice-Choose One</option>
@@ -31,7 +42,7 @@
 					</select>
 				</span>
         </div>
-        <span><button style="margin-left:10%" type="submit" class="btn btn-primary">Next</button></span>
+        <span><button id="Next" style="margin-left:50%" type="submit" class="btn btn-primary" value="">Next</button></span>
     </form>
   </div>
 </body>
