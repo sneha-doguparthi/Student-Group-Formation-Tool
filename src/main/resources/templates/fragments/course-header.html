@@ -1,9 +1,12 @@
 <ul th:fragment="course-header"
 	class="bg-dark nav-ul-user navbar navbar-dark">
 	<li class="nav-li-user"><a class="nav-btn app-title"
-		th:href="@{#}">Group Formation Tool</a></li>
-	<li class="nav-li-user"><a class="nav-btn logout-btn"
-		th:href="@{/logout}">Logout</a></li>
+		th:href="@{/}">Group Formation Tool</a></li>
+
+	<form th:action="@{/logout}" method="post">
+		<button class="btn btn-info" type="submit">Logout</button>
+	</form>
+
 	<link rel="stylesheet"
 		href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 

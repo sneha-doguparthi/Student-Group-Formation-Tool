@@ -16,17 +16,10 @@ public class LoginServiceImplTest {
 	@Test
 	void testCheckAccessService() {
 
-		User user = new User();
-		user.setBannerId("B00851234");
-		user.setFirstName("Bob");
-		user.setLastName("Builder");
-		user.setPassword("bobpassword");
-		user.setUserType("S");
-
 		Model model = new ExtendedModelMap();
 
-		when(loginServiceImplMock.checkAccessService(user, model)).thenReturn("login");
-		assertEquals(loginServiceImplMock.checkAccessService(user, model), "login", "error");
-		verify(loginServiceImplMock).checkAccessService(user, model);
+		when(loginServiceImplMock.checkAccessService("xyz@gmail.com", model)).thenReturn("login");
+		assertEquals(loginServiceImplMock.checkAccessService("xyz@gmail.com", model), "login", "error");
+		verify(loginServiceImplMock).checkAccessService("xyz@gmail.com", model);
 	}
 }

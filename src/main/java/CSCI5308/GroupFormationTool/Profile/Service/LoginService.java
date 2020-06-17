@@ -4,5 +4,5 @@ import org.springframework.ui.Model;
 import CSCI5308.GroupFormationTool.Model.User;
 
 public interface LoginService {
-	public String checkAccessService(User user, Model model);
+	public String checkAccessService(String email, Model model);
 }

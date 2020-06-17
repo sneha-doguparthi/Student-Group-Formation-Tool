@@ -5,12 +5,18 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
+import CSCI5308.GroupFormationTool.Model.User;
+import CSCI5308.GroupFormationTool.Profile.DAO.UserDao;
+import CSCI5308.GroupFormationTool.Profile.DAO.UserDaoImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import CSCI5308.GroupFormationTool.DBConnection.CreateDatabaseConnection;
 import CSCI5308.GroupFormationTool.Model.Question;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 public class StoreQuestionDAOImpl implements StoreQuestionDAO {
 
@@ -28,7 +34,7 @@ public class StoreQuestionDAOImpl implements StoreQuestionDAO {
 			statement.setString(1, question.getQuestionTitle());
 			statement.setString(2, question.getQuestionText());
 			statement.setString(3, question.getQuestionType());
-			statement.setInt(4, 1); // TODO: change here the user id
+			statement.setInt(4, getUserId());
 			statement.executeUpdate();
 			ResultSet resultSet = statement.getGeneratedKeys();
 			resultSet.next();
@@ -52,5 +58,12 @@ public class StoreQuestionDAOImpl implements StoreQuestionDAO {
 			}
 		}
 		return questionId;
+	}
+
+	private int getUserId(){
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		UserDao userDao = new UserDaoImpl();
+		ArrayList<User> list = userDao.getByEmail(authentication.getName());
+		return list.get(0).getUserId();
 	}
 }

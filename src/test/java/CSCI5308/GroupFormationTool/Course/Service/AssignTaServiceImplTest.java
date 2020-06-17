@@ -1,7 +1,6 @@
 package CSCI5308.GroupFormationTool.Course.Service;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
@@ -32,10 +31,19 @@ public class AssignTaServiceImplTest {
 	}
 
 	@Test
-	void testAssignTa() {
+	void testAssignTaTrue() {
 
 		when(assignTaServiceImplMock.assignTa("1", 2)).thenReturn(true);
 		assertTrue(assignTaServiceImplMock.assignTa("1", 2), "Ta not assigned");
+		verify(assignTaServiceImplMock).assignTa("1", 2);
+
+	}
+
+	@Test
+	void testAssignTaFalse() {
+
+		when(assignTaServiceImplMock.assignTa("1", 2)).thenReturn(false);
+		assertFalse(assignTaServiceImplMock.assignTa("1", 2), "Ta not assigned");
 		verify(assignTaServiceImplMock).assignTa("1", 2);
 
 	}

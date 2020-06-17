@@ -1,7 +1,6 @@
 package CSCI5308.GroupFormationTool.Profile.DAO;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
@@ -15,7 +14,7 @@ public class OtpDaoImplTest {
 	OtpDao otpDaoImplMock = mock(OtpDaoImpl.class);
 
 	@Test
-	void testInsertOtp() {
+	void testInsertOtpTrue() {
 
 		Otp otp = new Otp();
 		otp.setEmail("test@gmail.com");
@@ -24,6 +23,19 @@ public class OtpDaoImplTest {
 
 		when(otpDaoImplMock.insertOtp(otp)).thenReturn(true);
 		assertTrue(otpDaoImplMock.insertOtp(otp), "Error while inserting otp into database");
+		verify(otpDaoImplMock).insertOtp(otp);
+	}
+
+	@Test
+	void testInsertOtpFalse() {
+
+		Otp otp = new Otp();
+		otp.setEmail("test@gmail.com");
+		otp.setOtp(1234);
+		otp.setDate(new Date());
+
+		when(otpDaoImplMock.insertOtp(otp)).thenReturn(false);
+		assertFalse(otpDaoImplMock.insertOtp(otp), "Error while inserting otp into database");
 		verify(otpDaoImplMock).insertOtp(otp);
 	}
 

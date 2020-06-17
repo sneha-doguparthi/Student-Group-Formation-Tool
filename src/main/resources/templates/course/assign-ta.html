@@ -100,13 +100,17 @@
 						<td><span th:text="${user.firstName}"> First Name </span></td>
 						<td><span th:text="${user.lastName}"> Last Name </span></td>
 						<td class="center-text">
-							<form action="#" th:action="@{/do-assign-ta}" method="POST">
-								<input type="hidden" name="id" id="courseId" th:value="${id}" />
+							<form action="#" th:action="@{/course/do-assign-ta}" method="POST">
+								<input type="hidden" name="courseId" th:value="${courseId}" />
 
-								<input type="hidden" name="code" id="courseCode"
-									th:value="${code}" /> <input type="hidden" name="name"
-									id="courseName" th:value="${name}" /> <input type="hidden"
-									name="userId" id="userId" th:value="${user.userId}" />
+								<input type="hidden" name="courseCode"
+									th:value="${courseCode}" />
+
+								<input type="hidden" name="courseName"
+									 th:value="${courseName}" />
+
+								<input type="hidden"
+									name="userId"  th:value="${user.userId}" />
 
 								<button class="btn btn-primary">Assign</button>
 							</form>

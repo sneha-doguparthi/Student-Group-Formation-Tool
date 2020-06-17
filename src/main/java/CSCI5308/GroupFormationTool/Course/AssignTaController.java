@@ -29,7 +29,7 @@ public class AssignTaController {
 		return "course/assign-ta";
 	}
 
-	@PostMapping("/do-assign-ta")
+	@PostMapping("/course/do-assign-ta")
 	public String assignTa(@RequestParam String courseId, @RequestParam String courseCode,
 			@RequestParam String courseName, @RequestParam String userId, Model model) {
 

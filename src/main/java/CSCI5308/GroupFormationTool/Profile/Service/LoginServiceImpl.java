@@ -2,6 +2,13 @@ package CSCI5308.GroupFormationTool.Profile.Service;
 
 import java.util.ArrayList;
 
+import CSCI5308.GroupFormationTool.Course.DAO.CourseAssociationDAO;
+import CSCI5308.GroupFormationTool.Course.DAO.CourseAssociationDAOImpl;
+import CSCI5308.GroupFormationTool.Course.DAO.CourseDao;
+import CSCI5308.GroupFormationTool.Course.DAO.CourseDaoImpl;
+import CSCI5308.GroupFormationTool.Model.Course;
+import CSCI5308.GroupFormationTool.Model.CourseAssociation;
+import CSCI5308.GroupFormationTool.Utilities.ApplicationConstants;
 import org.springframework.ui.Model;
 
 import CSCI5308.GroupFormationTool.Model.User;
@@ -10,23 +17,20 @@ import CSCI5308.GroupFormationTool.Profile.DAO.UserDaoImpl;
 
 public class LoginServiceImpl implements LoginService {
 
-	public String checkAccessService(User user, Model model) {
+	public String checkAccessService(String email, Model model) {
 
 		UserDao userDao = new UserDaoImpl();
 
-		ArrayList<User> list = userDao.getByEmail(user.getEmail());
-
-		// No user found with provided email or incorrect passowrd
-		if (list.size() == 0 || !list.get(0).getPassword().equals(user.getPassword()))
-			return "profile/login";
+		ArrayList<User> list = userDao.getByEmail(email);
 
 		// Getting the data of valid user from database
-		User loggedInUser = list.get(0);
+		User validUser = list.get(0);
+
 		// If user type is admin then redirect to admin page
-		if (loggedInUser.getUserType().equals("A")) {
-			return "redirect:/admin/admin-home?userId=" + loggedInUser.getUserId();
-		} else {
-			return "redirect:/courses/home?userId=" + loggedInUser.getUserId();
+		if (validUser.getUserType().equals("A")) {
+			return "admin/admin-home";
 		}
+
+		return "redirect:/courses/home?userId=" + validUser.getUserId();
 	}
 }
