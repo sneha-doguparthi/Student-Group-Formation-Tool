@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public interface PasswordHistoryDao {
 
-    Boolean insert(String email, String password);
+	Boolean insert(String email, String password);
 
-    ArrayList<PasswordHistory> fetch(String email, Integer limit);
+	ArrayList<PasswordHistory> fetch(String email, Integer limit);
 }

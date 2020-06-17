@@ -60,7 +60,7 @@ public class StoreQuestionDAOImpl implements StoreQuestionDAO {
 		return questionId;
 	}
 
-	private int getUserId(){
+	private int getUserId() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		UserDao userDao = new UserDaoImpl();
 		ArrayList<User> list = userDao.getByEmail(authentication.getName());

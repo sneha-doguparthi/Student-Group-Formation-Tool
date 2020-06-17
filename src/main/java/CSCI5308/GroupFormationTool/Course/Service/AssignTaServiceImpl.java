@@ -22,20 +22,15 @@ public class AssignTaServiceImpl implements AssignTaService {
 
 	@Override
 	public Boolean assignTa(String userId, Integer courseId) {
-
 		RoleDao roleDao = new RoleDaoImpl();
 		CourseAssociationDAO courseAssociationDao = new CourseAssociationDAOImpl();
-
 		ArrayList<Role> roles = roleDao.findByName("TA");
 		Integer roleId = roles.get(0).getRoleId();
-
 		CourseAssociation association = new CourseAssociation();
 		association.setUserId(Integer.parseInt(userId));
 		association.setRoleId(roleId);
 		association.setCourseId(courseId);
-
 		courseAssociationDao.insert(association);
-
 		return true;
 	}
 }

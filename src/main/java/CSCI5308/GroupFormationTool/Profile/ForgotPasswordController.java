@@ -47,7 +47,7 @@ public class ForgotPasswordController {
 			Model model) {
 
 		PasswordPolicy policy = new PasswordPolicy();
-		if(!policy.validatePassword(email, password)){
+		if (!policy.validatePassword(email, password)) {
 			// ask for password another time if policy is violated
 			model.addAttribute("response", "policy_violated");
 			model.addAttribute("email", email);

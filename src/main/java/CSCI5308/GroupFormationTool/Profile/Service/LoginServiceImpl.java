@@ -2,13 +2,6 @@ package CSCI5308.GroupFormationTool.Profile.Service;
 
 import java.util.ArrayList;
 
-import CSCI5308.GroupFormationTool.Course.DAO.CourseAssociationDAO;
-import CSCI5308.GroupFormationTool.Course.DAO.CourseAssociationDAOImpl;
-import CSCI5308.GroupFormationTool.Course.DAO.CourseDao;
-import CSCI5308.GroupFormationTool.Course.DAO.CourseDaoImpl;
-import CSCI5308.GroupFormationTool.Model.Course;
-import CSCI5308.GroupFormationTool.Model.CourseAssociation;
-import CSCI5308.GroupFormationTool.Utilities.ApplicationConstants;
 import org.springframework.ui.Model;
 
 import CSCI5308.GroupFormationTool.Model.User;

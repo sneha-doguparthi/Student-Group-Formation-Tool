@@ -29,7 +29,7 @@ public class ApplicationConstants {
 	public static final int ADMIN_ROLE_ID = 5;
 
 	public static final String SELECT_COURSE_ERR = "Please select a course!";
-	
+
 	public static final String QUESTION_ANSWERS_ADDED = "Question and answers added successfully!";
 	public static final String FAILED_QUESTION_ANSWERS_INSERTION = "Failed to add Question and answers!";
 }

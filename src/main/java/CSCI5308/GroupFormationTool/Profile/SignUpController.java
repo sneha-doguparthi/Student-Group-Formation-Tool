@@ -26,7 +26,7 @@ public class SignUpController {
 	public String registerUser(@ModelAttribute User user, Model model) {
 
 		PasswordPolicy policy = new PasswordPolicy();
-		if (!policy.validatePassword(user.getEmail(), user.getPassword())){
+		if (!policy.validatePassword(user.getEmail(), user.getPassword())) {
 			model.addAttribute("user", new User());
 			model.addAttribute("policy", policy);
 			model.addAttribute("error", "Your new password does not satisfy password policy.");

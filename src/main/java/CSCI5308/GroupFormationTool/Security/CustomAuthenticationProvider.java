@@ -16,40 +16,40 @@ import java.util.List;
 
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
-    @Override
-    public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+	@Override
+	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 
-        String email = authentication.getName();
-        String password = authentication.getCredentials().toString();
+		String email = authentication.getName();
+		String password = authentication.getCredentials().toString();
 
-        UserDao userDao = new UserDaoImpl();
+		UserDao userDao = new UserDaoImpl();
 
-        // getting list of user with provided email parameter
-        ArrayList<User> allUsers = userDao.getByEmail(email);
+		// getting list of user with provided email parameter
+		ArrayList<User> allUsers = userDao.getByEmail(email);
 
-        if (allUsers.size() != 0) {
+		if (allUsers.size() != 0) {
 
-            User validUser = allUsers.get(0);
+			User validUser = allUsers.get(0);
 
-            if (validUser.getPassword().equals(password)) {
+			if (validUser.getPassword().equals(password)) {
 
-                List<GrantedAuthority> authority = new ArrayList<>();
+				List<GrantedAuthority> authority = new ArrayList<>();
 
-                if (validUser.getUserType().equals("A")) {
-                    authority.add(new SimpleGrantedAuthority("ADMIN"));
-                }
+				if (validUser.getUserType().equals("A")) {
+					authority.add(new SimpleGrantedAuthority("ADMIN"));
+				}
 
-                return new UsernamePasswordAuthenticationToken(email, password, authority);
-            } else {
-                throw new BadCredentialsException("1001");
-            }
-        } else {
-            throw new BadCredentialsException("1001");
-        }
-    }
+				return new UsernamePasswordAuthenticationToken(email, password, authority);
+			} else {
+				throw new BadCredentialsException("1001");
+			}
+		} else {
+			throw new BadCredentialsException("1001");
+		}
+	}
 
-    @Override
-    public boolean supports(Class<?> authentication) {
-        return authentication.equals(UsernamePasswordAuthenticationToken.class);
-    }
+	@Override
+	public boolean supports(Class<?> authentication) {
+		return authentication.equals(UsernamePasswordAuthenticationToken.class);
+	}
 }

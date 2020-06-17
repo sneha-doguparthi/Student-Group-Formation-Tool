@@ -7,8 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
 
-import CSCI5308.GroupFormationTool.Model.User;
-
 public class LoginServiceImplTest {
 
 	LoginService loginServiceImplMock = mock(LoginServiceImpl.class);

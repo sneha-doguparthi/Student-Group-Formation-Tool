@@ -15,10 +15,9 @@ import CSCI5308.GroupFormationTool.Model.Course;
 public class CourseDaoImpl implements CourseDao {
 
 	private Logger logger = LogManager.getLogger(CourseDaoImpl.class);
-	
+
 	@Override
 	public ArrayList<Course> getAll() {
-
 		Connection connection = null;
 		Statement statement = null;
 		String query = "SELECT * FROM course";
@@ -84,8 +83,6 @@ public class CourseDaoImpl implements CourseDao {
 				logger.error("Exception occured while closing connection/statement", e);
 			}
 		}
-
 		return courses.get(0);
 	}
-
 }

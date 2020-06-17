@@ -8,16 +8,25 @@
 	<div class="container center-text">
 		<h1 class="course-txt-header"
 			th:text="${courseCode} + ': '+${courseName}"></h1>
-		<div class="c-a-form-container">
-			<p class="txt-header">Import Student CSV and TA's enrollment.</p>
-			<form action="#" th:action="@{/course/course-admin-actions}"
-				method="POST">
-				<input type="hidden" name="courseId" id="courseId"
-					th:value="${courseId}" /><input type="hidden" name="courseCode"
-					id="courseCode" th:value="${courseCode}" /> <input type="hidden"
-					name="courseName" id="courseName" th:value="${courseName}" />
-				<button class="btn btn-primary">Course Actions</button>
-			</form>
+		<div class="action-container">
+			<div class="c-a-form-container">
+				<p class="txt-header">Import Student CSV and TA's enrollment.</p>
+				<form action="#" th:action="@{/course/course-admin-actions}"
+					method="POST">
+					<input type="hidden" name="courseId" id="courseId"
+						th:value="${courseId}" /><input type="hidden" name="courseCode"
+						id="courseCode" th:value="${courseCode}" /> <input type="hidden"
+						name="courseName" id="courseName" th:value="${courseName}" />
+					<button class="btn btn-primary">Course Actions</button>
+				</form>
+			</div>
+			<div th:if="${displayQuestionManager}" class="c-a-form-container">
+				<p class="txt-header">Create and Delete Questions for surveys.</p>
+				<form action="#" th:action="@{/question-manager/home}"
+					method="GET">
+					<button class="btn btn-primary">Question Manager</button>
+				</form>
+			</div>
 		</div>
 	</div>
 </body>

@@ -4,10 +4,16 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import CSCI5308.GroupFormationTool.SystemConfig;
 
 // Singleton for retrieving connections.
 public class CreateDatabaseConnection {
+
+	private static Logger logger = LogManager.getLogger(CreateDatabaseConnection.class);
+
 	static Connection dbConnection;
 	private static CreateDatabaseConnection uniqueInstance = null;
 
@@ -39,7 +45,7 @@ public class CreateDatabaseConnection {
 			if (null != dbConnection && !(dbConnection.isClosed()))
 				dbConnection.close();
 		} catch (SQLException e) {
-//			logger.error("Exception occurred while closing database connection " + e);
+			logger.error("Exception occurred while closing database connection " + e);
 		}
 		return true;
 	}

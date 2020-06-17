@@ -15,7 +15,7 @@ import CSCI5308.GroupFormationTool.Model.Role;
 public class RoleDaoImpl implements RoleDao {
 
 	private Logger logger = LogManager.getLogger(RoleDaoImpl.class);
-	
+
 	@Override
 	public ArrayList<Role> findByName(String name) {
 

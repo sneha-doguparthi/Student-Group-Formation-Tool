@@ -5,9 +5,6 @@
 </head>
 <body>
 	<ul lang="en" th:replace="fragments/course-header :: course-header"></ul>
-	<div class="container q-mngr-txt" th:if="${!courseListAsInstructor.empty}">
-	 <a class="nav-btn app-title" th:href="@{/question-manager/home}">Question Manager</a>
-	</div>
 	<div class="container" th:if="${!allCourses.empty}">
 		<h2>List of Courses</h2>
 		<table class="table table-bordered table-striped">
@@ -51,7 +48,8 @@
 								th:value="${course.courseName}" /> <input type="hidden"
 								name="courseId" id="courseId" th:value="${course.courseId}" />
 							<input type="hidden" name="courseCode" id="courseCode"
-								th:value="${course.courseCode}" />
+								th:value="${course.courseCode}" /> <input type="hidden"
+								name="courseRole" id="courseRole" th:value="4" />
 							<button type="submit" name="submit" value="value"
 								class="btn btn-primary">View Course</button>
 						</form>
@@ -83,7 +81,8 @@
 								th:value="${course.courseName}" /> <input type="hidden"
 								name="courseId" id="courseId" th:value="${course.courseId}" />
 							<input type="hidden" name="courseCode" id="courseCode"
-								th:value="${course.courseCode}" />
+								th:value="${course.courseCode}" /> <input type="hidden"
+								name="courseRole" id="courseRole" th:value="3" />
 							<button type="submit" name="submit" value="value"
 								class="btn btn-primary">View Course</button>
 						</form>
