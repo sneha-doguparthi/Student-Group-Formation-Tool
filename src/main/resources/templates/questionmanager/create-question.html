@@ -1,0 +1,52 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Create Question</title>
+<script>
+	function onChangeQType() {
+		var type = document.getElementById("question-type").value;
+		if (type == "NUM" || type == "FREETEXT") {
+			document.querySelector('#Next').innerHTML = 'Save';
+		} else {
+			document.querySelector('#Next').innerHTML = 'Next';
+		}
+	}
+</script>
+</head>
+<body>
+	<ul lang="en" th:replace="fragments/course-header :: course-header"></ul>
+	<div class="container center-text">
+		<div class="page-block">
+			<h2>Create Question</h2>
+			<form class="create-question-form"
+				th:action="@{/question-manager/create-question}"
+				th:object="${questionModel}" method="POST">
+				<p class="question-item">
+					<span>Question Title: </span> <span> <input type="text"
+						th:field="*{questionTitle}" required>
+					</span>
+				</p>
+				<p class="question-item">
+					<span>Question: </span> <span> <input type="text"
+						class="question-text" th:field="*{questionText}" required>
+					</span>
+				</p>
+				<p class="question-item">
+					<span>Question Type: </span> <span> <select class="select"
+						id="question-type" th:field="*{questionType}"
+						onchange="onChangeQType()" required>
+							<option value="">------ Select ------</option>
+							<option value="NUM">Numeric</option>
+							<option value="MCQO">Multiple Choice-Choose One</option>
+							<option value="MCQM">Multiple Choice-Choose Multiple</option>
+							<option value="FREETEXT">Free Text</option>
+					</select>
+					</span>
+				</p>
+				<button id="Next" class="btn btn-primary">Submit</button>
+			</form>
+		</div>
+		<!-- <h3 th:if="${resultMessage.length()>0}" th:text="${resultMessage}"></h3> -->
+	</div>
+</body>
+</html>

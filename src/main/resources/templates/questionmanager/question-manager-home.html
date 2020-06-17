@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Question Manager</title>
+</head>
+
+<body>
+	<ul lang="en" th:replace="fragments/course-header :: course-header"></ul>
+	<div class="container">
+		<div class="center-text">
+			<h2>Question Manager</h2>
+		</div>
+		<div>
+		 	<a class="nav-btn app-title" th:href="@{/question-manager/create-question}">Create Question</a>
+		</div>
+		<div class="filter-block">
+			<input class="filter-block-ip" id="bannerId" type="text"
+				onkeyup="filterByBannerId()" placeholder="Search By Banner ID" /> <input
+				class="filter-block-ip" id="firstName" type="text"
+				onkeyup="filterByFirstName()" placeholder="Search By First Name" />
+			<input class="filter-block-ip" id="lastName" type="text"
+				onkeyup="filterByLastName()" placeholder="Search By Last Name" />
+		</div>
+
+		<div>
+			<table class="table table-bordered table-striped" id="users">
+				<thead class="thead-dark">
+					<tr>
+						<th>Banner ID</th>
+						<th>First Name</th>
+						<th>Last Name</th>
+						<th class="center-text">Action</th>
+					</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+		</div>
+	</div>
+</body>
+</html>

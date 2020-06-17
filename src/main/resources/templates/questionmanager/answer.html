@@ -1,0 +1,65 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Create Question - Answers</title>
+<script>
+	function addNewAnswerOptions(n) {
+		for (var i = 1; i <= n; i++) {
+			var answerInputContainer = document
+					.getElementById("answerInputContainer");
+
+			var label1 = document.createElement("label");
+			label1.innerHTML = "Display Text:";
+			label1.style.marginRight = "10px"
+			answerInputContainer.appendChild(label1);
+
+			var displayTextIp = document.createElement("input");
+			displayTextIp.type = "text";
+			displayTextIp.name = "answerText";
+			displayTextIp.style.marginRight = "20px"
+			answerInputContainer.appendChild(displayTextIp);
+
+			var label2 = document.createElement("label");
+			label2.innerHTML = "Stored As:";
+			label2.style.marginRight = "10px"
+			answerInputContainer.appendChild(label2);
+
+			var storedAsIp = document.createElement("input");
+			storedAsIp.type = "text";
+			storedAsIp.name = "storedAs";
+			answerInputContainer.appendChild(storedAsIp);
+			answerInputContainer.appendChild(document.createElement("p"));
+		}
+
+	}
+
+	function validateIpFields() {
+		var answer = document.getElementsByClassName("answerText");
+		if (answer == "") {
+			alert("Please check input fields");
+			return false;
+		}
+		return true;
+	}
+
+	window.onload = function() {
+		addNewAnswerOptions(5);
+	};
+</script>
+</head>
+<body>
+	<ul lang="en" th:replace="fragments/course-header :: course-header"></ul>
+	<div class="container center-text">
+		<div class="page-block">
+			<h2>Create Answers</h2>
+			<form th:action="@{/question-manager/create-answer}" method="POST">
+				<div id="answerInputContainer"></div>
+
+				<button class="btn btn-primary" type="button"
+					onclick="addNewAnswerOptions(1)">More Answers</button>
+				<button class="btn btn-primary" type="submit">Next</button>
+			</form>
+		</div>
+	</div>
+</body>
+</html>
