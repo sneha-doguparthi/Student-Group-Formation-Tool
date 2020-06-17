@@ -31,7 +31,6 @@ public class UploadCsvController {
 			@RequestParam String courseCode, @RequestParam String courseName, Model model) {
 
 		UploadCsvFileService uploadCsvFileService = new UploadCsvFileServiceImpl();
-
 		uploadCsvFileService.uploadCsvFile(file, Integer.valueOf(courseId), courseCode, courseName);
 		String resMessage = uploadCsvFileService.getMessage();
 		Boolean resStatus = uploadCsvFileService.getStatus();
@@ -41,7 +40,6 @@ public class UploadCsvController {
 		if (resStatus) {
 			model.addAttribute("students", resStudentList);
 		}
-
 		model.addAttribute("courseId", courseId);
 		model.addAttribute("courseName", courseName);
 		model.addAttribute("courseCode", courseCode);

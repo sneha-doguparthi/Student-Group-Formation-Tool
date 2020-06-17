@@ -7,146 +7,146 @@ import java.util.ArrayList;
 
 public class PasswordPolicy {
 
-    private final String minimumLength;
-    private final String maximumLength;
-    private final String minimumUpperCase;
-    private final String minimumLowerCase;
-    private final String minimumSymbols;
-    private final String charsNotAllowed;
-    private final String history;
+	private final String minimumLength;
+	private final String maximumLength;
+	private final String minimumUpperCase;
+	private final String minimumLowerCase;
+	private final String minimumSymbols;
+	private final String charsNotAllowed;
+	private final String history;
 
-    public PasswordPolicy() {
-        this.minimumLength = System.getenv("MINIMUM_LENGTH");
-        this.maximumLength = System.getenv("MAXIMUM_LENGTH");
-        this.minimumUpperCase = System.getenv("MINIMUM_UPPERCASE");
-        this.minimumLowerCase = System.getenv("MINIMUM_LOWERCASE");
-        this.minimumSymbols = System.getenv("MINIMUM_SYMBOLS");
-        this.charsNotAllowed = System.getenv("CHARS_NOT_ALLOWED");
-        this.history = System.getenv("HISTORY");
-    }
+	public PasswordPolicy() {
+		this.minimumLength = System.getenv("MINIMUM_LENGTH");
+		this.maximumLength = System.getenv("MAXIMUM_LENGTH");
+		this.minimumUpperCase = System.getenv("MINIMUM_UPPERCASE");
+		this.minimumLowerCase = System.getenv("MINIMUM_LOWERCASE");
+		this.minimumSymbols = System.getenv("MINIMUM_SYMBOLS");
+		this.charsNotAllowed = System.getenv("CHARS_NOT_ALLOWED");
+		this.history = System.getenv("HISTORY");
+	}
 
-    public boolean validatePassword(String email, String password) {
+	public boolean validatePassword(String email, String password) {
 
-        if (!this.minimumLength.equals("FALSE")) {
-            if (password.length() < Integer.parseInt(this.minimumLength)) {
-                return false;
-            }
-        }
+		if (!this.minimumLength.equals("FALSE")) {
+			if (password.length() < Integer.parseInt(this.minimumLength)) {
+				return false;
+			}
+		}
 
-        if (!this.maximumLength.equals("FALSE")) {
-            if (password.length() > Integer.parseInt(this.maximumLength)) {
-                return false;
-            }
-        }
+		if (!this.maximumLength.equals("FALSE")) {
+			if (password.length() > Integer.parseInt(this.maximumLength)) {
+				return false;
+			}
+		}
 
-        if (!this.minimumUpperCase.equals("FALSE")) {
+		if (!this.minimumUpperCase.equals("FALSE")) {
 
-            int count = 0;
+			int count = 0;
 
-            for (int i = 0; i < password.length(); i++) {
-                if (Character.isUpperCase(password.charAt(i))) {
-                    count++;
-                }
-            }
+			for (int i = 0; i < password.length(); i++) {
+				if (Character.isUpperCase(password.charAt(i))) {
+					count++;
+				}
+			}
 
-            if (count < Integer.parseInt(this.minimumUpperCase)) {
-                return false;
-            }
-        }
+			if (count < Integer.parseInt(this.minimumUpperCase)) {
+				return false;
+			}
+		}
 
-        if (!this.minimumLowerCase.equals("FALSE")) {
+		if (!this.minimumLowerCase.equals("FALSE")) {
 
-            int count = 0;
+			int count = 0;
 
-            for (int i = 0; i < password.length(); i++) {
-                if (Character.isLowerCase(password.charAt(i))) {
-                    count++;
-                }
-            }
+			for (int i = 0; i < password.length(); i++) {
+				if (Character.isLowerCase(password.charAt(i))) {
+					count++;
+				}
+			}
 
-            if (count < Integer.parseInt(this.minimumLowerCase)) {
-                return false;
-            }
-        }
+			if (count < Integer.parseInt(this.minimumLowerCase)) {
+				return false;
+			}
+		}
 
-        if (!this.minimumSymbols.equals("FALSE")) {
+		if (!this.minimumSymbols.equals("FALSE")) {
 
-            String symbols = ".+-[]*~_#:?";
-            int count = 0;
+			String symbols = ".+-[]*~_#:?";
+			int count = 0;
 
-            for (int i = 0; i < password.length(); i++) {
-                if (symbols.contains(Character.toString(password.charAt(i)))) {
-                    count++;
-                }
-            }
+			for (int i = 0; i < password.length(); i++) {
+				if (symbols.contains(Character.toString(password.charAt(i)))) {
+					count++;
+				}
+			}
 
-            if (count < Integer.parseInt(this.minimumSymbols)) {
-                return false;
-            }
-        }
+			if (count < Integer.parseInt(this.minimumSymbols)) {
+				return false;
+			}
+		}
 
-        if (!this.charsNotAllowed.equals("FALSE")) {
+		if (!this.charsNotAllowed.equals("FALSE")) {
 
-            int count = 0;
+			int count = 0;
 
-            for (int i = 0; i < password.length(); i++) {
-                if (charsNotAllowed.contains(Character.toString(password.charAt(i)))) {
-                    count++;
-                }
-            }
+			for (int i = 0; i < password.length(); i++) {
+				if (charsNotAllowed.contains(Character.toString(password.charAt(i)))) {
+					count++;
+				}
+			}
 
-            if (count > 0) {
-                return false;
-            }
-        }
+			if (count > 0) {
+				return false;
+			}
+		}
 
-        if (!this.history.equals("FALSE")) {
+		if (!this.history.equals("FALSE")) {
 
-            PasswordHistoryDao passwordHistoryDao = new PasswordHistoryDaoImpl();
-            ArrayList<PasswordHistory> historyList = passwordHistoryDao.fetch(email, Integer.parseInt(this.history));
+			PasswordHistoryDao passwordHistoryDao = new PasswordHistoryDaoImpl();
+			ArrayList<PasswordHistory> historyList = passwordHistoryDao.fetch(email, Integer.parseInt(this.history));
 
-            boolean matchFound = false;
+			boolean matchFound = false;
 
-            for (PasswordHistory history : historyList){
-                if (password.equals(history.getPassword())) {
-                    matchFound = true;
-                    break;
-                }
-            }
+			for (PasswordHistory history : historyList) {
+				if (password.equals(history.getPassword())) {
+					matchFound = true;
+					break;
+				}
+			}
 
-            if (matchFound){
-                return false;
-            }
-        }
+			if (matchFound) {
+				return false;
+			}
+		}
 
-        return true;
-    }
+		return true;
+	}
 
-    public String getMinimumLength() {
-        return minimumLength;
-    }
+	public String getMinimumLength() {
+		return minimumLength;
+	}
 
-    public String getMaximumLength() {
-        return maximumLength;
-    }
+	public String getMaximumLength() {
+		return maximumLength;
+	}
 
-    public String getMinimumUpperCase() {
-        return minimumUpperCase;
-    }
+	public String getMinimumUpperCase() {
+		return minimumUpperCase;
+	}
 
-    public String getMinimumLowerCase() {
-        return minimumLowerCase;
-    }
+	public String getMinimumLowerCase() {
+		return minimumLowerCase;
+	}
 
-    public String getMinimumSymbols() {
-        return minimumSymbols;
-    }
+	public String getMinimumSymbols() {
+		return minimumSymbols;
+	}
 
-    public String getCharsNotAllowed() {
-        return charsNotAllowed;
-    }
+	public String getCharsNotAllowed() {
+		return charsNotAllowed;
+	}
 
-    public String getHistory() {
-        return history;
-    }
+	public String getHistory() {
+		return history;
+	}
 }

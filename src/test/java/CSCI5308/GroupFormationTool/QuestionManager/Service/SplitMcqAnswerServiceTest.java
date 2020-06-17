@@ -26,7 +26,7 @@ public class SplitMcqAnswerServiceTest {
 		answer.setAnswerText("Expert");
 		answer.setStoredAs("2");
 		answerList.add(answer);
-		
+
 		answer.setAnswerText("Beginner,Expert");
 		answer.setStoredAs("1,2");
 	}

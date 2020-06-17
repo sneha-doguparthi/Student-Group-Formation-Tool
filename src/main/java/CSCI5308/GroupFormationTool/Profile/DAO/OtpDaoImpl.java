@@ -19,7 +19,7 @@ import CSCI5308.GroupFormationTool.Model.Otp;
 public class OtpDaoImpl implements OtpDao {
 
 	private Logger logger = LogManager.getLogger(OtpDaoImpl.class);
-	
+
 	@Override
 	public Boolean insertOtp(Otp otp) {
 

@@ -23,19 +23,16 @@ import com.opencsv.bean.CsvToBeanBuilder;
 public class UploadCsvFileServiceImpl implements UploadCsvFileService {
 
 	private Logger logger = LogManager.getLogger(UploadCsvFileServiceImpl.class);
-	
 	private String resMessage;
 	private Boolean resStatus;
 	private List<Student> resStudentList;
 
 	@Override
 	public boolean uploadCsvFile(MultipartFile file, Integer courseId, String courseCode, String courseName) {
-
 		UserDao userDao = new UserDaoImpl();
 		GetStudentListService getStudentListService = new GetStudentListServiceImpl();
 		SendInvitationEmailService sendEmailService = new SendInvitationEmailServiceImpl();
 		CourseAssociationDAO courseAssociationDao = new CourseAssociationDAOImpl();
-
 		if (file.isEmpty()) {
 			resMessage = ApplicationConstants.FILE_EMPTY;
 			resStatus = ApplicationConstants.UPLOAD_STATUS_FALSE;
@@ -47,18 +44,16 @@ public class UploadCsvFileServiceImpl implements UploadCsvFileService {
 				ArrayList<User> userList = userDao.getUserByUserID(userIdsFromCourseAssociation);
 
 				List<Student> newToCourseList = getStudentListService.getNewToCourseStudentList(students, userList);
-
 				ArrayList<User> allUserList = userDao.getAll();
+
 				List<Student> newToPortalList = getStudentListService.getNewToPortalStudentList(newToCourseList,
 						allUserList);
-
 				userDao.addUser(newToPortalList);
 
 				ArrayList<Integer> userIdsFromUser = userDao.getUserID(newToCourseList);
 				courseAssociationDao.addByUserID(userIdsFromUser, courseId);
 
 				ArrayList<String> passwordFromUser = userDao.getPassword(newToPortalList);
-
 				sendEmailService.sendUserInvitationEmail(newToPortalList, passwordFromUser);
 				sendEmailService.sendCourseInvitationEmail(newToCourseList, courseCode, courseName);
 				resMessage = ApplicationConstants.FILE_UPLOADED;
@@ -70,26 +65,19 @@ public class UploadCsvFileServiceImpl implements UploadCsvFileService {
 				resStatus = ApplicationConstants.UPLOAD_STATUS_FALSE;
 			}
 		}
-
 		return true;
 	}
 
 	@Override
 	public List<Student> parseCsv(MultipartFile file) {
-
 		List<Student> students = null;
-
 		try (Reader reader = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
-
 			CsvToBean<Student> csvToBean = new CsvToBeanBuilder<Student>(reader).withType(Student.class)
 					.withIgnoreLeadingWhiteSpace(true).build();
-
 			students = csvToBean.parse();
-
 		} catch (Exception ex) {
 			logger.error("Exception occured while parsing CSV file: ", ex);
 		}
-
 		return students;
 	}
 

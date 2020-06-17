@@ -10,37 +10,29 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import CSCI5308.GroupFormationTool.Model.Student;
 
 public class SendInvitationEmailServiceImpl implements SendInvitationEmailService {
-	
+
 	@Override
 	public boolean sendUserInvitationEmail(List<Student> newToPortalList, ArrayList<String> passwords) {
 
 		JavaMailSenderImpl mailSender = initializeMailSender();
 		SimpleMailMessage message = new SimpleMailMessage();
-
 		int listSize = newToPortalList.size();
-
 		for (int i = 0; i < listSize; i++) {
-
 			message.setTo(newToPortalList.get(i).getEmail());
 			message.setSubject("Registration to a Group-6 Project Portal");
 			message.setText("Welcome " + newToPortalList.get(i).getFirstName() + " to our Portal! [Group-6 Project]\n\n"
 					+ "Here are your credentials:\n" + "Email: " + newToPortalList.get(i).getEmail() + "\n"
 					+ "Password: " + passwords.get(i));
 			mailSender.send(message);
-
 		}
 		return true;
-
 	}
 
 	@Override
 	public boolean sendCourseInvitationEmail(List<Student> newToCourseList, String courseCode, String courseName) {
-
 		JavaMailSenderImpl mailSender = initializeMailSender();
 		SimpleMailMessage message = new SimpleMailMessage();
-
 		int listSize = newToCourseList.size();
-
 		for (int i = 0; i < listSize; i++) {
 			message.setTo(newToCourseList.get(i).getEmail());
 			message.setSubject("Registration to a new course - " + courseName);
@@ -48,7 +40,6 @@ public class SendInvitationEmailServiceImpl implements SendInvitationEmailServic
 					+ "! " + courseName);
 			mailSender.send(message);
 		}
-
 		return true;
 	}
 

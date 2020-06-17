@@ -21,5 +21,4 @@ public class SplitMcqAnswerServiceImpl implements SplitMcqAnswerService {
 		}
 		return answerList;
 	}
-
 }

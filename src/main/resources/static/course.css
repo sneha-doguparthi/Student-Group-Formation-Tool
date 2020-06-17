@@ -116,3 +116,7 @@
 .q-mngr-txt {
 	text-align: right;
 }
+
+.action-container {
+	display: flex;
+}

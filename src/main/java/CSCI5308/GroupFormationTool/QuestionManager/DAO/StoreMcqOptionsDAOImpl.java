@@ -12,11 +12,11 @@ import CSCI5308.GroupFormationTool.DBConnection.CreateDatabaseConnection;
 import CSCI5308.GroupFormationTool.Model.Answer;
 import CSCI5308.GroupFormationTool.Utilities.ApplicationConstants;
 
-public class StoreMcqOptionsDAOImpl implements StoreMcqOptionsDAO{
+public class StoreMcqOptionsDAOImpl implements StoreMcqOptionsDAO {
 
 	private Logger logger = LogManager.getLogger(StoreMcqOptionsDAOImpl.class);
 	Connection connection;
-	
+
 	@Override
 	public String saveMcqOptionsForQuestion(int questionId, ArrayList<Answer> answerList) {
 		PreparedStatement statement = null;

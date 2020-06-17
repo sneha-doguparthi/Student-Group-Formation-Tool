@@ -26,8 +26,6 @@ public class CourseController {
 		// check inside association table for logged in user
 		ArrayList<CourseAssociation> associationList = courseAssociationDao.getByUserId(userId);
 
-		// if user is student and also a TA then differentiate both entries
-
 		ArrayList<Course> courseListAsStudent = new ArrayList<Course>();
 		ArrayList<Course> courseListAsTA = new ArrayList<Course>();
 		ArrayList<Course> courseListAsInstructor = new ArrayList<Course>();
@@ -37,7 +35,6 @@ public class CourseController {
 		model.addAttribute("courseListAsStudent", new ArrayList<Course>());
 		model.addAttribute("courseListAsTA", new ArrayList<Course>());
 		model.addAttribute("courseListAsInstructor", new ArrayList<Course>());
-
 		// If user is not enrolled in any courses then list all courses
 		// this would be the guest user case
 		if (associationList.size() == 0) {
@@ -45,7 +42,6 @@ public class CourseController {
 			model.addAttribute("allCourses", courses);
 			return "course/courses-home";
 		}
-
 		for (CourseAssociation a : associationList) {
 			if (a.getRoleId() == (ApplicationConstants.STUDENT_ROLE_ID)) {
 				courseListAsStudent.add(courseDao.getById(a.getCourseId()));
@@ -55,7 +51,7 @@ public class CourseController {
 				courseListAsInstructor.add(courseDao.getById(a.getCourseId()));
 			}
 		}
-		// Updating model attributes for data fetched
+		// Updating model attributes with the data fetched
 		model.addAttribute("courseListAsStudent", courseListAsStudent);
 		model.addAttribute("courseListAsTA", courseListAsTA);
 		model.addAttribute("courseListAsInstructor", courseListAsInstructor);

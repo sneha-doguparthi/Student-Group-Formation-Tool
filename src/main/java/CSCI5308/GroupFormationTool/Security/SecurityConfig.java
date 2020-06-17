@@ -10,24 +10,16 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
 
-        http.headers().disable()
-                .authorizeRequests()
-                .antMatchers("/profile/**").permitAll()
-                .antMatchers("/course.css").permitAll()
-                .antMatchers("/admin/**").hasAuthority("ADMIN")
-                .anyRequest().authenticated()
-                .and()
-                .formLogin().loginPage("/profile/login").successForwardUrl("/")
-                .permitAll()
-                .and()
-                .logout().permitAll();
-    }
+		http.headers().disable().authorizeRequests().antMatchers("/profile/**").permitAll().antMatchers("/course.css")
+				.permitAll().antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest().authenticated().and()
+				.formLogin().loginPage("/profile/login").successForwardUrl("/").permitAll().and().logout().permitAll();
+	}
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(new CustomAuthenticationProvider());
-    }
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.authenticationProvider(new CustomAuthenticationProvider());
+	}
 }
