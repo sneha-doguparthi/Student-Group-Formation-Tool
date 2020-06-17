@@ -1,29 +1,66 @@
 package CSCI5308.GroupFormationTool.QuestionManager;
 
-import CSCI5308.GroupFormationTool.Model.Question;
-import CSCI5308.GroupFormationTool.QuestionManager.Service.QuestionManagerService;
-import CSCI5308.GroupFormationTool.QuestionManager.Service.QuestionManagerServiceImpl;
+import java.util.ArrayList;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.ModelAndView;
+
+import CSCI5308.GroupFormationTool.Model.Answer;
+import CSCI5308.GroupFormationTool.Model.Question;
+import CSCI5308.GroupFormationTool.QuestionManager.Service.StoreQuestionService;
+import CSCI5308.GroupFormationTool.QuestionManager.Service.StoreQuestionServiceImpl;
+import CSCI5308.GroupFormationTool.Utilities.ApplicationConstants;
+import CSCI5308.GroupFormationTool.QuestionManager.Service.SplitMcqAnswerService;
+import CSCI5308.GroupFormationTool.QuestionManager.Service.SplitMcqAnswerServiceImpl;
+import CSCI5308.GroupFormationTool.QuestionManager.Service.StoreMcqOptionService;
+import CSCI5308.GroupFormationTool.QuestionManager.Service.StoreMcqOptionServiceImpl;
 
 @Controller
 public class QuestionManagerController {
 
-    @GetMapping("/editor-page")
-    public String getEditorPage(Model model){
-        model.addAttribute("questionObject",new Question());
-        return "question/editor-page";
-    }
+	Question question = new Question();
 
-    @PostMapping("/editor-page")
-    public String storeQuestion(@ModelAttribute("questionObject") Question questionObject){
-        QuestionManagerService questionManagerService = new QuestionManagerServiceImpl();
-        questionManagerService.storeQuestionService(questionObject);
-        return "question/questions-page";
-    }
+	@GetMapping("/question-manager/home")
+	public String questionManagerHomePage(Model model) {
+		return "questionmanager/question-manager-home";
+	}
+
+	@GetMapping("/question-manager/create-question")
+	public String createQuestionHomePage(Model model) {
+		model.addAttribute("questionModel", question);
+		return "questionmanager/create-question";
+	}
+
+	@PostMapping("/question-manager/create-question")
+	public String createQuestionsRequest(Question question, Model model) {
+		this.question = question;
+		return "questionmanager/answer";
+	}
+
+	@PostMapping("/question-manager/create-answer")
+	public String createAnswerRequest(Answer answer, Model model) {
+		SplitMcqAnswerService splitMcqAnswerService = new SplitMcqAnswerServiceImpl();
+		ArrayList<Answer> answerList = splitMcqAnswerService.splitMcqAnswers(answer);
+		this.question.setAnswerList(answerList);
+
+		StoreQuestionService questionAnswerService = new StoreQuestionServiceImpl();
+		int questionId = questionAnswerService.saveQuestionDetails(this.question);
+		String questionAnswerStatus = "";
+		if (!(this.question.getQuestionType().equals("NUM") || (this.question.getQuestionType().equals("FREETEXT")))) {
+			StoreMcqOptionService storeMcqOptionService = new StoreMcqOptionServiceImpl();
+			questionAnswerStatus = storeMcqOptionService.saveMcqOptionsForQuestion(questionId, answerList);
+		}
+		if (questionId != -1) {
+			questionAnswerStatus = ApplicationConstants.QUESTION_ANSWERS_ADDED;
+		} else {
+			questionAnswerStatus = ApplicationConstants.FAILED_QUESTION_ANSWERS_INSERTION;
+		}
+
+		model.addAttribute("questionAnswerStatus", questionAnswerStatus);
+		this.question = new Question();
+		return "questionmanager/question-answer-status";
+	}
 
 }

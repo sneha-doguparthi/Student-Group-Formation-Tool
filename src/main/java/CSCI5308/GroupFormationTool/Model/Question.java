@@ -1,42 +1,58 @@
 package CSCI5308.GroupFormationTool.Model;
-import java.sql.Date;
+
+import java.util.ArrayList;
 
 public class Question {
-    private String title;
-    private String  question;
-    private String type;
-    private Date date;
+	private int questionId;
+	private String questionTitle;
+	private String questionText;
+	private String questionType;
+	private ArrayList<Answer> answerList;
 
-    public String getTitle() {
-        return this.title;
-    }
+	public Question() {
+		this.questionText = null;
+		this.questionTitle = null;
+		this.questionType = null;
+	}
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+	public ArrayList<Answer> getAnswerList() {
+		return answerList;
+	}
 
-    public String getQuestion() {
-        return this.question;
-    }
+	public void setAnswerList(ArrayList<Answer> answerList) {
+		this.answerList = answerList;
+	}
 
-    public void setQuestion(String question) {
-        this.question = question;
-    }
+	public int getQuestionId() {
+		return questionId;
+	}
 
-    public String getType() {
-        return this.type;
-    }
+	public void setQuestionId(int questionId) {
+		this.questionId = questionId;
+	}
 
-    public void setType(String type) {
-        this.type = type;
-    }
+	public String getQuestionTitle() {
+		return questionTitle;
+	}
 
-    public Date getDate() {
-        return date;
-    }
+	public void setQuestionTitle(String questionTitle) {
+		this.questionTitle = questionTitle;
+	}
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
+	public String getQuestionText() {
+		return questionText;
+	}
+
+	public void setQuestionText(String questionText) {
+		this.questionText = questionText;
+	}
+
+	public String getQuestionType() {
+		return questionType;
+	}
+
+	public void setQuestionType(String questionType) {
+		this.questionType = questionType;
+	}
 
 }

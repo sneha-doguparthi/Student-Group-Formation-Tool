@@ -86,3 +86,29 @@
 	margin: 40px auto;
 	text-align: center;
 }
+
+.create-question-form {
+	text-align: left;
+	width: 50%;
+	margin: 0 auto;
+}
+
+.question-text {
+	width: 100%
+}
+
+.question-item span {
+	display: block;
+}
+
+.select {
+	padding: 5px;
+}
+
+.qna-msg {
+	font-size: 30px;
+}
+
+.back-btn, .back-btn:hover {
+	font-size: 20px;
+}
