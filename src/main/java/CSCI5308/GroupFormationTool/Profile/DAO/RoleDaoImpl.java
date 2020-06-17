@@ -2,14 +2,20 @@ package CSCI5308.GroupFormationTool.Profile.DAO;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import CSCI5308.GroupFormationTool.DBConnection.CreateDatabaseConnection;
 import CSCI5308.GroupFormationTool.Model.Role;
 
 public class RoleDaoImpl implements RoleDao {
 
+	private Logger logger = LogManager.getLogger(RoleDaoImpl.class);
+	
 	@Override
 	public ArrayList<Role> findByName(String name) {
 
@@ -35,19 +41,18 @@ public class RoleDaoImpl implements RoleDao {
 
 				roles.add(role);
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (SQLException e) {
+			logger.error("Exception occured finding user role by role name: ", e);
 		} finally {
-
 			try {
-				if (null != statement)
+				if (null != statement) {
 					statement.close();
-
-				if (null != connection)
+				}
+				if (null != connection) {
 					connection.close();
-
-			} catch (Exception e) {
-				e.printStackTrace();
+				}
+			} catch (SQLException e) {
+				logger.error("Exception occured while closing connection/statement", e);
 			}
 		}
 

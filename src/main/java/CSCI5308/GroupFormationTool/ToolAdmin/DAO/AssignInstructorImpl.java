@@ -40,10 +40,12 @@ public class AssignInstructorImpl implements AssignInstructor {
 			logger.error("Exception occured while fetching the user list", e);
 		} finally {
 			try {
-				if (statement != null)
+				if (null != statement) {
 					statement.close();
-				if (connection != null)
+				}
+				if (null != connection) {
 					connection.close();
+				}
 			} catch (SQLException e) {
 				logger.error("Exception occured while closing connection/statement", e);
 			}
@@ -71,10 +73,12 @@ public class AssignInstructorImpl implements AssignInstructor {
 			logger.error("Exception occured while adding new course", e);
 		} finally {
 			try {
-				if (statement != null)
+				if (null != statement) {
 					statement.close();
-				if (connection != null)
+				}
+				if (null != connection) {
 					connection.close();
+				}
 			} catch (SQLException e) {
 				logger.error("Exception occured while closing connection/statement", e);
 			}
@@ -102,10 +106,12 @@ public class AssignInstructorImpl implements AssignInstructor {
 			logger.error("Exception occured while checking if course exists for user", e);
 		} finally {
 			try {
-				if (statement != null)
+				if (null != statement) {
 					statement.close();
-				if (connection != null)
+				}
+				if (null != connection) {
 					connection.close();
+				}
 			} catch (SQLException e) {
 				logger.error("Exception occured while closing connection/statement", e);
 			}

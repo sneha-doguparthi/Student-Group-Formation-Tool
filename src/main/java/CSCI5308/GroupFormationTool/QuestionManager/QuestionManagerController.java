@@ -36,6 +36,19 @@ public class QuestionManagerController {
 	@PostMapping("/question-manager/create-question")
 	public String createQuestionsRequest(Question question, Model model) {
 		this.question = question;
+		if (this.question.getQuestionType().equals("NUM") || this.question.getQuestionType().equals("FREETEXT")) {
+			StoreQuestionService questionAnswerService = new StoreQuestionServiceImpl();
+			int questionId = questionAnswerService.saveQuestionDetails(this.question);
+			String questionAnswerStatus = "";
+			if (questionId != -1) {
+				questionAnswerStatus = ApplicationConstants.QUESTION_ANSWERS_ADDED;
+			} else {
+				questionAnswerStatus = ApplicationConstants.FAILED_QUESTION_ANSWERS_INSERTION;
+			}
+			model.addAttribute("questionAnswerStatus", questionAnswerStatus);
+			this.question = new Question();
+			return "questionmanager/question-answer-status";
+		}
 		return "questionmanager/answer";
 	}
 

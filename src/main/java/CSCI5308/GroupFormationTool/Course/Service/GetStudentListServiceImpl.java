@@ -6,11 +6,16 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import CSCI5308.GroupFormationTool.DBConnection.CreateDatabaseConnection;
 import CSCI5308.GroupFormationTool.Model.Student;
 import CSCI5308.GroupFormationTool.Model.User;
 
 public class GetStudentListServiceImpl implements GetStudentListService {
+
+	private Logger logger = LogManager.getLogger(GetStudentListServiceImpl.class);
 
 	@Override
 	public List<Student> getNewToCourseStudentList(List<Student> studentsFromCsv, ArrayList<User> specificUserList) {
@@ -30,7 +35,6 @@ public class GetStudentListServiceImpl implements GetStudentListService {
 				}
 			}
 		}
-
 		return students;
 	}
 
@@ -50,7 +54,6 @@ public class GetStudentListServiceImpl implements GetStudentListService {
 			connection = CreateDatabaseConnection.instance().createConnection();
 			for (int i = 0; i < usersSize; i++) {
 				for (int j = 0; j < studentsSize; j++) {
-//					System.out.println("j=" + students.get(j).getbId());
 					if (students.get(j).getbId().equals(users.get(i).getBannerId())) {
 						String reqQuery = "UPDATE user SET user_type='S' WHERE banner_id=?";
 						statement = connection.prepareStatement(reqQuery);
@@ -61,28 +64,23 @@ public class GetStudentListServiceImpl implements GetStudentListService {
 						studentsSize--;
 						break;
 					}
-//					System.out.println("Inside New to Portal-2: " + studentsSize);
 				}
 			}
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error("Exception occured while getting the user id: ", e);
 		} finally {
-			if (statement != null)
-				try {
+			try {
+				if (null != statement) {
 					statement.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
 				}
-			if (connection != null)
-				try {
+				if (null != connection) {
 					connection.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
 				}
+			} catch (SQLException e) {
+				logger.error("Exception occured while closing connection/statement", e);
+			}
 		}
-
-//		System.out.println("Inside New to Portal-1: " + studentsSize);
 		return students;
 	}
 

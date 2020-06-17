@@ -37,10 +37,12 @@ public class ViewCoursesImpl implements ViewCourses {
 			logger.error("Exception occured while fetching the course list", e);
 		} finally {
 			try {
-				if (statement != null)
+				if (null != statement) {
 					statement.close();
-				if (connection != null)
+				}
+				if (null != connection) {
 					connection.close();
+				}
 			} catch (SQLException e) {
 				logger.error("Exception occured while closing connection/statement", e);
 			}
