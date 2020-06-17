@@ -6,6 +6,8 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.web.multipart.MultipartFile;
 
 import CSCI5308.GroupFormationTool.Course.DAO.CourseAssociationDAO;
@@ -20,6 +22,8 @@ import com.opencsv.bean.CsvToBeanBuilder;
 
 public class UploadCsvFileServiceImpl implements UploadCsvFileService {
 
+	private Logger logger = LogManager.getLogger(UploadCsvFileServiceImpl.class);
+	
 	private String resMessage;
 	private Boolean resStatus;
 	private List<Student> resStudentList;
@@ -61,7 +65,7 @@ public class UploadCsvFileServiceImpl implements UploadCsvFileService {
 				resStatus = ApplicationConstants.UPLOAD_STATUS_TRUE;
 				resStudentList = newToCourseList;
 			} catch (Exception ex) {
-				ex.printStackTrace();
+				logger.error("Exception occurred while uploading CSV file", ex);
 				resMessage = ApplicationConstants.FILE_ERROR;
 				resStatus = ApplicationConstants.UPLOAD_STATUS_FALSE;
 			}
@@ -83,7 +87,7 @@ public class UploadCsvFileServiceImpl implements UploadCsvFileService {
 			students = csvToBean.parse();
 
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			logger.error("Exception occured while parsing CSV file: ", ex);
 		}
 
 		return students;

@@ -3,17 +3,23 @@ package CSCI5308.GroupFormationTool.Profile.DAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import CSCI5308.GroupFormationTool.DBConnection.CreateDatabaseConnection;
 import CSCI5308.GroupFormationTool.Model.Otp;
 
 public class OtpDaoImpl implements OtpDao {
 
+	private Logger logger = LogManager.getLogger(OtpDaoImpl.class);
+	
 	@Override
 	public Boolean insertOtp(Otp otp) {
 
@@ -37,17 +43,19 @@ public class OtpDaoImpl implements OtpDao {
 			statement.executeUpdate();
 			return true;
 
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (SQLException e) {
+			logger.error("Exception occured while inserting OTP: ", e);
 			return false;
 		} finally {
 			try {
-				if (statement != null)
+				if (null != statement) {
 					statement.close();
-				if (connection != null)
+				}
+				if (null != connection) {
 					connection.close();
-			} catch (Exception e) {
-				e.printStackTrace();
+				}
+			} catch (SQLException e) {
+				logger.error("Exception occured while closing connection/statement", e);
 			}
 		}
 	}
@@ -82,18 +90,17 @@ public class OtpDaoImpl implements OtpDao {
 				otpList.add(otp);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Exception occured while fetching otp by email id: ", e);
 		} finally {
-
 			try {
-				if (null != statement)
+				if (null != statement) {
 					statement.close();
-
-				if (null != connection)
+				}
+				if (null != connection) {
 					connection.close();
-
-			} catch (Exception e) {
-				e.printStackTrace();
+				}
+			} catch (SQLException e) {
+				logger.error("Exception occured while closing connection/statement", e);
 			}
 		}
 

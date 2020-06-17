@@ -3,14 +3,20 @@ package CSCI5308.GroupFormationTool.Course.DAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import CSCI5308.GroupFormationTool.DBConnection.CreateDatabaseConnection;
 import CSCI5308.GroupFormationTool.Model.CourseAssociation;
 
 public class CourseAssociationDAOImpl implements CourseAssociationDAO {
-
+	
+	private Logger logger = LogManager.getLogger(CourseAssociationDAOImpl.class);
+	
 	@Override
 	public ArrayList<Integer> getUserID(Integer courseId) {
 
@@ -19,7 +25,6 @@ public class CourseAssociationDAOImpl implements CourseAssociationDAO {
 		ArrayList<Integer> userIds = new ArrayList<>();
 
 		try {
-
 			connection = CreateDatabaseConnection.instance().createConnection();
 			statement = connection.createStatement();
 
@@ -32,18 +37,18 @@ public class CourseAssociationDAOImpl implements CourseAssociationDAO {
 				userIds.add(userId);
 			}
 
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (SQLException e) {
+			logger.error("Exception occured while getting the user id: ", e);
 		} finally {
 			try {
-				if (null != statement)
+				if (null != statement) {
 					statement.close();
-
-				if (null != connection)
+				}
+				if (null != connection) {
 					connection.close();
-
-			} catch (Exception e) {
-				e.printStackTrace();
+				}
+			} catch (SQLException e) {
+				logger.error("Exception occured while closing connection/statement", e);
 			}
 		}
 
@@ -74,12 +79,12 @@ public class CourseAssociationDAOImpl implements CourseAssociationDAO {
 			e.printStackTrace();
 		} finally {
 			try {
-				if (statement != null)
+				if (null != statement) {
 					statement.close();
-
-				if (connection != null)
+				}
+				if (null != connection) {
 					connection.close();
-
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -110,10 +115,12 @@ public class CourseAssociationDAOImpl implements CourseAssociationDAO {
 			return false;
 		} finally {
 			try {
-				if (statement != null)
+				if (null != statement) {
 					statement.close();
-				if (connection != null)
+				}
+				if (null != connection) {
 					connection.close();
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -151,11 +158,12 @@ public class CourseAssociationDAOImpl implements CourseAssociationDAO {
 			e.printStackTrace();
 		} finally {
 			try {
-				if (null != statement)
+				if (null != statement) {
 					statement.close();
-
-				if (null != connection)
+				}
+				if (null != connection) {
 					connection.close();
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

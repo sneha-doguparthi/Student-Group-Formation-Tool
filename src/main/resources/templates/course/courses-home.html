@@ -5,7 +5,7 @@
 </head>
 <body>
 	<ul lang="en" th:replace="fragments/course-header :: course-header"></ul>
-	<div th:if="${!courseListAsInstructor.empty}">
+	<div class="container q-mngr-txt" th:if="${!courseListAsInstructor.empty}">
 	 <a class="nav-btn app-title" th:href="@{/question-manager/home}">Question Manager</a>
 	</div>
 	<div class="container" th:if="${!allCourses.empty}">

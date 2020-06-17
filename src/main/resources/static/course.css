@@ -112,3 +112,7 @@
 .back-btn, .back-btn:hover {
 	font-size: 20px;
 }
+
+.q-mngr-txt {
+	text-align: right;
+}

@@ -5,12 +5,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import CSCI5308.GroupFormationTool.DBConnection.CreateDatabaseConnection;
 import CSCI5308.GroupFormationTool.Model.Student;
 import CSCI5308.GroupFormationTool.Model.User;
 
 public class UserDaoImpl implements UserDao {
+
+	private Logger logger = LogManager.getLogger(UserDaoImpl.class);
 
 	@Override
 	public ArrayList<User> getUserByUserID(ArrayList<Integer> userIds) {
@@ -43,18 +47,18 @@ public class UserDaoImpl implements UserDao {
 				}
 			}
 
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (SQLException e) {
+			logger.error("Exception occured while getting the user by user id: ", e);
 		} finally {
 			try {
-				if (null != statement)
+				if (null != statement) {
 					statement.close();
-
-				if (null != connection)
+				}
+				if (null != connection) {
 					connection.close();
-
-			} catch (Exception e) {
-				e.printStackTrace();
+				}
+			} catch (SQLException e) {
+				logger.error("Exception occured while closing connection/statement", e);
 			}
 		}
 
@@ -86,18 +90,18 @@ public class UserDaoImpl implements UserDao {
 				user.setUserType(rs.getString("user_type"));
 				users.add(user);
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (SQLException e) {
+			logger.error("Exception occured while getting all the users: ", e);
 		} finally {
 			try {
-				if (null != statement)
+				if (null != statement) {
 					statement.close();
-
-				if (null != connection)
+				}
+				if (null != connection) {
 					connection.close();
-
-			} catch (Exception e) {
-				e.printStackTrace();
+				}
+			} catch (SQLException e) {
+				logger.error("Exception occured while closing connection/statement", e);
 			}
 		}
 
@@ -135,18 +139,18 @@ public class UserDaoImpl implements UserDao {
 
 			}
 
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (SQLException e) {
+			logger.error("Exception occured while getting the user by id: ", e);
 		} finally {
 			try {
-				if (null != statement)
+				if (null != statement) {
 					statement.close();
-
-				if (null != connection)
+				}
+				if (null != connection) {
 					connection.close();
-
-			} catch (Exception e) {
-				e.printStackTrace();
+				}
+			} catch (SQLException e) {
+				logger.error("Exception occured while closing connection/statement", e);
 			}
 		}
 
@@ -178,19 +182,19 @@ public class UserDaoImpl implements UserDao {
 				statement.setString(5, password);
 				statement.setString(6, "S");
 				statement.executeUpdate();
-
 			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (SQLException e) {
+			logger.error("Exception occured while adding the user: ", e);
 		} finally {
 			try {
-				if (statement != null)
+				if (null != statement) {
 					statement.close();
-				if (connection != null)
+				}
+				if (null != connection) {
 					connection.close();
-			} catch (Exception e) {
-				e.printStackTrace();
+				}
+			} catch (SQLException e) {
+				logger.error("Exception occured while closing connection/statement", e);
 			}
 		}
 
@@ -224,18 +228,18 @@ public class UserDaoImpl implements UserDao {
 
 			}
 
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (SQLException e) {
+			logger.error("Exception occured while getting the password: ", e);
 		} finally {
 			try {
-				if (null != statement)
+				if (null != statement) {
 					statement.close();
-
-				if (null != connection)
+				}
+				if (null != connection) {
 					connection.close();
-
-			} catch (Exception e) {
-				e.printStackTrace();
+				}
+			} catch (SQLException e) {
+				logger.error("Exception occured while closing connection/statement", e);
 			}
 		}
 
@@ -272,19 +276,18 @@ public class UserDaoImpl implements UserDao {
 
 				users.add(user);
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (SQLException e) {
+			logger.error("Exception occured while getting the user by email id: ", e);
 		} finally {
-
 			try {
-				if (null != statement)
+				if (null != statement) {
 					statement.close();
-
-				if (null != connection)
+				}
+				if (null != connection) {
 					connection.close();
-
-			} catch (Exception e) {
-				e.printStackTrace();
+				}
+			} catch (SQLException e) {
+				logger.error("Exception occured while closing connection/statement", e);
 			}
 		}
 
@@ -314,17 +317,19 @@ public class UserDaoImpl implements UserDao {
 
 			statement.executeUpdate();
 			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (SQLException e) {
+			logger.error("Exception occured while updating the user details: ", e);
 			return false;
 		} finally {
 			try {
-				if (statement != null)
+				if (null != statement) {
 					statement.close();
-				if (connection != null)
+				}
+				if (null != connection) {
 					connection.close();
-			} catch (Exception e) {
-				e.printStackTrace();
+				}
+			} catch (SQLException e) {
+				logger.error("Exception occured while closing connection/statement", e);
 			}
 		}
 	}
@@ -350,15 +355,18 @@ public class UserDaoImpl implements UserDao {
 				return isUser;
 			}
 		} catch (SQLException e) {
+			logger.error("Exception occured while checking user access: ", e);
 			return isUser;
 		} finally {
 			try {
-				if (null != statement)
+				if (null != statement) {
 					statement.close();
-				if (null != connection)
+				}
+				if (null != connection) {
 					connection.close();
-			} catch (Exception e) {
-				e.printStackTrace();
+				}
+			} catch (SQLException e) {
+				logger.error("Exception occured while closing connection/statement", e);
 			}
 		}
 	}
@@ -383,18 +391,19 @@ public class UserDaoImpl implements UserDao {
 				int result = statement.executeUpdate();
 				isRegistered = result > 0 ? true : false;
 			}
-		} catch (SQLException exception) {
+		} catch (SQLException e) {
+			logger.error("Exception occured while registering the user: ", e);
 			isRegistered = false;
 		} finally {
 			try {
-				if (statement != null) {
+				if (null != statement) {
 					statement.close();
 				}
-				if (connection != null) {
+				if (null != connection) {
 					connection.close();
 				}
-			} catch (Exception e) {
-
+			} catch (SQLException e) {
+				logger.error("Exception occured while closing connection/statement", e);
 			}
 		}
 		return isRegistered;
