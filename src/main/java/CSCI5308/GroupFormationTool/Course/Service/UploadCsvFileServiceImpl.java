@@ -6,18 +6,19 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 
-import CSCI5308.GroupFormationTool.SystemConfig;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.opencsv.bean.CsvToBean;
+import com.opencsv.bean.CsvToBeanBuilder;
+
+import CSCI5308.GroupFormationTool.SystemConfig;
 import CSCI5308.GroupFormationTool.Course.DAO.CourseAssociationDAO;
 import CSCI5308.GroupFormationTool.Model.Student;
 import CSCI5308.GroupFormationTool.Model.User;
 import CSCI5308.GroupFormationTool.Profile.DAO.UserDao;
 import CSCI5308.GroupFormationTool.Utilities.ApplicationConstants;
-import com.opencsv.bean.CsvToBean;
-import com.opencsv.bean.CsvToBeanBuilder;
 
 public class UploadCsvFileServiceImpl implements UploadCsvFileService {
 
@@ -46,7 +47,8 @@ public class UploadCsvFileServiceImpl implements UploadCsvFileService {
 				List<Student> newToCourseList = getStudentListService.getNewToCourseStudentList(students, userList);
 				ArrayList<User> allUserList = userDao.getAll();
 
-				List<Student> newToPortalList = getStudentListService.getNewToPortalStudentList(newToCourseList, allUserList);
+				List<Student> newToPortalList = getStudentListService.getNewToPortalStudentList(newToCourseList,
+						allUserList);
 				userDao.addUser(newToPortalList);
 
 				ArrayList<Integer> userIdsFromUser = userDao.getUserID(newToCourseList);

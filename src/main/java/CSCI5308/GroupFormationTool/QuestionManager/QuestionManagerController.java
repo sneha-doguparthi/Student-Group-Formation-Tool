@@ -1,17 +1,22 @@
 package CSCI5308.GroupFormationTool.QuestionManager;
 
-import CSCI5308.GroupFormationTool.Model.Answer;
-import CSCI5308.GroupFormationTool.Model.Question;
-import CSCI5308.GroupFormationTool.QuestionManager.Service.*;
-import CSCI5308.GroupFormationTool.SystemConfig;
-import CSCI5308.GroupFormationTool.Utilities.ApplicationConstants;
+import java.util.ArrayList;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
+import CSCI5308.GroupFormationTool.SystemConfig;
+import CSCI5308.GroupFormationTool.Model.Answer;
+import CSCI5308.GroupFormationTool.Model.Question;
+import CSCI5308.GroupFormationTool.QuestionManager.Service.DeleteQuestionService;
+import CSCI5308.GroupFormationTool.QuestionManager.Service.FetchQuestionService;
+import CSCI5308.GroupFormationTool.QuestionManager.Service.SplitMcqAnswerService;
+import CSCI5308.GroupFormationTool.QuestionManager.Service.StoreMcqOptionService;
+import CSCI5308.GroupFormationTool.QuestionManager.Service.StoreQuestionService;
+import CSCI5308.GroupFormationTool.Utilities.ApplicationConstants;
 
 @Controller
 public class QuestionManagerController {
@@ -48,7 +53,7 @@ public class QuestionManagerController {
 
 		return "questionmanager/question-manager-home";
 	}
-	
+
 	@GetMapping("/question-manager/create-question")
 	public String createQuestionHomePage(Model model) {
 

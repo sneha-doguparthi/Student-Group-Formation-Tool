@@ -4,9 +4,10 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import CSCI5308.GroupFormationTool.DBConnection.CreateDatabaseConnection;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import CSCI5308.GroupFormationTool.DBConnection.CreateDatabaseConnection;
 
 public class DeleteQuestionDAOImpl implements DeleteQuestionDAO {
 
@@ -37,7 +38,7 @@ public class DeleteQuestionDAOImpl implements DeleteQuestionDAO {
 				logger.error("Connection close Exception in method delete question", exception);
 			}
 		}
-	
+
 		return true;
 	}
 

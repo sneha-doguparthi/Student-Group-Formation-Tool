@@ -1,9 +1,9 @@
 package CSCI5308.GroupFormationTool.Profile.Service;
 
+import CSCI5308.GroupFormationTool.SystemConfig;
 import CSCI5308.GroupFormationTool.Model.User;
 import CSCI5308.GroupFormationTool.Profile.DAO.PasswordHistoryDao;
 import CSCI5308.GroupFormationTool.Profile.DAO.UserDao;
-import CSCI5308.GroupFormationTool.SystemConfig;
 
 public class RegistrationServiceImpl implements RegistrationService {
 

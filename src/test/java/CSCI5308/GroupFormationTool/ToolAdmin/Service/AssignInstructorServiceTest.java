@@ -6,14 +6,14 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
+
+import org.junit.jupiter.api.Test;
+import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
 import CSCI5308.GroupFormationTool.Model.Course;
 import CSCI5308.GroupFormationTool.Model.User;
 import CSCI5308.GroupFormationTool.Utilities.ApplicationConstants;
-
-import org.junit.jupiter.api.Test;
-import org.mockito.invocation.InvocationOnMock;
 
 public class AssignInstructorServiceTest {
 	AssignInstructorService assignInstructorService = mock(AssignInstructorServiceImpl.class);

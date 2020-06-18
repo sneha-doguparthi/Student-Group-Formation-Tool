@@ -37,7 +37,7 @@ public class DeleteCourseController {
 
 	@PostMapping("admin/delete-course-request")
 	public String deleteCourseFromList(@RequestParam("course-checkbox") ArrayList<String> deleteCourseList,
-									   Model model) {
+			Model model) {
 
 		if (null != deleteCourseList) {
 			ArrayList<String> deleteResultList = deleteCourseService.deleteCourse(deleteCourseList);

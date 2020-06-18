@@ -2,13 +2,13 @@ package CSCI5308.GroupFormationTool.Course;
 
 import java.util.List;
 
-import CSCI5308.GroupFormationTool.SystemConfig;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import CSCI5308.GroupFormationTool.SystemConfig;
 import CSCI5308.GroupFormationTool.Course.Service.UploadCsvFileService;
 import CSCI5308.GroupFormationTool.Model.Student;
 

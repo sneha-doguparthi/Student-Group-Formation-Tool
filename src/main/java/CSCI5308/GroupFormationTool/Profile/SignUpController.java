@@ -1,13 +1,13 @@
 package CSCI5308.GroupFormationTool.Profile;
 
-import CSCI5308.GroupFormationTool.Model.PasswordPolicy;
-import CSCI5308.GroupFormationTool.SystemConfig;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import CSCI5308.GroupFormationTool.SystemConfig;
+import CSCI5308.GroupFormationTool.Model.PasswordPolicy;
 import CSCI5308.GroupFormationTool.Model.User;
 import CSCI5308.GroupFormationTool.Profile.Service.RegistrationService;
 

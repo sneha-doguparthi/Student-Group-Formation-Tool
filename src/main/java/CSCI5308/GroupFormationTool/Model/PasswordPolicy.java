@@ -1,9 +1,9 @@
 package CSCI5308.GroupFormationTool.Model;
 
-import CSCI5308.GroupFormationTool.Profile.DAO.PasswordHistoryDao;
-import CSCI5308.GroupFormationTool.SystemConfig;
-
 import java.util.ArrayList;
+
+import CSCI5308.GroupFormationTool.SystemConfig;
+import CSCI5308.GroupFormationTool.Profile.DAO.PasswordHistoryDao;
 
 public class PasswordPolicy {
 

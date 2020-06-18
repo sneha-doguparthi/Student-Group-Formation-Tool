@@ -19,7 +19,7 @@
 				</thead>
 				<tbody>
 					<tr th:each="userModel, iterstat:${userList}">
-						<form action="/admin/assign-role" method="post">
+						<form th:action="@{/admin/assign-role}" method="post">
 							<td th:value="${userModel.getFirstName()}"
 								th:text="${userModel.getFirstName()}">Rob</td>
 							<td th:value="${userModel.getLastName()}"

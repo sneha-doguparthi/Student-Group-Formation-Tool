@@ -3,8 +3,8 @@ package CSCI5308.GroupFormationTool.Profile.DAO;
 import java.util.ArrayList;
 import java.util.List;
 
-import CSCI5308.GroupFormationTool.Model.User;
 import CSCI5308.GroupFormationTool.Model.Student;
+import CSCI5308.GroupFormationTool.Model.User;
 
 public interface UserDao {
 
