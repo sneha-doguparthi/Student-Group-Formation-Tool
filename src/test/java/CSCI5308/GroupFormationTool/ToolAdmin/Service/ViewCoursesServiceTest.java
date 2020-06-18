@@ -6,12 +6,12 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
-import org.mockito.stubbing.Answer;
-
-import CSCI5308.GroupFormationTool.Model.Course;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
+
+import CSCI5308.GroupFormationTool.Model.Course;
 
 public class ViewCoursesServiceTest {
 	ViewCoursesService viewCoursesService = mock(ViewCoursesServiceImpl.class);

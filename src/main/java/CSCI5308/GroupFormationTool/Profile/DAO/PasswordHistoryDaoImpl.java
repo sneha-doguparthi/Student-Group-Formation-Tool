@@ -1,12 +1,17 @@
 package CSCI5308.GroupFormationTool.Profile.DAO;
 
-import CSCI5308.GroupFormationTool.DBConnection.CreateDatabaseConnection;
-import CSCI5308.GroupFormationTool.Model.PasswordHistory;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.*;
-import java.util.ArrayList;
+import CSCI5308.GroupFormationTool.DBConnection.CreateDatabaseConnection;
+import CSCI5308.GroupFormationTool.Model.PasswordHistory;
 
 public class PasswordHistoryDaoImpl implements PasswordHistoryDao {
 

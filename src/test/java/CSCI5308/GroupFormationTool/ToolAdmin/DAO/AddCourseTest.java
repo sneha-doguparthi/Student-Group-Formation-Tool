@@ -1,14 +1,14 @@
 package CSCI5308.GroupFormationTool.ToolAdmin.DAO;
 
-import org.junit.jupiter.api.Test;
-
-import CSCI5308.GroupFormationTool.Model.Course;
-import CSCI5308.GroupFormationTool.Utilities.ApplicationConstants;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
+import org.junit.jupiter.api.Test;
+
+import CSCI5308.GroupFormationTool.Model.Course;
+import CSCI5308.GroupFormationTool.Utilities.ApplicationConstants;
 
 public class AddCourseTest {
 	AddCourse addCourse = mock(AddCourseImpl.class);

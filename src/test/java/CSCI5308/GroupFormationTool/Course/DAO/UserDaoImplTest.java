@@ -1,7 +1,10 @@
 package CSCI5308.GroupFormationTool.Course.DAO;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;

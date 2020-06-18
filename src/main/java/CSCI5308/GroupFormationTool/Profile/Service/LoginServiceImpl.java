@@ -1,11 +1,12 @@
 package CSCI5308.GroupFormationTool.Profile.Service;
 
-import CSCI5308.GroupFormationTool.Model.User;
-import CSCI5308.GroupFormationTool.Profile.DAO.UserDao;
-import CSCI5308.GroupFormationTool.SystemConfig;
+import java.util.ArrayList;
+
 import org.springframework.ui.Model;
 
-import java.util.ArrayList;
+import CSCI5308.GroupFormationTool.SystemConfig;
+import CSCI5308.GroupFormationTool.Model.User;
+import CSCI5308.GroupFormationTool.Profile.DAO.UserDao;
 
 public class LoginServiceImpl implements LoginService {
 

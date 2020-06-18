@@ -1,7 +1,7 @@
 package CSCI5308.GroupFormationTool.Course.Service;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 import CSCI5308.GroupFormationTool.Model.Student;
 

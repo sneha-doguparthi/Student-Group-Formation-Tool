@@ -2,13 +2,13 @@ package CSCI5308.GroupFormationTool.Course.Service;
 
 import java.util.ArrayList;
 
+import CSCI5308.GroupFormationTool.SystemConfig;
 import CSCI5308.GroupFormationTool.Course.DAO.CourseAssociationDAO;
 import CSCI5308.GroupFormationTool.Model.CourseAssociation;
 import CSCI5308.GroupFormationTool.Model.Role;
 import CSCI5308.GroupFormationTool.Model.User;
 import CSCI5308.GroupFormationTool.Profile.DAO.RoleDao;
 import CSCI5308.GroupFormationTool.Profile.DAO.UserDao;
-import CSCI5308.GroupFormationTool.SystemConfig;
 
 public class AssignTaServiceImpl implements AssignTaService {
 

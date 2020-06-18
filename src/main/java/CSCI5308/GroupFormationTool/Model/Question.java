@@ -66,7 +66,7 @@ public class Question {
 	public void setQuestionDate(String questionDate) {
 		this.questionDate = questionDate;
 	}
-	
+
 	public int getQuestionNo() {
 		return questionNo;
 	}

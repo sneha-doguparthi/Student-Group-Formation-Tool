@@ -1,16 +1,16 @@
 package CSCI5308.GroupFormationTool.Profile.Service;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Random;
+
+import CSCI5308.GroupFormationTool.SystemConfig;
 import CSCI5308.GroupFormationTool.Model.Otp;
 import CSCI5308.GroupFormationTool.Model.User;
 import CSCI5308.GroupFormationTool.Profile.DAO.OtpDao;
 import CSCI5308.GroupFormationTool.Profile.DAO.PasswordHistoryDao;
 import CSCI5308.GroupFormationTool.Profile.DAO.UserDao;
-import CSCI5308.GroupFormationTool.SystemConfig;
-
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Random;
 
 public class OtpServiceImpl implements OtpService {
 
@@ -74,7 +74,7 @@ public class OtpServiceImpl implements OtpService {
 				User userToUpdate = allUsers.get(0);
 				userToUpdate.setPassword(password);
 				userDao.update(userToUpdate);
-				passwordHistoryDao.insert(email,password);
+				passwordHistoryDao.insert(email, password);
 				return "password_updated";
 			} else {
 				return "otp_invalid";

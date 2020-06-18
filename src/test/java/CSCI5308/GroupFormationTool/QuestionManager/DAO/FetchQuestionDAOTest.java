@@ -12,13 +12,13 @@ import org.junit.jupiter.api.Test;
 import CSCI5308.GroupFormationTool.Model.Question;
 
 public class FetchQuestionDAOTest {
-	
+
 	FetchQuestionDAO fetchQuestionDAO = mock(FetchQuestionDAOImpl.class);
-	
+
 	@Test
 	public void testGetQuestionByUserId() {
 		ArrayList<Question> result = new ArrayList<>();
-		
+
 		Question question = new Question();
 		question.setQuestionNo(1);
 		question.setQuestionId(5);
@@ -27,7 +27,7 @@ public class FetchQuestionDAOTest {
 		question.setQuestionType("This is the question type");
 		question.setQuestionDate("12/12/12");
 		result.add(question);
-		
+
 		when(fetchQuestionDAO.getQuestionByUserId()).thenReturn(result);
 		assertEquals(fetchQuestionDAO.getQuestionByUserId(), result);
 		verify(fetchQuestionDAO).getQuestionByUserId();

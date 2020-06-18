@@ -2,11 +2,12 @@ package CSCI5308.GroupFormationTool.Course;
 
 import java.util.ArrayList;
 
-import CSCI5308.GroupFormationTool.SystemConfig;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import CSCI5308.GroupFormationTool.SystemConfig;
 import CSCI5308.GroupFormationTool.Course.Service.AssignTaService;
 import CSCI5308.GroupFormationTool.Model.User;
 
@@ -15,7 +16,7 @@ public class AssignTaController {
 
 	AssignTaService assignTaService;
 
-	public AssignTaController(){
+	public AssignTaController() {
 		this.assignTaService = SystemConfig.instance().getAssignTaService();
 	}
 
