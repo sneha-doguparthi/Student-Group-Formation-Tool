@@ -3,7 +3,6 @@ package CSCI5308.GroupFormationTool.Model;
 public class Role {
 
 	private Integer roleId;
-
 	private String roleName;
 
 	public Integer getRoleId() {

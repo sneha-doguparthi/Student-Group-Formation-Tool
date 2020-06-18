@@ -2,7 +2,7 @@ package CSCI5308.GroupFormationTool.Security;
 
 import CSCI5308.GroupFormationTool.Model.User;
 import CSCI5308.GroupFormationTool.Profile.DAO.UserDao;
-import CSCI5308.GroupFormationTool.Profile.DAO.UserDaoImpl;
+import CSCI5308.GroupFormationTool.SystemConfig;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,24 +21,16 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
 		String email = authentication.getName();
 		String password = authentication.getCredentials().toString();
-
-		UserDao userDao = new UserDaoImpl();
-
-		// getting list of user with provided email parameter
+		UserDao userDao = SystemConfig.instance().getUserDao();
 		ArrayList<User> allUsers = userDao.getByEmail(email);
 
 		if (allUsers.size() != 0) {
-
 			User validUser = allUsers.get(0);
-
 			if (validUser.getPassword().equals(password)) {
-
 				List<GrantedAuthority> authority = new ArrayList<>();
-
 				if (validUser.getUserType().equals("A")) {
 					authority.add(new SimpleGrantedAuthority("ADMIN"));
 				}
-
 				return new UsernamePasswordAuthenticationToken(email, password, authority);
 			} else {
 				throw new BadCredentialsException("1001");
@@ -46,6 +38,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 		} else {
 			throw new BadCredentialsException("1001");
 		}
+
 	}
 
 	@Override

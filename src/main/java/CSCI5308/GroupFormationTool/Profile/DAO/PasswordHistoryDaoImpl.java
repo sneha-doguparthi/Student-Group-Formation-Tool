@@ -20,26 +20,20 @@ public class PasswordHistoryDaoImpl implements PasswordHistoryDao {
 
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
-
 			String insertQuery = "INSERT INTO password_history (email,password) values(?,?);";
 			statement = connection.prepareStatement(insertQuery);
 			statement.setString(1, email);
 			statement.setString(2, password);
-
 			statement.executeUpdate();
-
 		} catch (SQLException exception) {
 			logger.error("SQL exception in method insert", exception);
 			return false;
 		} finally {
 			try {
-
 				if (null != statement)
 					statement.close();
-
 				if (null != connection)
 					connection.close();
-
 			} catch (SQLException exception) {
 				logger.error("SQL exception while closing connection", exception);
 			}
@@ -58,19 +52,14 @@ public class PasswordHistoryDaoImpl implements PasswordHistoryDao {
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
 			statement = connection.createStatement();
-
 			String query = "SELECT * FROM password_history WHERE email = '" + email + "' ORDER BY id DESC LIMIT "
 					+ limit;
-
 			ResultSet rs = statement.executeQuery(query);
-
 			while (rs.next()) {
 				PasswordHistory passwordHistory = new PasswordHistory();
-
 				passwordHistory.setId(rs.getInt("id"));
 				passwordHistory.setEmail(rs.getString("email"));
 				passwordHistory.setPassword(rs.getString("password"));
-
 				list.add(passwordHistory);
 			}
 		} catch (SQLException exception) {
@@ -80,7 +69,6 @@ public class PasswordHistoryDaoImpl implements PasswordHistoryDao {
 			try {
 				if (null != statement)
 					statement.close();
-
 				if (null != connection)
 					connection.close();
 			} catch (SQLException exception) {
@@ -90,4 +78,5 @@ public class PasswordHistoryDaoImpl implements PasswordHistoryDao {
 
 		return list;
 	}
+
 }

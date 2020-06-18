@@ -9,11 +9,9 @@ import org.apache.logging.log4j.Logger;
 
 import CSCI5308.GroupFormationTool.SystemConfig;
 
-// Singleton for retrieving connections.
 public class CreateDatabaseConnection {
 
 	private static Logger logger = LogManager.getLogger(CreateDatabaseConnection.class);
-
 	static Connection dbConnection;
 	private static CreateDatabaseConnection uniqueInstance = null;
 

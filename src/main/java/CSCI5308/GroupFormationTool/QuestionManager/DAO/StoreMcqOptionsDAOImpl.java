@@ -19,9 +19,11 @@ public class StoreMcqOptionsDAOImpl implements StoreMcqOptionsDAO {
 
 	@Override
 	public String saveMcqOptionsForQuestion(int questionId, ArrayList<Answer> answerList) {
+
 		PreparedStatement statement = null;
 		int count = 0;
 		String queryResult = ApplicationConstants.FAILED_QUESTION_ANSWERS_INSERTION;
+
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
 			for (Answer answer : answerList) {
@@ -51,6 +53,8 @@ public class StoreMcqOptionsDAOImpl implements StoreMcqOptionsDAO {
 		if (count == answerList.size()) {
 			queryResult = ApplicationConstants.QUESTION_ANSWERS_ADDED;
 		}
+
 		return queryResult;
 	}
+
 }

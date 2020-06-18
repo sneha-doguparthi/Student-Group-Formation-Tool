@@ -1,6 +1,7 @@
 package CSCI5308.GroupFormationTool.Profile;
 
 import CSCI5308.GroupFormationTool.Model.PasswordPolicy;
+import CSCI5308.GroupFormationTool.SystemConfig;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,10 +10,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import CSCI5308.GroupFormationTool.Model.User;
 import CSCI5308.GroupFormationTool.Profile.Service.RegistrationService;
-import CSCI5308.GroupFormationTool.Profile.Service.RegistrationServiceImpl;
 
 @Controller
 public class SignUpController {
+
+	RegistrationService registrationService;
+
+	public SignUpController() {
+		this.registrationService = SystemConfig.instance().getRegistrationService();
+	}
 
 	@GetMapping("/profile/signup")
 	public String getSignup(Model model) {
@@ -26,6 +32,7 @@ public class SignUpController {
 	public String registerUser(@ModelAttribute User user, Model model) {
 
 		PasswordPolicy policy = new PasswordPolicy();
+
 		if (!policy.validatePassword(user.getEmail(), user.getPassword())) {
 			model.addAttribute("user", new User());
 			model.addAttribute("policy", policy);
@@ -33,8 +40,6 @@ public class SignUpController {
 
 			return "profile/signup";
 		}
-
-		RegistrationService registrationService = new RegistrationServiceImpl();
 
 		boolean success = registrationService.registerUserService(user);
 
@@ -45,4 +50,5 @@ public class SignUpController {
 			return "profile/existing-user";
 		}
 	}
+
 }

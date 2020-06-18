@@ -6,13 +6,10 @@ public class Student {
 
 	@CsvBindByName(column = "Banner ID")
 	private String bId;
-
 	@CsvBindByName(column = "Last Name")
 	private String lastName;
-
 	@CsvBindByName(column = "First Name")
 	private String firstName;
-
 	@CsvBindByName(column = "Email")
 	private String email;
 
@@ -47,4 +44,5 @@ public class Student {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 }

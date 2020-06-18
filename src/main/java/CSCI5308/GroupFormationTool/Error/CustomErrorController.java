@@ -15,6 +15,7 @@ public class CustomErrorController implements ErrorController {
 	@RequestMapping("/error")
 	public String showError(HttpServletRequest request, Model model) {
 		Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
+
 		if (status != null) {
 			int statusCode = Integer.parseInt(status.toString());
 			if (statusCode == HttpStatus.NOT_FOUND.value()) {
@@ -29,6 +30,7 @@ public class CustomErrorController implements ErrorController {
 				model.addAttribute("errorCode", statusCode);
 			}
 		}
+
 		return "error/error";
 	}
 

@@ -13,19 +13,21 @@ import CSCI5308.GroupFormationTool.DBConnection.CreateDatabaseConnection;
 import CSCI5308.GroupFormationTool.Model.Course;
 
 public class ViewCoursesImpl implements ViewCourses {
+
 	private Logger logger = LogManager.getLogger(ViewCoursesImpl.class);
 
 	@Override
 	public ArrayList<Course> getCourseList() {
+
 		Connection connection = null;
 		PreparedStatement statement = null;
 		ArrayList<Course> courseData = new ArrayList<>();
+
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
 			String selectQuery = "SELECT course_id, course_code, course_name FROM course;";
 			statement = connection.prepareStatement(selectQuery);
 			ResultSet resultSet = statement.executeQuery();
-
 			while (resultSet.next()) {
 				Course tempCourseObj = new Course();
 				tempCourseObj.setCourseCode(resultSet.getString("course_code"));
@@ -47,6 +49,8 @@ public class ViewCoursesImpl implements ViewCourses {
 				logger.error("Exception occured while closing connection/statement", e);
 			}
 		}
+
 		return courseData;
 	}
+
 }

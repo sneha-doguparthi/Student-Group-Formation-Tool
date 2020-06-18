@@ -16,9 +16,11 @@ public class DeleteCourseImpl implements DeleteCourse {
 
 	@Override
 	public ArrayList<String> deleteCourse(ArrayList<String> courseToDelete) {
+
 		Connection connection = null;
 		PreparedStatement statement = null;
 		ArrayList<String> resultList = new ArrayList<>();
+
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
 			String deleteQueryCourseAssociation = "";
@@ -52,6 +54,8 @@ public class DeleteCourseImpl implements DeleteCourse {
 				logger.error("Exception occured while closing connection/statement", e);
 			}
 		}
+
 		return resultList;
 	}
+
 }
