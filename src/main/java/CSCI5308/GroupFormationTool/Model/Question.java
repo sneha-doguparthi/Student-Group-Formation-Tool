@@ -7,12 +7,15 @@ public class Question {
 	private String questionTitle;
 	private String questionText;
 	private String questionType;
+	private String questionDate;
+	private int questionNo;
 	private ArrayList<Answer> answerList;
 
 	public Question() {
 		this.questionText = null;
 		this.questionTitle = null;
 		this.questionType = null;
+		this.questionDate = null;
 	}
 
 	public ArrayList<Answer> getAnswerList() {
@@ -53,6 +56,22 @@ public class Question {
 
 	public void setQuestionType(String questionType) {
 		this.questionType = questionType;
+	}
+
+	public String getQuestionDate() {
+		return questionDate;
+	}
+
+	public void setQuestionDate(String questionDate) {
+		this.questionDate = questionDate;
+	}
+	
+	public int getQuestionNo() {
+		return questionNo;
+	}
+
+	public void setQuestionNo(int questionNo) {
+		this.questionNo = questionNo;
 	}
 
 }
