@@ -1,0 +1,35 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Logout</title>
+<style type="text/css">
+.home-buttons {
+	display: inline-block;
+}
+
+.home-page {
+	margin-top: 50px;
+	text-align: center;
+}
+</style>
+</head>
+<body>
+	<ul lang="en" th:replace="fragments/login-header :: login-header"></ul>
+	<div class="container center-text">
+		<div class="page-block">
+			<h2>Logout Successful!!</h2>
+			<div class="home-buttons">
+				<form th:action="@{/signup}" method="get">
+					<span><button type=" button " class="btn btn-primary">Sign
+							up</button></span>
+				</form>
+			</div>
+			<div class=home-buttons>
+				<form th:action="@{/login}" method="get">
+					<span><button type=" button " class="btn btn-primary">Login</button></span>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

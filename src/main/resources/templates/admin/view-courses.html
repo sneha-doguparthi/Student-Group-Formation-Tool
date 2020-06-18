@@ -1,0 +1,29 @@
+<html>
+<head>
+<title>View Courses</title>
+</head>
+<body>
+	<ul lang="en" th:replace="fragments/admin-header :: admin-header"></ul>
+	<div class="container center-text">
+		<div>
+			<h2>View Courses Panel</h2>
+			<div>
+				<table class="delete-table table table-bordered">
+					<thead class="thead-dark">
+						<th>Course Code</th>
+						<th>Course Name</th>
+					</thead>
+					<tbody>
+						<tr th:each="cData, iterstat: ${courseList}">
+							<td th:text="${cData.getCourseCode()}"
+								th:id="|td${iterstat.index}|"></td>
+							<td th:text="${cData.getCourseName()}"
+								th:id="|td${iterstat.index}|"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

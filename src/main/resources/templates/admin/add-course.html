@@ -1,0 +1,27 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Add Course</title>
+</head>
+<body>
+	<ul lang="en" th:replace="fragments/admin-header :: admin-header"></ul>
+	<div class="container center-text">
+		<div class="page-block">
+			<h2>Add Course Panel</h2>
+			<form th:action="@{/admin/add-new-course}" th:object="${course}"
+				method="post">
+				<p>
+					Enter Course Code: <input type="text" th:field="*{courseCode}"
+						required>
+				</p>
+				<p>
+					Enter Course Name: <input type="text" th:field="*{courseName}"
+						required>
+				</p>
+				<button class="btn btn-primary">Submit</button>
+			</form>
+		</div>
+		<h3 th:if="${resultMessage.length()>0}" th:text="${resultMessage}"></h3>
+	</div>
+</body>
+</html>

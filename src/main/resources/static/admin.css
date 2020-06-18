@@ -1,61 +1,27 @@
 .nav-ul {
-	display: flex;
 	list-style: none;
-	margin: 0 auto;
-	height:70px;
-	justify-content: center;
-	padding-left: 0px;
-	margin-bottom: 2.5%;
-}
-
-.nav-ul-user {
-	display: flex;
-	list-style: none;
-	margin: 0 auto;
-	height:70px;
-	justify-content: flex-end;
-	padding-left: 0px;
-	margin-bottom: 2.5%;
-}
-
-.nav-li-user {
-	margin-top: 1.5%;
-	margin-right: 3%;
-	border: 1px solid gray;
-	padding: 10px;
-	text-decoration: none;
-	color: black;
-	cursor: pointer;
 }
 
 .nav-li {
-	margin-top: 1.5%;
-	margin-left: 3%;
-	border: 1px solid gray;
-	padding: 10px;
-	text-decoration: none;
-	color: black;
+	padding: 5px 14px;
+	border: 1px solid white;
+	border-radius: 5px;
+}
+
+.nav-li>a, .nav-li>a:hover {
+	color: white;
 	cursor: pointer;
 }
 
-a {
-	color: black !important;
-}
-
-a:hover {
-	color: white !important;
-}
-
-.nav-li:hover {
-	border: none;
-	background: #4CAF50;
+.app-title, .app-title:hover {
+	font-size: 28px;
 	color: white;
 }
 
-.nav-li-user:hover {
-	border: none;
-	background: #4CAF50;
-	color: white;
+.logout-btn {
+	padding: 10px;
+	border: 1px solid white;
+	border-radius: 5px;
 }
 
 .page-block {
@@ -70,6 +36,7 @@ a:hover {
 	margin: 15px auto;
 	width: 60% !important;
 }
+
 .assign-i-table {
 	margin: 15px auto;
 	width: 80% !important;

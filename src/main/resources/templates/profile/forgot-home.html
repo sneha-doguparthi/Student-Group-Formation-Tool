@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+
+<style>
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	text-align: center;
+}
+
+.material-icons.md-light {
+	color: rgba(255, 255, 255, 1);
+}
+
+.material-icons {
+	display: inline-flex;
+	vertical-align: middle;
+}
+
+.material-icons.md-blue {
+	color: rgb(51, 122, 183);
+}
+</style>
+
+<title>Forgot Password</title>
+</head>
+
+<body>
+	<ul lang="en" th:replace="fragments/login-header :: login-header"></ul>
+	<div style="text-align: center; margin-top: 50px;">
+		<div>
+			<h1>Change Password</h1>
+
+			<hr />
+
+			<p>
+				Forgot your password? <br /> Don't worry we will send you password
+				reset request to your email!
+			</p>
+		</div>
+
+		<div style="padding-top: 25px;">
+			<form action="#" th:action="@{/profile/send-otp}" method="POST">
+				<input name="email"
+					style="width: 250px; padding: 10px; border-radius: 5px;"
+					type="email" placeholder="E-mail" required /> <br />
+				<button class="btn btn-primary"
+					style="margin-top: 20px; width: 100px; border-radius: 5px; border-width: 0px; padding: 3px;"
+					type="submit">
+					<i class="material-icons md-light">arrow_forward</i>
+				</button>
+			</form>
+		</div>
+
+		<div style="margin-top: 20px;">
+			<a style="border: 0;"
+				href="/login"> <i class="material-icons md-blue">keyboard_arrow_left</i>
+				<span style="color: rgb(51, 122, 183);">Back to Login</span>
+			</a>
+		</div>
+	</div>
+</body>
+</html>

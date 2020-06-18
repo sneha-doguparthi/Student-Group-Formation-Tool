@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Question Manager</title>
+<script>
+function sortByTitle() {
+  var table, rows, switching, i, x, y, shouldSwitch;
+  table = document.getElementById("questions");
+  switching = true;
+  while (switching) {
+    switching = false;
+    rows = table.rows;
+    for (i = 1; i < (rows.length - 1); i++) {
+      shouldSwitch = false;
+      x = rows[i].getElementsByTagName("td")[1];
+	  y = rows[i + 1].getElementsByTagName("td")[1];
+	  if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+        shouldSwitch = true;
+        break;
+      }
+    }
+    if (shouldSwitch) {
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+    }
+  }
+}
+
+function sortByDate() {
+  var table, rows, switching, i, x, y, shouldSwitch;
+  table = document.getElementById("questions");
+  switching = true;
+  while (switching) {
+    switching = false;
+    rows = table.rows;
+    for (i = 1; i < (rows.length - 1); i++) {
+      shouldSwitch = false;
+      x = rows[i].getElementsByTagName("td")[2];
+	  y = rows[i + 1].getElementsByTagName("td")[2];
+	  if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+        shouldSwitch = true;
+        break;
+      }
+    }
+    if (shouldSwitch) {
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+    }
+  }
+}
+</script>
+</head>
+
+<body>
+	<ul lang="en" th:replace="fragments/course-header :: course-header"></ul>
+	<div class="container">
+		<div class="center-text">
+			<h2>Question Manager</h2>
+		</div>
+		<div class="q-mngr-txt">
+			<a class="nav-btn" style="color: rgb(0,155,255)" role="button" onclick="sortByTitle()">Sort By Title</a>
+			| <a class="nav-btn" style="color: rgb(0,155,255)" role="button" onclick="sortByDate()">Sort By Date</a>
+			| <a class="nav-btn" th:href="@{/question-manager/create-question}">Create Question</a>
+		</div>
+		<br>
+		<div>
+			<table class="table table-bordered table-striped" id="questions">
+				<thead class="thead-dark">
+					<tr>
+						<th class="center-text">Q No.</th>
+						<th class="center-text">Title</th>
+						<th class="center-text">Date</th>
+						<th class="center-text">Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:if="${questionList.empty}">
+						<td colspan="4">No questions added yet</td>
+					</tr>
+					<tr th:each="question : ${questionList}">
+						<td class="center-text"><span th:text="${question.questionNo}"> Q No. </span></td>
+						<td><span th:text="${question.questionTitle}"> Title </span></td>
+						<td><span th:text="${question.questionDate}"> Date </span></td>
+						<td class="center-text">
+							<form method="POST" th:action="@{/question-manager/delete-question}">
+								<input type="hidden" name="questionId" id="questionId" th:value="${question.questionId}" />
+								<button type="submit" name="submit" onclick="return confirm('Confirm delete?')" class="btn btn-primary" 
+									style="background-color: #ff2222;">Delete</button>
+							</form>
+						 </td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</body>
+</html>

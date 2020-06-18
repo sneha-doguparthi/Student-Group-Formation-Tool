@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        text-align: center;
+      }
+
+      .material-icons.md-light {
+        color: rgba(255, 255, 255, 1);
+      }
+
+      .material-icons.md-blue {
+        color: rgb(51, 122, 183);
+      }
+
+      .material-icons {
+        display: inline-flex;
+        vertical-align: middle;
+      }
+    </style>
+
+    <script type="text/javascript">
+      function validatePassword() {
+        var password = document.getElementsByName("password")[0].value;
+        var confirm_password = document.getElementsByName("confirm_password")[0]
+          .value;
+
+        if (password != confirm_password) {
+          alert("Passwords do not match.");
+          return false;
+        }
+
+        return true;
+      }
+    </script>
+
+    <title>Forgot Password</title>
+  </head>
+
+  <body>
+    <ul lang="en" th:replace="fragments/login-header :: login-header"></ul>
+
+    <div style="text-align: center; margin-top: 50px;">
+      <div th:if="${response == 'user_not_found'}">
+        <i style="font-size: 48px;" class="material-icons">error_outline</i>
+
+        <h2>
+          Unfortunately, we can't find any accout linked to E-mail provided by
+          you.
+        </h2>
+
+        <h3>
+          This may happen if have entered in-correct E-mail address <br />
+          or <br />
+          You don't have any account with us.
+        </h3>
+
+        <div style="margin-top: 20px;">
+          <a
+            style="background-color: rgba(255, 255, 255, 0); border: 0;"
+            href="/profile/forgot"
+          >
+            <i class="material-icons md-blue">keyboard_arrow_left</i>
+            <span style="color: rgb(51, 122, 183);">Re-enter your e-mail</span>
+          </a>
+        </div>
+      </div>
+
+      <div th:unless="${response == 'user_not_found'}">
+        <i style="font-size: 48px;" class="material-icons">email</i>
+
+        <h2>OTP has been sent to your e-mail address</h2>
+
+        <p>Please provide correct OTP passcode to change your password</p>
+        <p style="color: red;">
+          Please be advised that OTP is only valid for 10 minutes
+        </p>
+
+        <form action="#" th:action="@{/profile/verify-otp}" method="POST">
+          <input name="email" type="email" th:value="${email}" hidden />
+          <input
+            name="otp"
+            style="width: 250px; padding: 10px; border-radius: 5px;"
+            type="number"
+            placeholder="OTP"
+            required
+          />
+          <br />
+          <input
+            name="password"
+            style="
+              width: 250px;
+              padding: 10px;
+              border-radius: 5px;
+              margin-top: 10px;
+            "
+            type="password"
+            placeholder="New Password"
+            maxlength="16"
+            required
+          />
+
+          <br />
+          <input
+            name="confirm_password"
+            style="
+              width: 250px;
+              padding: 10px;
+              border-radius: 5px;
+              margin-top: 10px;
+            "
+            type="password"
+            placeholder="Confirm Password"
+            maxlength="16"
+            required
+          />
+          <br />
+
+          <div th:if="${response == 'policy_violated'}">
+            <p style="color: red;">
+              Your new password does not satisfy password policy.
+            </p>
+          </div>
+
+          <button
+            style="
+              margin-top: 20px;
+              width: 100px;
+              border-radius: 5px;
+              background-color: rgb(51, 122, 183);
+              border-width: 0px;
+              padding: 3px;
+            "
+            type="submit"
+            onclick="return validatePassword()"
+          >
+            <i class="material-icons md-light">arrow_forward</i>
+          </button>
+        </form>
+
+        <hr />
+        <div style="margin-top: 20px; margin-bottom: 40px;">
+          <p><b> Password Policy </b></p>
+
+          <ul class="list-group" style="display: inline-block;">
+            <li
+              class="list-group-item"
+              th:if="${policy.minimumLength != 'FALSE'}"
+            >
+              Minimum <span th:text="${policy.minimumLength}"></span> characters
+              long.
+            </li>
+
+            <li
+              class="list-group-item"
+              th:if="${policy.maximumLength != 'FALSE'}"
+            >
+              Maximum <span th:text="${policy.maximumLength}"></span> characters
+              long.
+            </li>
+
+            <li
+              class="list-group-item"
+              th:if="${policy.minimumUpperCase != 'FALSE'}"
+            >
+              Contains minimum
+              <span th:text="${policy.minimumUpperCase}"></span> uppercase
+              characters.
+            </li>
+
+            <li
+              class="list-group-item"
+              th:if="${policy.minimumLowerCase != 'FALSE'}"
+            >
+              Contains minimum
+              <span th:text="${policy.minimumLowerCase}"></span> lowercase
+              characters.
+            </li>
+
+            <li
+              class="list-group-item"
+              th:if="${policy.minimumSymbols != 'FALSE'}"
+            >
+              Should contain minimum
+              <span th:text="${policy.minimumSymbols}"></span> symbols from any
+              of these listed [ <b> . + - [ ] * ~ _ # : ? </b> ]
+            </li>
+
+            <li
+              class="list-group-item"
+              th:if="${policy.charsNotAllowed != 'FALSE'}"
+            >
+              Should not contain any of these symbols [
+              <b> <span th:text="${policy.charsNotAllowed}"></span> </b> ]
+            </li>
+
+            <li class="list-group-item" th:if="${policy.history != 'FALSE'}">
+              Should not match password any of your previous
+              <span th:text="${policy.history}"></span> passwords.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

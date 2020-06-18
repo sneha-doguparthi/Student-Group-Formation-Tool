@@ -1,0 +1,25 @@
+<html>
+<head>
+<title>Upload CSV</title>
+</head>
+<body>
+	<ul lang="en" th:replace="fragments/course-header :: course-header"></ul>
+	<div class="container">
+		<div class="form-block">
+			<form method="POST" th:action="@{/course-admin/upload-csv}"
+				enctype="multipart/form-data">
+				<input type="hidden" name="courseName" th:value="${courseName}" />
+				<input type="hidden" name="courseCode" th:value="${courseCode}" />
+				<input type="hidden" name="courseId" th:value="${courseId}" />
+				<div>
+					<label class="upload-lbl" for="file">Select a CSV file</label> <br>
+					<input class="select-ip" type="file" name="file" id="file"
+						accept=".csv">
+				</div>
+				<button class="btn btn-primary" type="submit">Import
+					Student(s)</button>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

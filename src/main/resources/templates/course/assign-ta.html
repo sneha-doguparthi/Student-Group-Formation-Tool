@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<script>
+	function filterByBannerId() {
+		var input, filter, table, tr, td, i, txtValue;
+		input = document.getElementById("bannerId");
+		filter = input.value.toUpperCase();
+		table = document.getElementById("users");
+		tr = table.getElementsByTagName("tr");
+		for (i = 0; i < tr.length; i++) {
+			td = tr[i].getElementsByTagName("td")[0];
+			if (td) {
+				txtValue = td.textContent || td.innerText;
+				if (txtValue.toUpperCase().indexOf(filter) > -1) {
+					tr[i].style.display = "";
+				} else {
+					tr[i].style.display = "none";
+				}
+			}
+		}
+	}
+
+	function filterByFirstName() {
+		var input, filter, table, tr, td, i, txtValue;
+		input = document.getElementById("firstName");
+		filter = input.value.toUpperCase();
+		table = document.getElementById("users");
+		tr = table.getElementsByTagName("tr");
+		for (i = 0; i < tr.length; i++) {
+			td = tr[i].getElementsByTagName("td")[1];
+			if (td) {
+				txtValue = td.textContent || td.innerText;
+				if (txtValue.toUpperCase().indexOf(filter) > -1) {
+					tr[i].style.display = "";
+				} else {
+					tr[i].style.display = "none";
+				}
+			}
+		}
+	}
+
+	function filterByLastName() {
+		var input, filter, table, tr, td, i, txtValue;
+		input = document.getElementById("lastName");
+		filter = input.value.toUpperCase();
+		table = document.getElementById("users");
+		tr = table.getElementsByTagName("tr");
+		for (i = 0; i < tr.length; i++) {
+			td = tr[i].getElementsByTagName("td")[2];
+			if (td) {
+				txtValue = td.textContent || td.innerText;
+				if (txtValue.toUpperCase().indexOf(filter) > -1) {
+					tr[i].style.display = "";
+				} else {
+					tr[i].style.display = "none";
+				}
+			}
+		}
+	}
+</script>
+
+<title>Assign TA</title>
+</head>
+
+<body>
+	<ul lang="en" th:replace="fragments/course-header :: course-header"></ul>
+	<div class="container">
+		<div class="center-text">
+			<h2>Search and assign TA</h2>
+		</div>
+
+		<div class="filter-block">
+			<input class="filter-block-ip" id="bannerId" type="text"
+				onkeyup="filterByBannerId()" placeholder="Search By Banner ID" /> <input
+				class="filter-block-ip" id="firstName" type="text"
+				onkeyup="filterByFirstName()" placeholder="Search By First Name" />
+			<input class="filter-block-ip" id="lastName" type="text"
+				onkeyup="filterByLastName()" placeholder="Search By Last Name" />
+		</div>
+
+		<div>
+			<table class="table table-bordered table-striped" id="users">
+				<thead class="thead-dark">
+					<tr>
+						<th>Banner ID</th>
+						<th>First Name</th>
+						<th>Last Name</th>
+						<th class="center-text">Action</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<tr th:if="${users.empty}">
+						<td colspan="4">No users found</td>
+					</tr>
+
+					<tr th:each="user : ${users}">
+						<td><span th:text="${user.bannerId}"> Banner ID </span></td>
+						<td><span th:text="${user.firstName}"> First Name </span></td>
+						<td><span th:text="${user.lastName}"> Last Name </span></td>
+						<td class="center-text">
+							<form action="#" th:action="@{/course/do-assign-ta}" method="POST">
+								<input type="hidden" name="courseId" th:value="${courseId}" />
+
+								<input type="hidden" name="courseCode"
+									th:value="${courseCode}" />
+
+								<input type="hidden" name="courseName"
+									 th:value="${courseName}" />
+
+								<input type="hidden"
+									name="userId"  th:value="${user.userId}" />
+
+								<button class="btn btn-primary">Assign</button>
+							</form>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</body>
+</html>

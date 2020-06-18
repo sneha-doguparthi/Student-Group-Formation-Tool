@@ -1,0 +1,54 @@
+<html>
+<head xmlns:th="http://www.thymeleaf.org">
+</head>
+<body>
+	<ul lang="en" th:replace="fragments/course-header :: course-header"></ul>
+	<div class="container py-5">
+		<div class="row">
+			<div class="col-10 mx-auto">
+				<div>
+					<form action="#" th:action="@{/course-admin/upload-csv-home}" method="POST">
+						<input type="hidden" name="courseName" th:value="${courseName}" />
+						<input type="hidden" name="courseCode" th:value="${courseCode}" />
+						<input type="hidden" name="courseId" th:value="${courseId}" />
+						<button class="btn btn-primary">Back</button>
+					</form>
+				</div>
+				<h1>File Upload Status</h1>
+				<!--display error if any-->
+				<div class="alert alert-danger" role="alert" th:if="${!status}">
+					<strong>Error:</strong> <span th:text="${message}"></span>
+				</div>
+
+				<!--display users list-->
+				<div class="alert alert-success" role="alert" th:if="${status}">
+					<strong>Success!</strong> <span th:text="${message}"></span>
+				</div>
+				<h3 class="text-center" th:if="${status and (students != null)}">
+					<u>List of students uploaded</u>
+				</h3>
+				<table class="table table-bordered table-striped" th:if="${status}">
+					<thead class="thead-dark">
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col">Banner ID</th>
+							<th scope="col">Last Name</th>
+							<th scope="col">First Name</th>
+							<th scope="col">Email</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="student, i : ${students}">
+							<th scope="row" th:text="${i.index + 1}"></th>
+							<td th:text="${student.bId}"></td>
+							<td th:text="${student.lastName}"></td>
+							<td th:text="${student.firstName}"></td>
+							<td th:text="${student.email}"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

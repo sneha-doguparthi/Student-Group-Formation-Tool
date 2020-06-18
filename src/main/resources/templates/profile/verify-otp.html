@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        text-align: center;
+      }
+
+      .material-icons.md-blue {
+        color: rgb(51, 122, 183);
+      }
+
+      .material-icons {
+        display: inline-flex;
+        vertical-align: middle;
+      }
+    </style>
+
+    <title>Forgot Password</title>
+  </head>
+
+  <body>
+    <ul lang="en" th:replace="fragments/login-header :: login-header"></ul>
+    <div style="text-align: center; margin-top: 50px;">
+      <div th:switch="${response}">
+        <div th:case="'password_updated'">
+          <i style="font-size: 48px;" class="material-icons md-light"
+            >check_circle</i
+          >
+
+          <h2>Congratulations, we have updated your password!</h2>
+
+          <a
+            style="background-color: rgba(255, 255, 255, 0); border: 0;"
+            href="/profile/login"
+          >
+            <i class="material-icons md-blue">keyboard_arrow_left</i>
+            <span style="color: rgb(51, 122, 183);">Back to Login</span>
+          </a>
+        </div>
+
+        <div th:case="'otp_expired'">
+          <i style="font-size: 48px;" class="material-icons md-light"
+            >bug_report</i
+          >
+
+          <h2>
+            Your OTP has expired :( You need to re-generate password reset
+            request
+          </h2>
+
+          <a
+            style="background-color: rgba(255, 255, 255, 0); border: 0;"
+            href="/profile/forgot"
+          >
+            <i class="material-icons md-blue">keyboard_arrow_left</i>
+            <span style="color: rgb(51, 122, 183);">Re-generate OTP</span>
+          </a>
+        </div>
+
+        <div th:case="'otp_invalid'">
+          <i style="font-size: 48px;" class="material-icons md-light">block</i>
+
+          <h2>You provided incorrect OTP Passcode.</h2>
+
+          <h4>
+            Please verify OTP carefully and re-enter OTP to change your password
+          </h4>
+
+          <a
+            style="background-color: rgba(255, 255, 255, 0); border: 0;"
+            href="javascript:history.back()"
+          >
+            <i class="material-icons md-blue">keyboard_arrow_left</i>
+            <span style="color: rgb(51, 122, 183);">Go Back</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

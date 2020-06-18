@@ -1,0 +1,27 @@
+<ul th:fragment="admin-header"
+    class="bg-dark nav-ul navbar navbar-dark">
+    <li><a class="nav-btn app-title" th:href="@{/}">Group
+        Formation Tool</a></li>
+    <li class="nav-li"><a class="nav-btn" th:href="@{/admin/admin-home}">Home</a></li>
+    <li class="nav-li"><a class="nav-btn" th:href="@{/admin/view-courses}">View
+        Courses</a></li>
+    <li class="nav-li"><a class="nav-btn" th:href="@{/admin/add-course}">Add
+        Course</a></li>
+    <li class="nav-li"><a class="nav-btn" th:href="@{/admin/delete-course}">Delete
+        Course</a></li>
+    <li class="nav-li"><a class="nav-btn"
+                          th:href="@{/admin/assign-instructor}">Assign Instructor</a></li>
+
+    <form th:action="@{/logout}" method="post">
+        <button class="btn btn-info" type="submit">Logout</button>
+    </form>
+
+    <link href="../../static/admin.css" th:href="@{/admin.css}"
+          rel="stylesheet"/>
+
+    <link
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+            crossorigin="anonymous">
+</ul>

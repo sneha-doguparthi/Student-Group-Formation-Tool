@@ -1,0 +1,122 @@
+.nav-li-user>a, .nav-li-user>a:hover {
+	color: white;
+	cursor: pointer;
+}
+
+.app-title {
+	font-size: 28px;
+}
+
+.logout-btn {
+	padding: 10px;
+	border: 1px solid white;
+	border-radius: 5px;
+}
+
+.center-text {
+	text-align: center;
+}
+
+.course-txt-header {
+	text-align: center;
+	margin-bottom: 50px;
+}
+
+.c-a-form-container {
+	border: 1px solid gray;
+	border-radius: 4px;
+	padding: 20px;
+	width: 30%;
+	margin: 0 auto;
+}
+
+.action-btn-container {
+	display: flex;
+}
+
+.action-block {
+	margin: 15px;
+	padding: 25px;
+	border: 1px solid gray;
+	border-radius: 4px;
+	text-align: center;
+	flex: 1;
+}
+
+.action-txt {
+	margin-bottom: 15px;
+}
+
+.filter-block {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	text-align: center;
+}
+
+.filter-block-ip {
+	padding: 5px 15px;
+}
+
+.form-block {
+	width: 50%;
+	padding: 25px;
+	border: 1px solid gray;
+	border-radius: 4px;
+	text-align: center;
+	margin: 0 auto;
+}
+
+.txt-header {
+	margin-bottom: 10px;
+}
+
+.upload-lbl {
+	display: block;
+	font-size: 28px;
+}
+
+.select-ip {
+	border: 1px solid gray;
+	border-radius: 4px;
+	margin-bottom: 20px;
+}
+
+.course-title {
+	width: 50%;
+	margin: 40px auto;
+	text-align: center;
+}
+
+.create-question-form {
+	text-align: left;
+	width: 50%;
+	margin: 0 auto;
+}
+
+.question-text {
+	width: 100%
+}
+
+.question-item span {
+	display: block;
+}
+
+.select {
+	padding: 5px;
+}
+
+.qna-msg {
+	font-size: 30px;
+}
+
+.back-btn, .back-btn:hover {
+	font-size: 20px;
+}
+
+.q-mngr-txt {
+	text-align: right;
+}
+
+.action-container {
+	display: flex;
+}

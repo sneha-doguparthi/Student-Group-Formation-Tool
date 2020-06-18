@@ -1,0 +1,52 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Assign Instructor</title>
+</head>
+<body>
+	<ul lang="en" th:replace="fragments/admin-header :: admin-header"></ul>
+	<div class="container center-text">
+		<h2>Assign Instructor Panel</h2>
+		<div>
+			<h3 th:if="${resultMessage.length()>0}" th:text="${resultMessage}"></h3>
+			<table class="assign-i-table table table-bordered">
+				<thead class="thead-dark">
+					<th>First Name</th>
+					<th>Last Name</th>
+					<th>Email Address</th>
+					<th>Courses</th>
+					<th>Action</th>
+				</thead>
+				<tbody>
+					<tr th:each="userModel, iterstat:${userList}">
+						<form th:action="@{/admin/assign-role}" method="post">
+							<td th:value="${userModel.getFirstName()}"
+								th:text="${userModel.getFirstName()}">Rob</td>
+							<td th:value="${userModel.getLastName()}"
+								th:text="${userModel.getLastName()}">Smith</td>
+							<td th:text="${userModel.getEmail()}">rob.smith@gmail.com</td> <input
+								type="hidden" th:value="${userModel.getUserId()}" name="userId">
+							<td><select name="CourseCode" required>
+									<option th:value="''">Select courses</option>
+									<div th:each="courseModel : ${courseList}">
+										<div>
+											<option
+												th:text="${courseModel.getCourseCode()}+' - '+${courseModel.getCourseName()}"
+												th:value="${courseModel.getCourseId()}+' - '+
+												${courseModel.getCourseCode()}+' - '+
+												${courseModel.getCourseName()}"></option>
+										</div>
+									</div>
+							</select></td>
+							<td>
+								<button class="btn btn-primary">Assign</button>
+							</td>
+						</form>
+					</tr>
+				</tbody>
+			</table>
+
+		</div>
+	</div>
+</body>
+</html>

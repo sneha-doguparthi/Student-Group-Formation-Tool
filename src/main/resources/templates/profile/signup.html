@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+  <head>
+    <title>Signup - Group Formation Tool</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+
+  <body>
+    <ul lang="en" th:replace="fragments/login-header :: login-header"></ul>
+
+    <div class="container">
+      <h1>Sign Up</h1>
+
+      <hr style="border-top: 1px solid;" />
+
+      <div th:if="${success}">
+        <h2 th:text="${success}"></h2>
+        <a href="/profile/login">Login here</a>
+      </div>
+
+      <div th:unless="${success}">
+        <div>
+          <form
+            th:action="@{/profile/signup}"
+            method="post"
+            th:object="${user}"
+          >
+            <div class="form-group row">
+              <label class="col-sm-2">Banner ID</label>
+              <span class="col-sm-5"
+                ><input type="text" th:field="*{bannerId}" required
+              /></span>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-2">First Name</label>
+              <span class="col-sm-4"
+                ><input type="text" th:field="*{firstName}" required
+              /></span>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-2">Last Name</label>
+              <span class="col-sm-4"
+                ><input type="text" th:field="*{lastName}" required
+              /></span>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-2">Email</label>
+              <span class="col-sm-5"
+                ><input type="email" th:field="*{email}" required
+              /></span>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-2">Password</label>
+              <span class="col-sm-5"
+                ><input type="password" th:field="*{password}" required
+              /></span>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-2">Confirm Password</label>
+              <span class="col-sm-5"
+                ><input type="password" th:field="*{confirmPassword}" required
+              /></span>
+            </div>
+            <span
+              ><button type="submit" class="btn btn-primary">
+                Submit
+              </button></span
+            >
+
+            <div style="margin-top: 15px;">
+              <label>Already have an account?</label>
+              <a href="/login">Login here</a>
+            </div>
+            <div th:if="${success}">
+              <h2 th:text="${success}"></h2>
+            </div>
+            <div th:if="${error}">
+              <h2 th:text="${error}"></h2>
+            </div>
+          </form>
+        </div>
+
+        <hr />
+
+        <div style="margin-top: 20px; margin-bottom: 40px;">
+          <p><b> Password Policy </b></p>
+
+          <ul class="list-group" style="display: inline-block;">
+            <li
+              class="list-group-item"
+              th:if="${policy.minimumLength != 'FALSE'}"
+            >
+              Minimum <span th:text="${policy.minimumLength}"></span> characters
+              long.
+            </li>
+
+            <li
+              class="list-group-item"
+              th:if="${policy.maximumLength != 'FALSE'}"
+            >
+              Maximum <span th:text="${policy.maximumLength}"></span> characters
+              long.
+            </li>
+
+            <li
+              class="list-group-item"
+              th:if="${policy.minimumUpperCase != 'FALSE'}"
+            >
+              Contains minimum
+              <span th:text="${policy.minimumUpperCase}"></span> uppercase
+              characters.
+            </li>
+
+            <li
+              class="list-group-item"
+              th:if="${policy.minimumLowerCase != 'FALSE'}"
+            >
+              Contains minimum
+              <span th:text="${policy.minimumLowerCase}"></span> lowercase
+              characters.
+            </li>
+
+            <li
+              class="list-group-item"
+              th:if="${policy.minimumSymbols != 'FALSE'}"
+            >
+              Should contain minimum
+              <span th:text="${policy.minimumSymbols}"></span> symbols from any
+              of these listed [ <b> . + - [ ] * ~ _ # : ? </b> ]
+            </li>
+
+            <li
+              class="list-group-item"
+              th:if="${policy.charsNotAllowed != 'FALSE'}"
+            >
+              Should not contain any of these symbols [
+              <b> <span th:text="${policy.charsNotAllowed}"></span> </b> ]
+            </li>
+
+            <li class="list-group-item" th:if="${policy.history != 'FALSE'}">
+              Should not match password any of your previous
+              <span th:text="${policy.history}"></span> passwords.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
