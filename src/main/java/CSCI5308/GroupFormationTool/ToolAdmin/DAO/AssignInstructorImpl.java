@@ -19,9 +19,11 @@ public class AssignInstructorImpl implements AssignInstructor {
 
 	@Override
 	public ArrayList<User> getUserList() {
+
 		Connection connection = null;
 		PreparedStatement statement = null;
 		ArrayList<User> userList = new ArrayList<>();
+
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
 			String selectQuery = "SELECT first_name, last_name, user_id, banner_id, email FROM user WHERE user_type != 'A';";
@@ -50,13 +52,16 @@ public class AssignInstructorImpl implements AssignInstructor {
 				logger.error("Exception occured while closing connection/statement", e);
 			}
 		}
+
 		return userList;
 	}
 
 	@Override
 	public String assignRoleToUser(User user, String courseCode) {
+
 		Connection connection = null;
 		PreparedStatement statement = null;
+
 		try {
 			if (checkIfCourseExistsForUser(user, courseCode))
 				return ApplicationConstants.COURSE_ALREADY_ADDED_FOR_USER;
@@ -83,13 +88,16 @@ public class AssignInstructorImpl implements AssignInstructor {
 				logger.error("Exception occured while closing connection/statement", e);
 			}
 		}
+
 		return ApplicationConstants.COURSE_ROLE_FAILED;
 	}
 
 	@Override
 	public boolean checkIfCourseExistsForUser(User user, String course) {
+
 		Connection connection = null;
 		PreparedStatement statement = null;
+
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
 			String selectQuery = "SELECT ca.course_id FROM course_association ca JOIN user u ON u.user_id = ca.user_id WHERE ca.course_id = ?;";
@@ -116,6 +124,8 @@ public class AssignInstructorImpl implements AssignInstructor {
 				logger.error("Exception occured while closing connection/statement", e);
 			}
 		}
+
 		return false;
 	}
+
 }

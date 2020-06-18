@@ -1,6 +1,7 @@
 package CSCI5308.GroupFormationTool.DBConnection;
 
 public class DefaultDatabaseConfiguration implements IDatabaseConfiguration {
+
 	private static final String URL = System.getenv("URL");
 	private static final String USER = System.getenv("USER");
 	private static final String PASSWORD = System.getenv("PASSWORD");

@@ -16,6 +16,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.headers().disable().authorizeRequests().antMatchers("/profile/**").permitAll().antMatchers("/course.css")
 				.permitAll().antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest().authenticated().and()
 				.formLogin().loginPage("/profile/login").successForwardUrl("/").permitAll().and().logout().permitAll();
+
 	}
 
 	@Override

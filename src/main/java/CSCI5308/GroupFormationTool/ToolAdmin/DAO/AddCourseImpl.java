@@ -18,8 +18,10 @@ public class AddCourseImpl implements AddCourse {
 
 	@Override
 	public String addNewCourse(Course course) {
+
 		Connection connection = null;
 		PreparedStatement statement = null;
+
 		try {
 			if (checkIfCourseExists(course)) {
 				return ApplicationConstants.COURSE_ALREADY_EXISTS;
@@ -46,13 +48,16 @@ public class AddCourseImpl implements AddCourse {
 				logger.error("Exception occured while closing connection/statement", e);
 			}
 		}
+
 		return ApplicationConstants.COURSE_ADD_FAILED;
 	}
 
 	@Override
 	public boolean checkIfCourseExists(Course course) {
+
 		Connection connection = null;
 		PreparedStatement statement = null;
+
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
 			String selectQuery = "SELECT course_id FROM course WHERE course_code = ?;";
@@ -79,6 +84,7 @@ public class AddCourseImpl implements AddCourse {
 				logger.error("Exception occured while closing connection/statement", e);
 			}
 		}
+
 		return false;
 	}
 

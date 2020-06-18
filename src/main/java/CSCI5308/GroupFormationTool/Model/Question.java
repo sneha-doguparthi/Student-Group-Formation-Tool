@@ -3,6 +3,7 @@ package CSCI5308.GroupFormationTool.Model;
 import java.util.ArrayList;
 
 public class Question {
+
 	private int questionId;
 	private String questionTitle;
 	private String questionText;

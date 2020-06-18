@@ -1,35 +1,36 @@
 package CSCI5308.GroupFormationTool.QuestionManager.DAO;
 
+import CSCI5308.GroupFormationTool.DBConnection.CreateDatabaseConnection;
+import CSCI5308.GroupFormationTool.Model.Question;
+import CSCI5308.GroupFormationTool.Model.User;
+import CSCI5308.GroupFormationTool.Profile.DAO.UserDao;
+import CSCI5308.GroupFormationTool.SystemConfig;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-
-import CSCI5308.GroupFormationTool.DBConnection.CreateDatabaseConnection;
-import CSCI5308.GroupFormationTool.Model.Question;
-import CSCI5308.GroupFormationTool.Model.User;
-import CSCI5308.GroupFormationTool.Profile.DAO.UserDao;
-import CSCI5308.GroupFormationTool.Profile.DAO.UserDaoImpl;
-
 public class FetchQuestionDAOImpl implements FetchQuestionDAO {
 
 	@Override
 	public ArrayList<Question> getQuestionByUserId() {
+
 		Connection connection = null;
 		Statement statement = null;
 		ArrayList<Question> questions = new ArrayList<>();
+		Logger logger = LogManager.getLogger(FetchQuestionDAOImpl.class);
 
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
 			statement = connection.createStatement();
-
 			String query = "SELECT * FROM question WHERE user_id=" + getUserId();
 			ResultSet rs = statement.executeQuery(query);
-
 			int i = 1;
 			while (rs.next()) {
 				Question question = new Question();
@@ -42,7 +43,7 @@ public class FetchQuestionDAOImpl implements FetchQuestionDAO {
 				questions.add(question);
 			}
 		} catch (SQLException e) {
-			System.out.println("Exception occured while getting all the questions: \n" + e);
+			logger.error("Exception occurred while getting all the questions: ", e);
 		} finally {
 			try {
 				if (null != statement) {
@@ -52,7 +53,7 @@ public class FetchQuestionDAOImpl implements FetchQuestionDAO {
 					connection.close();
 				}
 			} catch (SQLException e) {
-				System.out.println("Exception occured while closing connection/statement: \n" + e);
+				logger.error("Exception occurred while closing connection/statement: ", e);
 			}
 		}
 
@@ -61,8 +62,10 @@ public class FetchQuestionDAOImpl implements FetchQuestionDAO {
 	
 	public int getUserId() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		UserDao userDao = new UserDaoImpl();
+		UserDao userDao = SystemConfig.instance().getUserDao();
+
 		ArrayList<User> list = userDao.getByEmail(authentication.getName());
+
 		return list.get(0).getUserId();
 	}
 	

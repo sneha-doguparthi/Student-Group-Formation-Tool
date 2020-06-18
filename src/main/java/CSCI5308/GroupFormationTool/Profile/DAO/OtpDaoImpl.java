@@ -28,21 +28,14 @@ public class OtpDaoImpl implements OtpDao {
 
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
-
 			String insertQuery = "INSERT INTO otp (email,otp,date) values(?,?,?);";
 			statement = connection.prepareStatement(insertQuery);
 			statement.setString(1, otp.getEmail());
 			statement.setInt(2, otp.getOtp());
-
-			// changing data type of Otp Date from java.util.Date to String
 			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			String otpDate = dateFormat.format(otp.getDate());
-
-			// storing value of Date as String
 			statement.setString(3, otpDate);
 			statement.executeUpdate();
-			return true;
-
 		} catch (SQLException e) {
 			logger.error("Exception occured while inserting OTP: ", e);
 			return false;
@@ -58,6 +51,8 @@ public class OtpDaoImpl implements OtpDao {
 				logger.error("Exception occured while closing connection/statement", e);
 			}
 		}
+
+		return true;
 	}
 
 	@Override
@@ -65,28 +60,20 @@ public class OtpDaoImpl implements OtpDao {
 
 		Connection connection = null;
 		Statement statement = null;
-
-		// fetching otp in descending order
 		String query = "SELECT * FROM otp WHERE email = '" + email + "' ORDER BY id DESC";
-
 		ArrayList<Otp> otpList = new ArrayList<>();
 
 		try {
-
 			connection = CreateDatabaseConnection.instance().createConnection();
 			statement = connection.createStatement();
 			ResultSet rs = statement.executeQuery(query);
 
 			while (rs.next()) {
 				Otp otp = new Otp();
-
 				otp.setOtp(rs.getInt("otp"));
 				otp.setEmail(rs.getString("email"));
-
-				// converting date from String to java.util.Date
 				Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rs.getString("date"));
 				otp.setDate(date);
-
 				otpList.add(otp);
 			}
 		} catch (Exception e) {
@@ -106,4 +93,5 @@ public class OtpDaoImpl implements OtpDao {
 
 		return otpList;
 	}
+
 }

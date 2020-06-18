@@ -19,10 +19,12 @@ public class GetStudentListServiceImpl implements GetStudentListService {
 
 	@Override
 	public List<Student> getNewToCourseStudentList(List<Student> studentsFromCsv, ArrayList<User> specificUserList) {
+
 		List<Student> students = new ArrayList<Student>(studentsFromCsv);
 		List<User> users = new ArrayList<User>(specificUserList);
 		int studentsSize = students.size();
 		int usersSize = users.size();
+
 		for (int i = 0; i < usersSize; i++) {
 			for (int j = 0; j < studentsSize; j++) {
 				if (students.get(j).getbId().equals(users.get(i).getBannerId())) {
@@ -32,17 +34,20 @@ public class GetStudentListServiceImpl implements GetStudentListService {
 				}
 			}
 		}
+
 		return students;
 	}
 
 	@Override
 	public List<Student> getNewToPortalStudentList(List<Student> newToCourseList, ArrayList<User> allUserList) {
+
 		List<Student> students = new ArrayList<Student>(newToCourseList);
 		List<User> users = new ArrayList<User>(allUserList);
 		int studentsSize = students.size();
 		int usersSize = users.size();
 		Connection connection = null;
 		PreparedStatement statement = null;
+
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
 			for (int i = 0; i < usersSize; i++) {
@@ -72,6 +77,7 @@ public class GetStudentListServiceImpl implements GetStudentListService {
 				logger.error("Exception occured while closing connection/statement", e);
 			}
 		}
+
 		return students;
 	}
 }

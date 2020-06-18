@@ -1,6 +1,7 @@
 package CSCI5308.GroupFormationTool.Model;
 
 public class User {
+
 	private int userId;
 	private String firstName;
 	private String lastName;

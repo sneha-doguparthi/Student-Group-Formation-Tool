@@ -5,5 +5,7 @@ import java.util.ArrayList;
 import CSCI5308.GroupFormationTool.Model.Course;
 
 public interface ViewCourses {
+
 	public ArrayList<Course> getCourseList();
+
 }

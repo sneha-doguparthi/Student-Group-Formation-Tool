@@ -19,9 +19,11 @@ public class CourseAssociationDAOImpl implements CourseAssociationDAO {
 
 	@Override
 	public ArrayList<Integer> getUserID(Integer courseId) {
+
 		Connection connection = null;
 		Statement statement = null;
 		ArrayList<Integer> userIds = new ArrayList<>();
+
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
 			statement = connection.createStatement();
@@ -46,14 +48,17 @@ public class CourseAssociationDAOImpl implements CourseAssociationDAO {
 				logger.error("Exception occured while closing connection/statement", e);
 			}
 		}
+
 		return userIds;
 	}
 
 	@Override
 	public boolean addByUserID(ArrayList<Integer> userIds, Integer courseId) {
+
 		Connection connection = null;
 		PreparedStatement statement = null;
 		int listSize = userIds.size();
+
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
 			for (int i = 0; i < listSize; i++) {
@@ -78,16 +83,18 @@ public class CourseAssociationDAOImpl implements CourseAssociationDAO {
 				logger.error("Exception occured while closing connection/statement", e);
 			}
 		}
+
 		return true;
 	}
 
 	@Override
 	public Boolean insert(CourseAssociation association) {
+
 		Connection connection = null;
 		PreparedStatement statement = null;
+
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
-
 			String insertQuery = "INSERT INTO course_association (user_id,course_id,role_id) values(?,?,?);";
 			statement = connection.prepareStatement(insertQuery);
 			statement.setInt(1, association.getUserId());
@@ -114,9 +121,11 @@ public class CourseAssociationDAOImpl implements CourseAssociationDAO {
 
 	@Override
 	public ArrayList<CourseAssociation> getByUserId(Integer userId) {
+
 		Connection connection = null;
 		Statement statement = null;
 		ArrayList<CourseAssociation> list = new ArrayList<>();
+
 		try {
 			String query = "SELECT * FROM course_association WHERE user_id = " + userId;
 			connection = CreateDatabaseConnection.instance().createConnection();
@@ -144,6 +153,7 @@ public class CourseAssociationDAOImpl implements CourseAssociationDAO {
 				logger.error("Exception occured while closing connection/statement", e);
 			}
 		}
+
 		return list;
 	}
 }

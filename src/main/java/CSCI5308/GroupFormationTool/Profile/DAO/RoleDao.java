@@ -7,4 +7,5 @@ import CSCI5308.GroupFormationTool.Model.Role;
 public interface RoleDao {
 
 	ArrayList<Role> findByName(String name);
+
 }

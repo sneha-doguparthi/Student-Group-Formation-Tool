@@ -5,11 +5,8 @@ import java.util.Date;
 public class Otp {
 
 	private Integer id;
-
 	private String email;
-
 	private Integer otp;
-
 	private Date date;
 
 	public Integer getId() {
@@ -43,4 +40,5 @@ public class Otp {
 	public void setDate(Date date) {
 		this.date = date;
 	}
+
 }

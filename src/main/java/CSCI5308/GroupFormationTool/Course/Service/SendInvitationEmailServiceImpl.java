@@ -17,6 +17,7 @@ public class SendInvitationEmailServiceImpl implements SendInvitationEmailServic
 		JavaMailSenderImpl mailSender = initializeMailSender();
 		SimpleMailMessage message = new SimpleMailMessage();
 		int listSize = newToPortalList.size();
+
 		for (int i = 0; i < listSize; i++) {
 			message.setTo(newToPortalList.get(i).getEmail());
 			message.setSubject("Registration to a Group-6 Project Portal");
@@ -25,14 +26,17 @@ public class SendInvitationEmailServiceImpl implements SendInvitationEmailServic
 					+ "Password: " + passwords.get(i));
 			mailSender.send(message);
 		}
+
 		return true;
 	}
 
 	@Override
 	public boolean sendCourseInvitationEmail(List<Student> newToCourseList, String courseCode, String courseName) {
+
 		JavaMailSenderImpl mailSender = initializeMailSender();
 		SimpleMailMessage message = new SimpleMailMessage();
 		int listSize = newToCourseList.size();
+
 		for (int i = 0; i < listSize; i++) {
 			message.setTo(newToCourseList.get(i).getEmail());
 			message.setSubject("Registration to a new course - " + courseName);
@@ -40,6 +44,7 @@ public class SendInvitationEmailServiceImpl implements SendInvitationEmailServic
 					+ "! " + courseName);
 			mailSender.send(message);
 		}
+
 		return true;
 	}
 

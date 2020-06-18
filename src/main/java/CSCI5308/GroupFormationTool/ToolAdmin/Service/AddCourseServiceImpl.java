@@ -1,14 +1,14 @@
 package CSCI5308.GroupFormationTool.ToolAdmin.Service;
 
+import CSCI5308.GroupFormationTool.SystemConfig;
 import CSCI5308.GroupFormationTool.Model.Course;
 import CSCI5308.GroupFormationTool.ToolAdmin.DAO.AddCourse;
-import CSCI5308.GroupFormationTool.ToolAdmin.DAO.AddCourseImpl;
 
 public class AddCourseServiceImpl implements AddCourseService {
 
 	@Override
 	public String addNewCourse(Course course) {
-		AddCourse addCourse = new AddCourseImpl();
+		AddCourse addCourse = SystemConfig.instance().getAddCourse();
 		return addCourse.addNewCourse(course);
 	}
 

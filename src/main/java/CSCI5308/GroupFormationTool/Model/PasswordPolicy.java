@@ -1,7 +1,7 @@
 package CSCI5308.GroupFormationTool.Model;
 
 import CSCI5308.GroupFormationTool.Profile.DAO.PasswordHistoryDao;
-import CSCI5308.GroupFormationTool.Profile.DAO.PasswordHistoryDaoImpl;
+import CSCI5308.GroupFormationTool.SystemConfig;
 
 import java.util.ArrayList;
 
@@ -26,13 +26,11 @@ public class PasswordPolicy {
 	}
 
 	public boolean validatePassword(String email, String password) {
-
 		if (!this.minimumLength.equals("FALSE")) {
 			if (password.length() < Integer.parseInt(this.minimumLength)) {
 				return false;
 			}
 		}
-
 		if (!this.maximumLength.equals("FALSE")) {
 			if (password.length() > Integer.parseInt(this.maximumLength)) {
 				return false;
@@ -40,80 +38,64 @@ public class PasswordPolicy {
 		}
 
 		if (!this.minimumUpperCase.equals("FALSE")) {
-
 			int count = 0;
-
 			for (int i = 0; i < password.length(); i++) {
 				if (Character.isUpperCase(password.charAt(i))) {
 					count++;
 				}
 			}
-
 			if (count < Integer.parseInt(this.minimumUpperCase)) {
 				return false;
 			}
 		}
 
 		if (!this.minimumLowerCase.equals("FALSE")) {
-
 			int count = 0;
-
 			for (int i = 0; i < password.length(); i++) {
 				if (Character.isLowerCase(password.charAt(i))) {
 					count++;
 				}
 			}
-
 			if (count < Integer.parseInt(this.minimumLowerCase)) {
 				return false;
 			}
 		}
 
 		if (!this.minimumSymbols.equals("FALSE")) {
-
 			String symbols = ".+-[]*~_#:?";
 			int count = 0;
-
 			for (int i = 0; i < password.length(); i++) {
 				if (symbols.contains(Character.toString(password.charAt(i)))) {
 					count++;
 				}
 			}
-
 			if (count < Integer.parseInt(this.minimumSymbols)) {
 				return false;
 			}
 		}
 
 		if (!this.charsNotAllowed.equals("FALSE")) {
-
 			int count = 0;
-
 			for (int i = 0; i < password.length(); i++) {
 				if (charsNotAllowed.contains(Character.toString(password.charAt(i)))) {
 					count++;
 				}
 			}
-
 			if (count > 0) {
 				return false;
 			}
 		}
 
 		if (!this.history.equals("FALSE")) {
-
-			PasswordHistoryDao passwordHistoryDao = new PasswordHistoryDaoImpl();
+			PasswordHistoryDao passwordHistoryDao = SystemConfig.instance().getPasswordHistoryDao();
 			ArrayList<PasswordHistory> historyList = passwordHistoryDao.fetch(email, Integer.parseInt(this.history));
-
 			boolean matchFound = false;
-
 			for (PasswordHistory history : historyList) {
 				if (password.equals(history.getPassword())) {
 					matchFound = true;
 					break;
 				}
 			}
-
 			if (matchFound) {
 				return false;
 			}
@@ -149,4 +131,5 @@ public class PasswordPolicy {
 	public String getHistory() {
 		return history;
 	}
+
 }

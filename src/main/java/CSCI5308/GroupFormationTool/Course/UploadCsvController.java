@@ -2,7 +2,7 @@ package CSCI5308.GroupFormationTool.Course;
 
 import java.util.List;
 
-import CSCI5308.GroupFormationTool.Course.Service.UploadCsvFileServiceImpl;
+import CSCI5308.GroupFormationTool.SystemConfig;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +14,12 @@ import CSCI5308.GroupFormationTool.Model.Student;
 
 @Controller
 public class UploadCsvController {
+
+	UploadCsvFileService uploadCsvFileService;
+
+	public UploadCsvController() {
+		this.uploadCsvFileService = SystemConfig.instance().getUploadCsvFileService();
+	}
 
 	@PostMapping("course-admin/upload-csv-home")
 	public String uploadCSV(@RequestParam String courseId, @RequestParam String courseCode,
@@ -30,7 +36,6 @@ public class UploadCsvController {
 	public String uploadFile(@RequestParam("file") MultipartFile file, @RequestParam String courseId,
 			@RequestParam String courseCode, @RequestParam String courseName, Model model) {
 
-		UploadCsvFileService uploadCsvFileService = new UploadCsvFileServiceImpl();
 		uploadCsvFileService.uploadCsvFile(file, Integer.valueOf(courseId), courseCode, courseName);
 		String resMessage = uploadCsvFileService.getMessage();
 		Boolean resStatus = uploadCsvFileService.getStatus();
