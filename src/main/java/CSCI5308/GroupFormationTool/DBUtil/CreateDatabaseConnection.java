@@ -1,4 +1,4 @@
-package CSCI5308.GroupFormationTool.DBConnection;
+package CSCI5308.GroupFormationTool.DBUtil;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

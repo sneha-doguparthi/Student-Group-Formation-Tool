@@ -8,7 +8,8 @@ import java.sql.SQLException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import CSCI5308.GroupFormationTool.DBConnection.CreateDatabaseConnection;
+import CSCI5308.GroupFormationTool.DBUtil.CreateDatabaseConnection;
+import CSCI5308.GroupFormationTool.DBUtil.SqlQueryUtil;
 import CSCI5308.GroupFormationTool.Model.Course;
 import CSCI5308.GroupFormationTool.Utilities.ApplicationConstants;
 
@@ -18,22 +19,21 @@ public class AddCourseImpl implements AddCourse {
 
 	@Override
 	public String addNewCourse(Course course) {
-
 		Connection connection = null;
 		PreparedStatement statement = null;
-
 		try {
 			if (checkIfCourseExists(course)) {
 				return ApplicationConstants.COURSE_ALREADY_EXISTS;
 			}
 			connection = CreateDatabaseConnection.instance().createConnection();
-			String insertQuery = "INSERT INTO course (course_code,course_name) values(?,?);";
+			String insertQuery = SqlQueryUtil.instance().getQueryByKey("addCourse");
 			statement = connection.prepareStatement(insertQuery);
 			statement.setString(1, course.getCourseCode());
 			statement.setString(2, course.getCourseName());
 			int result = statement.executeUpdate();
-			if (result > 0)
+			if (result > 0) {
 				return ApplicationConstants.COURSE_ADDED;
+			}
 		} catch (SQLException e) {
 			logger.error("Exception occured while adding new course", e);
 		} finally {
@@ -48,7 +48,6 @@ public class AddCourseImpl implements AddCourse {
 				logger.error("Exception occured while closing connection/statement", e);
 			}
 		}
-
 		return ApplicationConstants.COURSE_ADD_FAILED;
 	}
 
@@ -60,7 +59,7 @@ public class AddCourseImpl implements AddCourse {
 
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
-			String selectQuery = "SELECT course_id FROM course WHERE course_code = ?;";
+			String selectQuery = SqlQueryUtil.instance().getQueryByKey("existingCourse");
 			statement = connection.prepareStatement(selectQuery);
 			statement.setString(1, course.getCourseCode());
 			ResultSet resultSet = statement.executeQuery();
@@ -84,7 +83,6 @@ public class AddCourseImpl implements AddCourse {
 				logger.error("Exception occured while closing connection/statement", e);
 			}
 		}
-
 		return false;
 	}
 

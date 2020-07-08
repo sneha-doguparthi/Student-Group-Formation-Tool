@@ -1,6 +1,7 @@
 ## MacOS file ##
 .DS_Store
 
+.idea/
 .gradle
 build/
 bin/
