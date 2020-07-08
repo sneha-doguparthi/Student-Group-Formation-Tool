@@ -8,6 +8,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import CSCI5308.GroupFormationTool.DBUtil.CreateDatabaseConnection;
+import CSCI5308.GroupFormationTool.DBUtil.SqlQueryUtil;
 
 public class DeleteQuestionDAOImpl implements DeleteQuestionDAO {
 
@@ -22,7 +23,7 @@ public class DeleteQuestionDAOImpl implements DeleteQuestionDAO {
 			connection = CreateDatabaseConnection.instance().createConnection();
 			statement = connection.createStatement();
 			deleteQuestionOption(questionId);
-			String query = "DELETE FROM question WHERE question_id=" + questionId;
+			String query = SqlQueryUtil.instance().getQueryByKey("deleteQuestion") + questionId;
 			statement.execute(query);
 		} catch (SQLException exception) {
 			logger.error("SQL Exception in method delete question", exception);
@@ -52,7 +53,7 @@ public class DeleteQuestionDAOImpl implements DeleteQuestionDAO {
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
 			statement = connection.createStatement();
-			String query = "DELETE FROM multiple_choice_ques_option WHERE question_id=" + questionId;
+			String query = SqlQueryUtil.instance().getQueryByKey("deleteQuesOption") + questionId;
 			statement.execute(query);
 		} catch (SQLException exception) {
 			logger.error("SQL Exception in method delete question option", exception);

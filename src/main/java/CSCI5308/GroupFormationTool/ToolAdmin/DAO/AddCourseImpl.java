@@ -85,5 +85,4 @@ public class AddCourseImpl implements AddCourse {
 		}
 		return false;
 	}
-
 }

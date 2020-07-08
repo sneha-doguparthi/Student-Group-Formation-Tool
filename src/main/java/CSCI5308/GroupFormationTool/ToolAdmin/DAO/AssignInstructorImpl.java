@@ -10,6 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import CSCI5308.GroupFormationTool.DBUtil.CreateDatabaseConnection;
+import CSCI5308.GroupFormationTool.DBUtil.SqlQueryUtil;
 import CSCI5308.GroupFormationTool.Model.User;
 import CSCI5308.GroupFormationTool.Utilities.ApplicationConstants;
 
@@ -26,7 +27,7 @@ public class AssignInstructorImpl implements AssignInstructor {
 
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
-			String selectQuery = "SELECT first_name, last_name, user_id, banner_id, email FROM user WHERE user_type != 'A';";
+			String selectQuery = SqlQueryUtil.instance().getQueryByKey("userList");
 			statement = connection.prepareStatement(selectQuery);
 			ResultSet resultSet = statement.executeQuery();
 			while (resultSet.next()) {
@@ -66,7 +67,7 @@ public class AssignInstructorImpl implements AssignInstructor {
 			if (checkIfCourseExistsForUser(user, courseCode))
 				return ApplicationConstants.COURSE_ALREADY_ADDED_FOR_USER;
 			connection = CreateDatabaseConnection.instance().createConnection();
-			String insertQuery = "INSERT INTO course_association (course_id,user_id, role_id) values(?,?,?);";
+			String insertQuery = SqlQueryUtil.instance().getQueryByKey("assignRole");
 			statement = connection.prepareStatement(insertQuery);
 			statement.setString(1, courseCode);
 			statement.setInt(2, user.getUserId());
@@ -100,7 +101,7 @@ public class AssignInstructorImpl implements AssignInstructor {
 
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
-			String selectQuery = "SELECT ca.course_id FROM course_association ca JOIN user u ON u.user_id = ca.user_id WHERE ca.course_id = ?;";
+			String selectQuery = SqlQueryUtil.instance().getQueryByKey("coursesForUser");
 			statement = connection.prepareStatement(selectQuery);
 			statement.setString(1, course);
 			ResultSet resultSet = statement.executeQuery();

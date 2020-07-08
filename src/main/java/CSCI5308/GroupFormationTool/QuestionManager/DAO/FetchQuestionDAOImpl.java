@@ -13,24 +13,24 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import CSCI5308.GroupFormationTool.SystemConfig;
 import CSCI5308.GroupFormationTool.DBUtil.CreateDatabaseConnection;
+import CSCI5308.GroupFormationTool.DBUtil.SqlQueryUtil;
 import CSCI5308.GroupFormationTool.Model.Question;
 import CSCI5308.GroupFormationTool.Model.User;
 import CSCI5308.GroupFormationTool.Profile.DAO.UserDao;
 
 public class FetchQuestionDAOImpl implements FetchQuestionDAO {
 
+	Logger logger = LogManager.getLogger(FetchQuestionDAOImpl.class);
+	
 	@Override
 	public ArrayList<Question> getQuestionByUserId() {
-
 		Connection connection = null;
 		Statement statement = null;
 		ArrayList<Question> questions = new ArrayList<>();
-		Logger logger = LogManager.getLogger(FetchQuestionDAOImpl.class);
-
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
 			statement = connection.createStatement();
-			String query = "SELECT * FROM question WHERE user_id=" + getUserId();
+			String query = SqlQueryUtil.instance().getQueryByKey("questionList") + getUserId();
 			ResultSet rs = statement.executeQuery(query);
 			int i = 1;
 			while (rs.next()) {
