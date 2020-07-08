@@ -10,6 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import CSCI5308.GroupFormationTool.DBUtil.CreateDatabaseConnection;
+import CSCI5308.GroupFormationTool.DBUtil.SqlQueryUtil;
 import CSCI5308.GroupFormationTool.Model.Course;
 
 public class ViewCoursesImpl implements ViewCourses {
@@ -25,7 +26,7 @@ public class ViewCoursesImpl implements ViewCourses {
 
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
-			String selectQuery = "SELECT course_id, course_code, course_name FROM course;";
+			String selectQuery = SqlQueryUtil.instance().getQueryByKey("allCourses");
 			statement = connection.prepareStatement(selectQuery);
 			ResultSet resultSet = statement.executeQuery();
 			while (resultSet.next()) {

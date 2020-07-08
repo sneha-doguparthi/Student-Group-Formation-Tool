@@ -38,6 +38,6 @@ public class SqlQueryUtil {
 	}
 
 	public String getQueryByKey(String queryKey) {
-		return queryProps.getProperty("addCourse");
+		return queryProps.getProperty(queryKey);
 	}
 }

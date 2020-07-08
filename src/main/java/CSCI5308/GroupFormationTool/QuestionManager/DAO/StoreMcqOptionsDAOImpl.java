@@ -9,6 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import CSCI5308.GroupFormationTool.DBUtil.CreateDatabaseConnection;
+import CSCI5308.GroupFormationTool.DBUtil.SqlQueryUtil;
 import CSCI5308.GroupFormationTool.Model.Answer;
 import CSCI5308.GroupFormationTool.Utilities.ApplicationConstants;
 
@@ -27,7 +28,7 @@ public class StoreMcqOptionsDAOImpl implements StoreMcqOptionsDAO {
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
 			for (Answer answer : answerList) {
-				String insertQuery = "INSERT INTO multiple_choice_ques_option (option_text,option_value,question_id) values(?,?,?);";
+				String insertQuery = SqlQueryUtil.instance().getQueryByKey("insertQuestionOptions");
 				statement = connection.prepareStatement(insertQuery);
 				statement.setString(1, answer.getAnswerText());
 				statement.setString(2, answer.getStoredAs());
