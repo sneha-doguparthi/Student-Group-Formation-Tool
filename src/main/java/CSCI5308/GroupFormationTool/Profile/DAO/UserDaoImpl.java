@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import CSCI5308.GroupFormationTool.DBUtil.SqlQueryUtil;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -34,8 +35,9 @@ public class UserDaoImpl implements UserDao {
 			connection = CreateDatabaseConnection.instance().createConnection();
 
 			for (int i = 0; i < listSize; i++) {
-				String reqQuery = "SELECT * FROM user WHERE user_id = '" + userIds.get(i) + "'";
+				String reqQuery = SqlQueryUtil.instance().getQueryByKey("userDetailsById");
 				statement = connection.prepareStatement(reqQuery);
+				statement.setInt(1,userIds.get(i));
 				rs = statement.executeQuery(reqQuery);
 				while (rs.next()) {
 					User user = new User();
@@ -77,7 +79,7 @@ public class UserDaoImpl implements UserDao {
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
 			statement = connection.createStatement();
-			String query = "SELECT * FROM user";
+			String query = SqlQueryUtil.instance().getQueryByKey("userDetails");
 			ResultSet rs = statement.executeQuery(query);
 
 			while (rs.next()) {
@@ -122,7 +124,7 @@ public class UserDaoImpl implements UserDao {
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
 			for (int i = 0; i < listSize; i++) {
-				String reqQuery = "SELECT user_id FROM user WHERE banner_id=?";
+				String reqQuery = SqlQueryUtil.instance().getQueryByKey("getUserId");
 				statement = connection.prepareStatement(reqQuery);
 				statement.setString(1, students.get(i).getbId());
 				rs = statement.executeQuery();
@@ -159,8 +161,7 @@ public class UserDaoImpl implements UserDao {
 			connection = CreateDatabaseConnection.instance().createConnection();
 			for (int i = 0; i < listSize; i++) {
 				String password = RandomStringUtils.random(10, true, true);
-				String reqQuery = "INSERT INTO user (banner_id, first_name, last_name, email, password, user_type) "
-						+ "values(?, ?, ?, ?, ?, ?);";
+				String reqQuery = SqlQueryUtil.instance().getQueryByKey("insertUser");
 				statement = connection.prepareStatement(reqQuery);
 				statement.setString(1, student.get(i).getbId());
 				statement.setString(2, student.get(i).getFirstName());
@@ -201,7 +202,7 @@ public class UserDaoImpl implements UserDao {
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
 			for (int i = 0; i < listSize; i++) {
-				String reqQuery = "SELECT password FROM user WHERE banner_id=?";
+				String reqQuery = SqlQueryUtil.instance().getQueryByKey("getPassword");
 				statement = connection.prepareStatement(reqQuery);
 				statement.setString(1, students.get(i).getbId());
 				rs = statement.executeQuery();
@@ -231,14 +232,15 @@ public class UserDaoImpl implements UserDao {
 	public ArrayList<User> getByEmail(String email) {
 
 		Connection connection = null;
-		Statement statement = null;
-		String query = "SELECT * FROM user WHERE email = '" + email + "'";
+		PreparedStatement statement = null;
+		String query = SqlQueryUtil.instance().getQueryByKey("userByEmail");
 		ArrayList<User> users = new ArrayList<>();
 
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
-			statement = connection.createStatement();
-			ResultSet rs = statement.executeQuery(query);
+			statement = connection.prepareStatement(query);
+			statement.setString(1,email);
+			ResultSet rs = statement.executeQuery();
 			while (rs.next()) {
 				User user = new User();
 				user.setUserId(rs.getInt("user_id"));
@@ -276,9 +278,9 @@ public class UserDaoImpl implements UserDao {
 
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
-			String insertQuery = "UPDATE user SET banner_id = ?, first_name = ?, last_name = ?, email = ?,"
-					+ " password = ?, user_type = ? WHERE user_id = ?";
-			statement = connection.prepareStatement(insertQuery);
+			String query = SqlQueryUtil.instance().getQueryByKey("updateUser");
+
+			statement = connection.prepareStatement(query);
 			statement.setString(1, user.getBannerId());
 			statement.setString(2, user.getFirstName());
 			statement.setString(3, user.getLastName());
@@ -313,7 +315,7 @@ public class UserDaoImpl implements UserDao {
 		boolean isUser = false;
 
 		try {
-			String query = "SELECT user_type, user_id FROM user WHERE email=? AND password=?;";
+			String query = SqlQueryUtil.instance().getQueryByKey("checkAccessOfUser") ;
 			connection = CreateDatabaseConnection.instance().createConnection();
 			statement = connection.prepareStatement(query);
 			statement.setString(1, user.getEmail());
@@ -351,7 +353,7 @@ public class UserDaoImpl implements UserDao {
 		PreparedStatement statement = null;
 
 		try {
-			String query = "INSERT INTO user(banner_id,first_name,last_name,email,password,user_type) VALUES(?,?,?,?,?,?);";
+			String query = SqlQueryUtil.instance().getQueryByKey("registerUser");
 			connection = CreateDatabaseConnection.instance().createConnection();
 			statement = connection.prepareStatement(query);
 			statement.setString(1, user.getBannerId());

@@ -1,11 +1,9 @@
 package CSCI5308.GroupFormationTool.Course.DAO;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 
+import CSCI5308.GroupFormationTool.DBUtil.SqlQueryUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -21,7 +19,7 @@ public class CourseDaoImpl implements CourseDao {
 
 		Connection connection = null;
 		Statement statement = null;
-		String query = "SELECT * FROM course";
+		String query = SqlQueryUtil.instance().getQueryByKey("courseDetails");
 		ArrayList<Course> courses = new ArrayList<>();
 
 		try {
@@ -57,14 +55,15 @@ public class CourseDaoImpl implements CourseDao {
 	public Course getById(Integer id) {
 
 		Connection connection = null;
-		Statement statement = null;
-		String query = "SELECT * FROM course WHERE course_id = " + id;
+		PreparedStatement statement = null;
+		String courseById = SqlQueryUtil.instance().getQueryByKey("courseDetailsById");
 		ArrayList<Course> courses = new ArrayList<>();
 
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
-			statement = connection.createStatement();
-			ResultSet rs = statement.executeQuery(query);
+			statement = connection.prepareStatement(courseById);
+			statement.setInt(1,id);
+			ResultSet rs = statement.executeQuery();
 			while (rs.next()) {
 				Course course = new Course();
 				course.setCourseId(rs.getInt("course_id"));

@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import CSCI5308.GroupFormationTool.DBUtil.SqlQueryUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -25,7 +26,7 @@ public class PasswordHistoryDaoImpl implements PasswordHistoryDao {
 
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
-			String insertQuery = "INSERT INTO password_history (email,password) values(?,?);";
+			String insertQuery = SqlQueryUtil.instance().getQueryByKey("insertPassword");
 			statement = connection.prepareStatement(insertQuery);
 			statement.setString(1, email);
 			statement.setString(2, password);
@@ -51,14 +52,15 @@ public class PasswordHistoryDaoImpl implements PasswordHistoryDao {
 	public ArrayList<PasswordHistory> fetch(String email, Integer limit) {
 
 		Connection connection = null;
-		Statement statement = null;
+		PreparedStatement statement = null;
 		ArrayList<PasswordHistory> list = new ArrayList<>();
 
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
-			statement = connection.createStatement();
-			String query = "SELECT * FROM password_history WHERE email = '" + email + "' ORDER BY id DESC LIMIT "
-					+ limit;
+			String query = "SELECT * FROM password_history WHERE email = ? ORDER BY id DESC LIMIT ?";
+			statement = connection.prepareStatement(query);
+			statement.setString(1,email);
+			statement.setInt(2,limit);
 			ResultSet rs = statement.executeQuery(query);
 			while (rs.next()) {
 				PasswordHistory passwordHistory = new PasswordHistory();
