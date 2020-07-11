@@ -16,7 +16,7 @@ import CSCI5308.GroupFormationTool.DBUtil.CreateDatabaseConnection;
 import CSCI5308.GroupFormationTool.Model.Student;
 import CSCI5308.GroupFormationTool.Model.User;
 
-public class UserDaoImpl implements UserDao {
+public class UserDaoImpl implements IUserDao {
 
 	private Logger logger = LogManager.getLogger(UserDaoImpl.class);
 

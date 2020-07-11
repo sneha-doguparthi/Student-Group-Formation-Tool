@@ -14,17 +14,15 @@ import CSCI5308.GroupFormationTool.DBUtil.SqlQueryUtil;
 import CSCI5308.GroupFormationTool.Model.User;
 import CSCI5308.GroupFormationTool.Utilities.ApplicationConstants;
 
-public class AssignInstructorImpl implements AssignInstructor {
+public class AssignInstructorImpl implements IAssignInstructor {
 
 	private Logger logger = LogManager.getLogger(AssignInstructorImpl.class);
 
 	@Override
 	public ArrayList<User> getUserList() {
-
 		Connection connection = null;
 		PreparedStatement statement = null;
 		ArrayList<User> userList = new ArrayList<>();
-
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
 			String selectQuery = SqlQueryUtil.instance().getQueryByKey("userList");

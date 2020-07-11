@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import CSCI5308.GroupFormationTool.Course.Course;
 import CSCI5308.GroupFormationTool.DBUtil.CreateDatabaseConnection;
 import CSCI5308.GroupFormationTool.DBUtil.SqlQueryUtil;
-import CSCI5308.GroupFormationTool.Model.Course;
 
-public class ViewCoursesImpl implements ViewCourses {
+public class ViewCoursesImpl implements IViewCourses {
 
 	private Logger logger = LogManager.getLogger(ViewCoursesImpl.class);
 

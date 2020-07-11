@@ -6,17 +6,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import CSCI5308.GroupFormationTool.SystemConfig;
 import CSCI5308.GroupFormationTool.Model.PasswordPolicy;
-import CSCI5308.GroupFormationTool.Profile.Service.OtpService;
+import CSCI5308.GroupFormationTool.Profile.Service.IOtpService;
+import CSCI5308.GroupFormationTool.Profile.Service.ProfileServiceFactory;
 
 @Controller
 public class ForgotPasswordController {
 
-	OtpService otpService;
+	IOtpService otpService;
 
 	public ForgotPasswordController() {
-		this.otpService = SystemConfig.instance().getOtpService();
+		this.otpService = ProfileServiceFactory.instance().otpService();
 	}
 
 	@GetMapping("/profile/forgot")

@@ -7,17 +7,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import CSCI5308.GroupFormationTool.SystemConfig;
-import CSCI5308.GroupFormationTool.Course.Service.AssignTaService;
+import CSCI5308.GroupFormationTool.Course.Service.CourseServiceFactory;
+import CSCI5308.GroupFormationTool.Course.Service.IAssignTaService;
 import CSCI5308.GroupFormationTool.Model.User;
 
 @Controller
 public class AssignTaController {
 
-	AssignTaService assignTaService;
+	IAssignTaService assignTaService;
 
 	public AssignTaController() {
-		this.assignTaService = SystemConfig.instance().getAssignTaService();
+		this.assignTaService = CourseServiceFactory.instance().assignTaService();
 	}
 
 	@PostMapping("/course-admin/assign-ta")

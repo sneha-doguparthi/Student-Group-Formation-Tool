@@ -2,8 +2,8 @@ package CSCI5308.GroupFormationTool.Model;
 
 import java.util.ArrayList;
 
-import CSCI5308.GroupFormationTool.SystemConfig;
-import CSCI5308.GroupFormationTool.Profile.DAO.PasswordHistoryDao;
+import CSCI5308.GroupFormationTool.Profile.DAO.IPasswordHistoryDao;
+import CSCI5308.GroupFormationTool.Profile.DAO.ProfileDaoFactory;
 
 public class PasswordPolicy {
 
@@ -87,7 +87,7 @@ public class PasswordPolicy {
 		}
 
 		if (!this.history.equals("FALSE")) {
-			PasswordHistoryDao passwordHistoryDao = SystemConfig.instance().getPasswordHistoryDao();
+			IPasswordHistoryDao passwordHistoryDao = ProfileDaoFactory.instance().passwordHistoryDao();
 			ArrayList<PasswordHistory> historyList = passwordHistoryDao.fetch(email, Integer.parseInt(this.history));
 			boolean matchFound = false;
 			for (PasswordHistory history : historyList) {

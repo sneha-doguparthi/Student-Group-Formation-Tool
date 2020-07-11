@@ -9,7 +9,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 import CSCI5308.GroupFormationTool.Model.Student;
 
-public class SendInvitationEmailServiceImpl implements SendInvitationEmailService {
+public class SendInvitationEmailServiceImpl implements ISendInvitationEmailService {
 
 	@Override
 	public boolean sendUserInvitationEmail(List<Student> newToPortalList, ArrayList<String> passwords) {

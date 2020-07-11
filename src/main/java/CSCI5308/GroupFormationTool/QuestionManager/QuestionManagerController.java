@@ -8,32 +8,32 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import CSCI5308.GroupFormationTool.SystemConfig;
 import CSCI5308.GroupFormationTool.Model.Answer;
 import CSCI5308.GroupFormationTool.Model.Question;
-import CSCI5308.GroupFormationTool.QuestionManager.Service.DeleteQuestionService;
-import CSCI5308.GroupFormationTool.QuestionManager.Service.FetchQuestionService;
-import CSCI5308.GroupFormationTool.QuestionManager.Service.SplitMcqAnswerService;
-import CSCI5308.GroupFormationTool.QuestionManager.Service.StoreMcqOptionService;
-import CSCI5308.GroupFormationTool.QuestionManager.Service.StoreQuestionService;
+import CSCI5308.GroupFormationTool.QuestionManager.Service.IDeleteQuestionService;
+import CSCI5308.GroupFormationTool.QuestionManager.Service.IFetchQuestionService;
+import CSCI5308.GroupFormationTool.QuestionManager.Service.ISplitMcqAnswerService;
+import CSCI5308.GroupFormationTool.QuestionManager.Service.IStoreMcqOptionService;
+import CSCI5308.GroupFormationTool.QuestionManager.Service.IStoreQuestionService;
+import CSCI5308.GroupFormationTool.QuestionManager.Service.ServiceFactory;
 import CSCI5308.GroupFormationTool.Utilities.ApplicationConstants;
 
 @Controller
 public class QuestionManagerController {
 
 	Question question = new Question();
-	StoreQuestionService storeQuestionService;
-	SplitMcqAnswerService splitMcqAnswerService;
-	StoreMcqOptionService storeMcqOptionService;
-	FetchQuestionService fetchQuestionService;
-	DeleteQuestionService deleteQuestionService;
+	IStoreQuestionService storeQuestionService;
+	ISplitMcqAnswerService splitMcqAnswerService;
+	IStoreMcqOptionService storeMcqOptionService;
+	IFetchQuestionService fetchQuestionService;
+	IDeleteQuestionService deleteQuestionService;
 
 	public QuestionManagerController() {
-		storeQuestionService = SystemConfig.instance().getStoreQuestionService();
-		splitMcqAnswerService = SystemConfig.instance().getSplitMcqAnswerService();
-		storeMcqOptionService = SystemConfig.instance().getStoreMcqOptionService();
-		fetchQuestionService = SystemConfig.instance().getFetchQuestionService();
-		deleteQuestionService = SystemConfig.instance().getDeleteQuestionService();
+		storeQuestionService = ServiceFactory.instance().storeQuestionService();
+		splitMcqAnswerService = ServiceFactory.instance().splitMcqAnswerService();
+		storeMcqOptionService = ServiceFactory.instance().storeMcqOptionService();
+		fetchQuestionService = ServiceFactory.instance().fetchQuestionService();
+		deleteQuestionService = ServiceFactory.instance().deleteQuestionService();
 	}
 
 	@GetMapping("/question-manager/home")

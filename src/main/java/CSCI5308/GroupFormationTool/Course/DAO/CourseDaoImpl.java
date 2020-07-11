@@ -9,27 +9,29 @@ import java.util.ArrayList;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import CSCI5308.GroupFormationTool.Course.CourseFactory;
+import CSCI5308.GroupFormationTool.Course.CourseObjectFactory;
+import CSCI5308.GroupFormationTool.Course.ICourse;
 import CSCI5308.GroupFormationTool.DBUtil.CreateDatabaseConnection;
-import CSCI5308.GroupFormationTool.Model.Course;
 
-public class CourseDaoImpl implements CourseDao {
+public class CourseDaoImpl implements ICourseDao {
 
 	private Logger logger = LogManager.getLogger(CourseDaoImpl.class);
 
 	@Override
-	public ArrayList<Course> getAll() {
+	public ArrayList<ICourse> getAll() {
 
 		Connection connection = null;
 		Statement statement = null;
 		String query = "SELECT * FROM course";
-		ArrayList<Course> courses = new ArrayList<>();
+		ArrayList<ICourse> courses = new ArrayList<>();
 
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
 			statement = connection.createStatement();
 			ResultSet rs = statement.executeQuery(query);
 			while (rs.next()) {
-				Course course = new Course();
+				ICourse course = CourseFactory.courseObject(new CourseObjectFactory());
 				course.setCourseId(rs.getInt("course_id"));
 				course.setCourseCode(rs.getString("course_code"));
 				course.setCourseName(rs.getString("course_name"));
@@ -54,19 +56,19 @@ public class CourseDaoImpl implements CourseDao {
 	}
 
 	@Override
-	public Course getById(Integer id) {
+	public ICourse getById(Integer id) {
 
 		Connection connection = null;
 		Statement statement = null;
 		String query = "SELECT * FROM course WHERE course_id = " + id;
-		ArrayList<Course> courses = new ArrayList<>();
+		ArrayList<ICourse> courses = new ArrayList<>();
 
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
 			statement = connection.createStatement();
 			ResultSet rs = statement.executeQuery(query);
 			while (rs.next()) {
-				Course course = new Course();
+				ICourse course = CourseFactory.courseObject(new CourseObjectFactory());
 				course.setCourseId(rs.getInt("course_id"));
 				course.setCourseCode(rs.getString("course_code"));
 				course.setCourseName(rs.getString("course_name"));

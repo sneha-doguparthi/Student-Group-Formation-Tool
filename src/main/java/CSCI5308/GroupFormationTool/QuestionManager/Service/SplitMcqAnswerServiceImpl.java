@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import CSCI5308.GroupFormationTool.Model.Answer;
 
-public class SplitMcqAnswerServiceImpl implements SplitMcqAnswerService {
+public class SplitMcqAnswerServiceImpl implements ISplitMcqAnswerService {
 
 	@Override
 	public ArrayList<Answer> splitMcqAnswers(Answer answerInfo) {
@@ -21,7 +21,6 @@ public class SplitMcqAnswerServiceImpl implements SplitMcqAnswerService {
 			answer.setStoredAs(storedAsList[i].trim());
 			answerList.add(answer);
 		}
-
 		return answerList;
 	}
 }

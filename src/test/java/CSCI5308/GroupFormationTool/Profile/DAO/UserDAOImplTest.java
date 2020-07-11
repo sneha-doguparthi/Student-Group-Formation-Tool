@@ -16,7 +16,7 @@ import CSCI5308.GroupFormationTool.Model.User;
 
 public class UserDAOImplTest {
 
-	UserDao userDaoImplMock = mock(UserDaoImpl.class);
+	IUserDao userDaoImplMock = mock(UserDaoImpl.class);
 
 	@Test
 	void testGetByUserID() {

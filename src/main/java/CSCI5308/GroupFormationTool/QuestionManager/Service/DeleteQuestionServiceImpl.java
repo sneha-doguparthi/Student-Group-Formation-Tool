@@ -1,13 +1,13 @@
 package CSCI5308.GroupFormationTool.QuestionManager.Service;
 
-import CSCI5308.GroupFormationTool.SystemConfig;
-import CSCI5308.GroupFormationTool.QuestionManager.DAO.DeleteQuestionDAO;
+import CSCI5308.GroupFormationTool.QuestionManager.DAO.IDeleteQuestionDAO;
+import CSCI5308.GroupFormationTool.QuestionManager.DAO.QuestionManagerDaoFactory;
 
-public class DeleteQuestionServiceImpl implements DeleteQuestionService {
+public class DeleteQuestionServiceImpl implements IDeleteQuestionService {
 
 	@Override
 	public boolean deleteQuestionAndOptions(Integer questionId) {
-		DeleteQuestionDAO deleteQuestionDAO = SystemConfig.instance().getDeleteQuestionDAO();
+		IDeleteQuestionDAO deleteQuestionDAO = QuestionManagerDaoFactory.instance().deleteQuestionDAO();
 		deleteQuestionDAO.deleteQuestionByQuestionId(questionId);
 		return true;
 	}

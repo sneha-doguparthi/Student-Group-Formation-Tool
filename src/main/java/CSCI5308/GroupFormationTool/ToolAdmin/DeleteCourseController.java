@@ -8,20 +8,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import CSCI5308.GroupFormationTool.SystemConfig;
-import CSCI5308.GroupFormationTool.Model.Course;
-import CSCI5308.GroupFormationTool.ToolAdmin.Service.DeleteCourseService;
-import CSCI5308.GroupFormationTool.ToolAdmin.Service.ViewCoursesService;
+import CSCI5308.GroupFormationTool.Course.Course;
+import CSCI5308.GroupFormationTool.ToolAdmin.Service.IDeleteCourseService;
+import CSCI5308.GroupFormationTool.ToolAdmin.Service.IViewCoursesService;
+import CSCI5308.GroupFormationTool.ToolAdmin.Service.ToolAdminServiceFactory;
 
 @Controller
 public class DeleteCourseController {
 
-	ViewCoursesService viewCourseService;
-	DeleteCourseService deleteCourseService;
+	IViewCoursesService viewCourseService;
+	IDeleteCourseService deleteCourseService;
 
 	public DeleteCourseController() {
-		viewCourseService = SystemConfig.instance().getViewCoursesService();
-		deleteCourseService = SystemConfig.instance().getDeleteCourseService();
+		viewCourseService = ToolAdminServiceFactory.instance().viewCourseService();
+		deleteCourseService = ToolAdminServiceFactory.instance().deleteCourseService();
 	}
 
 	@GetMapping("admin/delete-course")

@@ -8,12 +8,12 @@ import java.sql.SQLException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import CSCI5308.GroupFormationTool.Course.Course;
 import CSCI5308.GroupFormationTool.DBUtil.CreateDatabaseConnection;
 import CSCI5308.GroupFormationTool.DBUtil.SqlQueryUtil;
-import CSCI5308.GroupFormationTool.Model.Course;
 import CSCI5308.GroupFormationTool.Utilities.ApplicationConstants;
 
-public class AddCourseImpl implements AddCourse {
+public class AddCourseImpl implements IAddCourse {
 
 	private Logger logger = LogManager.getLogger(AddCourseImpl.class);
 

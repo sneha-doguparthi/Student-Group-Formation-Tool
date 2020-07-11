@@ -13,7 +13,7 @@ import CSCI5308.GroupFormationTool.DBUtil.SqlQueryUtil;
 import CSCI5308.GroupFormationTool.Model.Answer;
 import CSCI5308.GroupFormationTool.Utilities.ApplicationConstants;
 
-public class StoreMcqOptionsDAOImpl implements StoreMcqOptionsDAO {
+public class StoreMcqOptionsDAOImpl implements IStoreMcqOptionsDAO {
 
 	private Logger logger = LogManager.getLogger(StoreMcqOptionsDAOImpl.class);
 	Connection connection;

@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import CSCI5308.GroupFormationTool.Course.Course;
+
 public class CourseModelTest {
 
 	@Test

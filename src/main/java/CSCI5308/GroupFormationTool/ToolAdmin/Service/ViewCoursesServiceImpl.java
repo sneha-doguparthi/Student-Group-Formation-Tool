@@ -2,19 +2,16 @@ package CSCI5308.GroupFormationTool.ToolAdmin.Service;
 
 import java.util.ArrayList;
 
-import CSCI5308.GroupFormationTool.SystemConfig;
-import CSCI5308.GroupFormationTool.Model.Course;
-import CSCI5308.GroupFormationTool.ToolAdmin.DAO.ViewCourses;
+import CSCI5308.GroupFormationTool.Course.Course;
+import CSCI5308.GroupFormationTool.ToolAdmin.DAO.IViewCourses;
+import CSCI5308.GroupFormationTool.ToolAdmin.DAO.ToolAdminDaoFactory;
 
-public class ViewCoursesServiceImpl implements ViewCoursesService {
+public class ViewCoursesServiceImpl implements IViewCoursesService {
 
 	@Override
 	public ArrayList<Course> getCourseList() {
-
-		ViewCourses viewCourses = SystemConfig.instance().getViewCourses();
-
+		IViewCourses viewCourses = ToolAdminDaoFactory.instance().viewCoursesDao();
 		ArrayList<Course> courseList = viewCourses.getCourseList();
-
 		return courseList;
 	}
 }

@@ -11,17 +11,17 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import CSCI5308.GroupFormationTool.SystemConfig;
 import CSCI5308.GroupFormationTool.DBUtil.CreateDatabaseConnection;
 import CSCI5308.GroupFormationTool.DBUtil.SqlQueryUtil;
 import CSCI5308.GroupFormationTool.Model.Question;
 import CSCI5308.GroupFormationTool.Model.User;
-import CSCI5308.GroupFormationTool.Profile.DAO.UserDao;
+import CSCI5308.GroupFormationTool.Profile.DAO.IUserDao;
+import CSCI5308.GroupFormationTool.Profile.DAO.ProfileDaoFactory;
 
-public class FetchQuestionDAOImpl implements FetchQuestionDAO {
+public class FetchQuestionDAOImpl implements IFetchQuestionDAO {
 
 	Logger logger = LogManager.getLogger(FetchQuestionDAOImpl.class);
-	
+
 	@Override
 	public ArrayList<Question> getQuestionByUserId() {
 		Connection connection = null;
@@ -63,7 +63,7 @@ public class FetchQuestionDAOImpl implements FetchQuestionDAO {
 
 	public int getUserId() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		UserDao userDao = SystemConfig.instance().getUserDao();
+		IUserDao userDao = ProfileDaoFactory.instance().userDao();
 
 		ArrayList<User> list = userDao.getByEmail(authentication.getName());
 
