@@ -12,7 +12,7 @@ import CSCI5308.GroupFormationTool.Model.User;
 
 public class RegistrationServiceImplTest {
 
-	RegistrationService registrationServiceImplMock = mock(RegistrationServiceImpl.class);
+	IRegistrationService registrationServiceImplMock = mock(RegistrationServiceImpl.class);
 
 	@Test
 	void testRegisterUserServiceTrue() {

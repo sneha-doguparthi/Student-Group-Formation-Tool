@@ -17,7 +17,7 @@ import org.apache.logging.log4j.Logger;
 import CSCI5308.GroupFormationTool.DBUtil.CreateDatabaseConnection;
 import CSCI5308.GroupFormationTool.Model.Otp;
 
-public class OtpDaoImpl implements OtpDao {
+public class OtpDaoImpl implements IOtpDao {
 
 	private Logger logger = LogManager.getLogger(OtpDaoImpl.class);
 

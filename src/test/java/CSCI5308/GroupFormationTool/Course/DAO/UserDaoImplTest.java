@@ -10,12 +10,12 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
 import CSCI5308.GroupFormationTool.Model.User;
-import CSCI5308.GroupFormationTool.Profile.DAO.UserDao;
+import CSCI5308.GroupFormationTool.Profile.DAO.IUserDao;
 import CSCI5308.GroupFormationTool.Profile.DAO.UserDaoImpl;
 
 public class UserDaoImplTest {
 
-	UserDao userDaoImplMock = mock(UserDaoImpl.class);
+	IUserDao userDaoImplMock = mock(UserDaoImpl.class);
 
 	@Test
 	void testGetAll() {

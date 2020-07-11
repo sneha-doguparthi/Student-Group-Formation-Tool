@@ -15,7 +15,7 @@ import CSCI5308.GroupFormationTool.Model.User;
 
 public class GetStudentListServiceImplTest {
 
-	GetStudentListService getStudentListServiceImplMock = mock(GetStudentListServiceImpl.class);
+	IGetStudentListService getStudentListServiceImplMock = mock(GetStudentListServiceImpl.class);
 
 	@Test
 	void testGetNewToCourseStudentList() {

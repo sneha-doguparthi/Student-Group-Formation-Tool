@@ -9,18 +9,19 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
-import CSCI5308.GroupFormationTool.Course.DAO.CourseDao;
+import CSCI5308.GroupFormationTool.Course.Course;
+import CSCI5308.GroupFormationTool.Course.ICourse;
+import CSCI5308.GroupFormationTool.Course.DAO.ICourseDao;
 import CSCI5308.GroupFormationTool.Course.DAO.CourseDaoImpl;
-import CSCI5308.GroupFormationTool.Model.Course;
 
 public class CourseDaoImplTest {
 
-	CourseDao courseDaoImplMock = mock(CourseDaoImpl.class);
+	ICourseDao courseDaoImplMock = mock(CourseDaoImpl.class);
 
 	@Test
 	void testGetAll() {
 
-		ArrayList<Course> list = new ArrayList<>();
+		ArrayList<ICourse> list = new ArrayList<>();
 
 		Course courses = new Course();
 

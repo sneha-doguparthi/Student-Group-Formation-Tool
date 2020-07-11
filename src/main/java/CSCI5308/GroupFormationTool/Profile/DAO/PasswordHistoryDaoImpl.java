@@ -14,7 +14,7 @@ import org.apache.logging.log4j.Logger;
 import CSCI5308.GroupFormationTool.DBUtil.CreateDatabaseConnection;
 import CSCI5308.GroupFormationTool.Model.PasswordHistory;
 
-public class PasswordHistoryDaoImpl implements PasswordHistoryDao {
+public class PasswordHistoryDaoImpl implements IPasswordHistoryDao {
 
 	Logger logger = LogManager.getLogger(PasswordHistoryDaoImpl.class);
 

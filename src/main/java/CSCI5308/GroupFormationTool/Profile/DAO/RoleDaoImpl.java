@@ -10,7 +10,7 @@ import org.apache.logging.log4j.Logger;
 import CSCI5308.GroupFormationTool.DBUtil.CreateDatabaseConnection;
 import CSCI5308.GroupFormationTool.Model.Role;
 
-public class RoleDaoImpl implements RoleDao {
+public class RoleDaoImpl implements IRoleDao {
 
 	private Logger logger = LogManager.getLogger(RoleDaoImpl.class);
 

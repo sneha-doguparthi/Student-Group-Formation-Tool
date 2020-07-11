@@ -11,9 +11,9 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import CSCI5308.GroupFormationTool.SystemConfig;
 import CSCI5308.GroupFormationTool.Model.User;
-import CSCI5308.GroupFormationTool.Profile.DAO.UserDao;
+import CSCI5308.GroupFormationTool.Profile.DAO.IUserDao;
+import CSCI5308.GroupFormationTool.Profile.DAO.ProfileDaoFactory;
 
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
@@ -22,7 +22,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
 		String email = authentication.getName();
 		String password = authentication.getCredentials().toString();
-		UserDao userDao = SystemConfig.instance().getUserDao();
+		IUserDao userDao = ProfileDaoFactory.instance().userDao();
 		ArrayList<User> allUsers = userDao.getByEmail(email);
 
 		if (allUsers.size() != 0) {

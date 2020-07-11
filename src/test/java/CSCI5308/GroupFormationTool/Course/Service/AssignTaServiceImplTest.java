@@ -15,7 +15,7 @@ import CSCI5308.GroupFormationTool.Model.User;
 
 public class AssignTaServiceImplTest {
 
-	AssignTaService assignTaServiceImplMock = mock(AssignTaServiceImpl.class);
+	IAssignTaService assignTaServiceImplMock = mock(AssignTaServiceImpl.class);
 
 	@Test
 	void testGetAllUsers() {

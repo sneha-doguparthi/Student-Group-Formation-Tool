@@ -5,25 +5,25 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 
-import CSCI5308.GroupFormationTool.SystemConfig;
 import CSCI5308.GroupFormationTool.Model.Otp;
 import CSCI5308.GroupFormationTool.Model.User;
-import CSCI5308.GroupFormationTool.Profile.DAO.OtpDao;
-import CSCI5308.GroupFormationTool.Profile.DAO.PasswordHistoryDao;
-import CSCI5308.GroupFormationTool.Profile.DAO.UserDao;
+import CSCI5308.GroupFormationTool.Profile.DAO.IOtpDao;
+import CSCI5308.GroupFormationTool.Profile.DAO.IPasswordHistoryDao;
+import CSCI5308.GroupFormationTool.Profile.DAO.IUserDao;
+import CSCI5308.GroupFormationTool.Profile.DAO.ProfileDaoFactory;
 
-public class OtpServiceImpl implements OtpService {
+public class OtpServiceImpl implements IOtpService {
 
-	UserDao userDao;
-	OtpDao otpDao;
-	PasswordHistoryDao passwordHistoryDao;
+	IUserDao userDao;
+	IOtpDao otpDao;
+	IPasswordHistoryDao passwordHistoryDao;
 
 	@Override
 	public String sendOtp(String email) {
 
-		userDao = SystemConfig.instance().getUserDao();
-		otpDao = SystemConfig.instance().getOtpDao();
-		MailService mailService = SystemConfig.instance().getMailService();
+		userDao = ProfileDaoFactory.instance().userDao();
+		otpDao = ProfileDaoFactory.instance().otpDao();
+		IMailService mailService = ProfileServiceFactory.instance().mailService();
 
 		ArrayList<User> allUsers = userDao.getByEmail(email);
 
@@ -52,9 +52,9 @@ public class OtpServiceImpl implements OtpService {
 	@Override
 	public String verifyOtp(String email, String otp, String password) {
 
-		userDao = SystemConfig.instance().getUserDao();
-		otpDao = SystemConfig.instance().getOtpDao();
-		passwordHistoryDao = SystemConfig.instance().getPasswordHistoryDao();
+		userDao = ProfileDaoFactory.instance().userDao();
+		otpDao = ProfileDaoFactory.instance().otpDao();
+		passwordHistoryDao = ProfileDaoFactory.instance().passwordHistoryDao();
 
 		ArrayList<Otp> otpList = otpDao.getOtpByEmail(email);
 

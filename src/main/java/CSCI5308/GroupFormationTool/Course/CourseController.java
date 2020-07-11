@@ -8,22 +8,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import CSCI5308.GroupFormationTool.SystemConfig;
-import CSCI5308.GroupFormationTool.Course.DAO.CourseAssociationDAO;
-import CSCI5308.GroupFormationTool.Course.DAO.CourseDao;
-import CSCI5308.GroupFormationTool.Model.Course;
+import CSCI5308.GroupFormationTool.Course.DAO.CourseDaoFactory;
+import CSCI5308.GroupFormationTool.Course.DAO.ICourseAssociationDao;
+import CSCI5308.GroupFormationTool.Course.DAO.ICourseDao;
 import CSCI5308.GroupFormationTool.Model.CourseAssociation;
 import CSCI5308.GroupFormationTool.Utilities.ApplicationConstants;
 
 @Controller
 public class CourseController {
 
-	CourseAssociationDAO courseAssociationDAO;
-	CourseDao courseDao;
+	ICourseAssociationDao courseAssociationDAO;
+	ICourseDao courseDao;
 
 	public CourseController() {
-		this.courseAssociationDAO = SystemConfig.instance().getCourseAssociationDAO();
-		this.courseDao = SystemConfig.instance().getCourseDao();
+		this.courseAssociationDAO = CourseDaoFactory.instance().courseAssociationDao();
+		this.courseDao = CourseDaoFactory.instance().courseDao();
 	}
 
 	@GetMapping("/courses/home")
@@ -31,9 +30,9 @@ public class CourseController {
 
 		ArrayList<CourseAssociation> associationList = courseAssociationDAO.getByUserId(userId);
 
-		ArrayList<Course> courseListAsStudent = new ArrayList<Course>();
-		ArrayList<Course> courseListAsTA = new ArrayList<Course>();
-		ArrayList<Course> courseListAsInstructor = new ArrayList<Course>();
+		ArrayList<ICourse> courseListAsStudent = new ArrayList<ICourse>();
+		ArrayList<ICourse> courseListAsTA = new ArrayList<ICourse>();
+		ArrayList<ICourse> courseListAsInstructor = new ArrayList<ICourse>();
 
 		model.addAttribute("allCourses", new ArrayList<Course>());
 		model.addAttribute("courseListAsStudent", new ArrayList<Course>());
@@ -41,7 +40,7 @@ public class CourseController {
 		model.addAttribute("courseListAsInstructor", new ArrayList<Course>());
 
 		if (associationList.size() == 0) {
-			ArrayList<Course> courses = courseDao.getAll();
+			ArrayList<ICourse> courses = courseDao.getAll();
 			model.addAttribute("allCourses", courses);
 			return "course/courses-home";
 		}

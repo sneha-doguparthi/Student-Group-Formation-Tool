@@ -13,7 +13,7 @@ import CSCI5308.GroupFormationTool.DBUtil.CreateDatabaseConnection;
 import CSCI5308.GroupFormationTool.Model.Student;
 import CSCI5308.GroupFormationTool.Model.User;
 
-public class GetStudentListServiceImpl implements GetStudentListService {
+public class GetStudentListServiceImpl implements IGetStudentListService {
 
 	private Logger logger = LogManager.getLogger(GetStudentListServiceImpl.class);
 

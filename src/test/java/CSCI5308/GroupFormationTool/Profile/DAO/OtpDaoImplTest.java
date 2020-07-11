@@ -16,7 +16,7 @@ import CSCI5308.GroupFormationTool.Model.Otp;
 
 public class OtpDaoImplTest {
 
-	OtpDao otpDaoImplMock = mock(OtpDaoImpl.class);
+	IOtpDao otpDaoImplMock = mock(OtpDaoImpl.class);
 
 	@Test
 	void testInsertOtpTrue() {

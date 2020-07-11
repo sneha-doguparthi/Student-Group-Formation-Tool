@@ -13,7 +13,7 @@ import org.apache.logging.log4j.Logger;
 import CSCI5308.GroupFormationTool.DBUtil.CreateDatabaseConnection;
 import CSCI5308.GroupFormationTool.Model.CourseAssociation;
 
-public class CourseAssociationDAOImpl implements CourseAssociationDAO {
+public class CourseAssociationDAOImpl implements ICourseAssociationDao {
 
 	private Logger logger = LogManager.getLogger(CourseAssociationDAOImpl.class);
 

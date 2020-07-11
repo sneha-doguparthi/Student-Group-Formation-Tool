@@ -6,17 +6,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import CSCI5308.GroupFormationTool.SystemConfig;
-import CSCI5308.GroupFormationTool.Model.Course;
-import CSCI5308.GroupFormationTool.ToolAdmin.Service.ViewCoursesService;
+import CSCI5308.GroupFormationTool.Course.Course;
+import CSCI5308.GroupFormationTool.ToolAdmin.Service.IViewCoursesService;
+import CSCI5308.GroupFormationTool.ToolAdmin.Service.ToolAdminServiceFactory;
 
 @Controller
 public class ViewCoursesController {
 
-	ViewCoursesService viewCourseService;
+	IViewCoursesService viewCourseService;
 
 	public ViewCoursesController() {
-		viewCourseService = SystemConfig.instance().getViewCoursesService();
+		viewCourseService = ToolAdminServiceFactory.instance().viewCourseService();
 	}
 
 	@GetMapping("admin/view-courses")

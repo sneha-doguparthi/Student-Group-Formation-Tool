@@ -1,14 +1,14 @@
 package CSCI5308.GroupFormationTool.QuestionManager.Service;
 
-import CSCI5308.GroupFormationTool.SystemConfig;
 import CSCI5308.GroupFormationTool.Model.Question;
-import CSCI5308.GroupFormationTool.QuestionManager.DAO.StoreQuestionDAO;
+import CSCI5308.GroupFormationTool.QuestionManager.DAO.IStoreQuestionDAO;
+import CSCI5308.GroupFormationTool.QuestionManager.DAO.QuestionManagerDaoFactory;
 
-public class StoreQuestionServiceImpl implements StoreQuestionService {
+public class StoreQuestionServiceImpl implements IStoreQuestionService {
 
 	@Override
 	public int saveQuestionDetails(Question question) {
-		StoreQuestionDAO questionAnswer = SystemConfig.instance().getStoreQuestionDAO();
+		IStoreQuestionDAO questionAnswer = QuestionManagerDaoFactory.instance().storeQuestionDAO();
 		return questionAnswer.saveQuestionDetails(question);
 	}
 }

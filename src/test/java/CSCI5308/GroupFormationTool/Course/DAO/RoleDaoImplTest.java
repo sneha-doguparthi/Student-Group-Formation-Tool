@@ -10,12 +10,12 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
 import CSCI5308.GroupFormationTool.Model.Role;
-import CSCI5308.GroupFormationTool.Profile.DAO.RoleDao;
+import CSCI5308.GroupFormationTool.Profile.DAO.IRoleDao;
 import CSCI5308.GroupFormationTool.Profile.DAO.RoleDaoImpl;
 
 public class RoleDaoImplTest {
 
-	RoleDao roleDaoImplMock = mock(RoleDaoImpl.class);
+	IRoleDao roleDaoImplMock = mock(RoleDaoImpl.class);
 
 	@Test
 	void testFindByName() {
