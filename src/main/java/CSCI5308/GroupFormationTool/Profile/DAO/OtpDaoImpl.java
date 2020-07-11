@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import CSCI5308.GroupFormationTool.DBUtil.SqlQueryUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -28,7 +29,7 @@ public class OtpDaoImpl implements IOtpDao {
 
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
-			String insertQuery = "INSERT INTO otp (email,otp,date) values(?,?,?);";
+			String insertQuery = SqlQueryUtil.instance().getQueryByKey("addOtp");
 			statement = connection.prepareStatement(insertQuery);
 			statement.setString(1, otp.getEmail());
 			statement.setInt(2, otp.getOtp());
@@ -59,14 +60,15 @@ public class OtpDaoImpl implements IOtpDao {
 	public ArrayList<Otp> getOtpByEmail(String email) {
 
 		Connection connection = null;
-		Statement statement = null;
-		String query = "SELECT * FROM otp WHERE email = '" + email + "' ORDER BY id DESC";
+		PreparedStatement statement = null;
+		String query = SqlQueryUtil.instance().getQueryByKey("getOtp");;
 		ArrayList<Otp> otpList = new ArrayList<>();
 
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
-			statement = connection.createStatement();
-			ResultSet rs = statement.executeQuery(query);
+			statement = connection.prepareStatement(query);
+			statement.setString(1,email);
+			ResultSet rs = statement.executeQuery();
 
 			while (rs.next()) {
 				Otp otp = new Otp();
