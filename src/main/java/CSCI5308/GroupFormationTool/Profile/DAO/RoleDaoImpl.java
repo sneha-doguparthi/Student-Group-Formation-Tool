@@ -1,13 +1,16 @@
 package CSCI5308.GroupFormationTool.Profile.DAO;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
-import CSCI5308.GroupFormationTool.DBUtil.SqlQueryUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import CSCI5308.GroupFormationTool.DBUtil.CreateDatabaseConnection;
+import CSCI5308.GroupFormationTool.DBUtil.SqlQueryUtil;
 import CSCI5308.GroupFormationTool.Model.Role;
 
 public class RoleDaoImpl implements IRoleDao {
@@ -19,13 +22,14 @@ public class RoleDaoImpl implements IRoleDao {
 
 		Connection connection = null;
 		PreparedStatement statement = null;
-		String query = SqlQueryUtil.instance().getQueryByKey("getRole");;
+		String query = SqlQueryUtil.instance().getQueryByKey("getRole");
+		;
 		ArrayList<Role> roles = new ArrayList<>();
 
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
 			statement = connection.prepareStatement(query);
-			statement.setString(1,name);
+			statement.setString(1, name);
 			ResultSet rs = statement.executeQuery(query);
 			while (rs.next()) {
 				Role role = new Role();

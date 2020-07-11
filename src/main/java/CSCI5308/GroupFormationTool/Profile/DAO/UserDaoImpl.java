@@ -8,12 +8,12 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import CSCI5308.GroupFormationTool.DBUtil.SqlQueryUtil;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import CSCI5308.GroupFormationTool.DBUtil.CreateDatabaseConnection;
+import CSCI5308.GroupFormationTool.DBUtil.SqlQueryUtil;
 import CSCI5308.GroupFormationTool.Model.Student;
 import CSCI5308.GroupFormationTool.Model.User;
 
@@ -29,15 +29,12 @@ public class UserDaoImpl implements IUserDao {
 		ResultSet rs;
 		ArrayList<User> users = new ArrayList<>();
 		int listSize = userIds.size();
-
 		try {
-
 			connection = CreateDatabaseConnection.instance().createConnection();
-
 			for (int i = 0; i < listSize; i++) {
 				String reqQuery = SqlQueryUtil.instance().getQueryByKey("userDetailsById");
 				statement = connection.prepareStatement(reqQuery);
-				statement.setInt(1,userIds.get(i));
+				statement.setInt(1, userIds.get(i));
 				rs = statement.executeQuery(reqQuery);
 				while (rs.next()) {
 					User user = new User();
@@ -65,7 +62,6 @@ public class UserDaoImpl implements IUserDao {
 				logger.error("Exception occured while closing connection/statement", e);
 			}
 		}
-
 		return users;
 	}
 
@@ -239,7 +235,7 @@ public class UserDaoImpl implements IUserDao {
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
 			statement = connection.prepareStatement(query);
-			statement.setString(1,email);
+			statement.setString(1, email);
 			ResultSet rs = statement.executeQuery();
 			while (rs.next()) {
 				User user = new User();
@@ -315,7 +311,7 @@ public class UserDaoImpl implements IUserDao {
 		boolean isUser = false;
 
 		try {
-			String query = SqlQueryUtil.instance().getQueryByKey("checkAccessOfUser") ;
+			String query = SqlQueryUtil.instance().getQueryByKey("checkAccessOfUser");
 			connection = CreateDatabaseConnection.instance().createConnection();
 			statement = connection.prepareStatement(query);
 			statement.setString(1, user.getEmail());
