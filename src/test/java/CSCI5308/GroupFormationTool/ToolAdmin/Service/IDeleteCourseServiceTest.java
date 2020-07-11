@@ -11,16 +11,18 @@ import org.junit.jupiter.api.Test;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
-import CSCI5308.GroupFormationTool.Course.Course;
+import CSCI5308.GroupFormationTool.Course.CourseFactory;
+import CSCI5308.GroupFormationTool.Course.CourseObjectFactory;
+import CSCI5308.GroupFormationTool.Course.ICourse;
 
 public class IDeleteCourseServiceTest {
 	IDeleteCourseService deleteCourseService = mock(DeleteCourseServiceImpl.class);
-	Course course;
+	ICourse course;
 	ArrayList<String> coursesToDelete = new ArrayList<>();
 	ArrayList<String> deleteResult = new ArrayList<>();
 
 	public IDeleteCourseServiceTest() {
-		course = new Course();
+		course = CourseFactory.courseObject(new CourseObjectFactory());
 		course.setCourseId(1);
 		course.setCourseCode("6708");
 		course.setCourseName("Adv. Web Development");

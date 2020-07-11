@@ -7,7 +7,9 @@ import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.Test;
 
-import CSCI5308.GroupFormationTool.Model.Question;
+import CSCI5308.GroupFormationTool.QuestionManager.IQuestion;
+import CSCI5308.GroupFormationTool.QuestionManager.QuestionFactory;
+import CSCI5308.GroupFormationTool.QuestionManager.QuestionObjectFactory;
 
 public class IDeleteQuestionServiceTest {
 
@@ -18,7 +20,7 @@ public class IDeleteQuestionServiceTest {
 
 		int questionId = 7;
 
-		Question question = new Question();
+		IQuestion question = QuestionFactory.questionObject(new QuestionObjectFactory());
 		question.setQuestionId(7);
 		question.setQuestionTitle("This is the question title");
 		question.setQuestionText("This is the question text");

@@ -7,11 +7,13 @@ import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.Test;
 
-import CSCI5308.GroupFormationTool.Model.Question;
+import CSCI5308.GroupFormationTool.QuestionManager.IQuestion;
+import CSCI5308.GroupFormationTool.QuestionManager.QuestionFactory;
+import CSCI5308.GroupFormationTool.QuestionManager.QuestionObjectFactory;
 
 public class IStoreQuestionDAOTest {
 	IStoreQuestionDAO storeQuestionDAO = mock(StoreQuestionDAOImpl.class);
-	Question question = new Question();
+	IQuestion question = QuestionFactory.questionObject(new QuestionObjectFactory());
 	int questionId = 123;
 
 	public IStoreQuestionDAOTest() {

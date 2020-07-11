@@ -11,15 +11,17 @@ import org.junit.jupiter.api.Test;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
-import CSCI5308.GroupFormationTool.Course.Course;
+import CSCI5308.GroupFormationTool.Course.CourseFactory;
+import CSCI5308.GroupFormationTool.Course.CourseObjectFactory;
+import CSCI5308.GroupFormationTool.Course.ICourse;
 
 public class IViewCoursesServiceTest {
 	IViewCoursesService viewCoursesService = mock(ViewCoursesServiceImpl.class);
-	Course course;
-	ArrayList<Course> courseList = new ArrayList<>();
+	ICourse course;
+	ArrayList<ICourse> courseList = new ArrayList<>();
 
 	public IViewCoursesServiceTest() {
-		course = new Course();
+		course = CourseFactory.courseObject(new CourseObjectFactory());
 		course.setCourseId(1);
 		course.setCourseCode("6708");
 		course.setCourseName("Adv. Web Development");
@@ -28,10 +30,10 @@ public class IViewCoursesServiceTest {
 
 	@Test
 	public void getCourseList() {
-		when(viewCoursesService.getCourseList()).thenAnswer(new Answer<ArrayList<Course>>() {
+		when(viewCoursesService.getCourseList()).thenAnswer(new Answer<ArrayList<ICourse>>() {
 
 			@Override
-			public ArrayList<Course> answer(InvocationOnMock invocation) throws Throwable {
+			public ArrayList<ICourse> answer(InvocationOnMock invocation) throws Throwable {
 				return courseList;
 			}
 

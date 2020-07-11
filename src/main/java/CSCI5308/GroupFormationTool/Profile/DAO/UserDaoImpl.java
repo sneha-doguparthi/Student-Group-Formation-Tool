@@ -15,19 +15,21 @@ import org.apache.logging.log4j.Logger;
 import CSCI5308.GroupFormationTool.DBUtil.CreateDatabaseConnection;
 import CSCI5308.GroupFormationTool.DBUtil.SqlQueryUtil;
 import CSCI5308.GroupFormationTool.Model.Student;
-import CSCI5308.GroupFormationTool.Model.User;
+import CSCI5308.GroupFormationTool.Profile.IUser;
+import CSCI5308.GroupFormationTool.Profile.UserFactory;
+import CSCI5308.GroupFormationTool.Profile.UserObjectFactory;
 
 public class UserDaoImpl implements IUserDao {
 
 	private Logger logger = LogManager.getLogger(UserDaoImpl.class);
 
 	@Override
-	public ArrayList<User> getUserByUserID(ArrayList<Integer> userIds) {
+	public ArrayList<IUser> getUserByUserID(ArrayList<Integer> userIds) {
 
 		Connection connection = null;
 		PreparedStatement statement = null;
 		ResultSet rs;
-		ArrayList<User> users = new ArrayList<>();
+		ArrayList<IUser> users = new ArrayList<>();
 		int listSize = userIds.size();
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
@@ -37,7 +39,7 @@ public class UserDaoImpl implements IUserDao {
 				statement.setInt(1, userIds.get(i));
 				rs = statement.executeQuery(reqQuery);
 				while (rs.next()) {
-					User user = new User();
+					IUser user = UserFactory.userObject(new UserObjectFactory());
 					user.setUserId(rs.getInt("user_id"));
 					user.setBannerId(rs.getString("banner_id"));
 					user.setFirstName(rs.getString("first_name"));
@@ -66,11 +68,11 @@ public class UserDaoImpl implements IUserDao {
 	}
 
 	@Override
-	public ArrayList<User> getAll() {
+	public ArrayList<IUser> getAll() {
 
 		Connection connection = null;
 		Statement statement = null;
-		ArrayList<User> users = new ArrayList<>();
+		ArrayList<IUser> users = new ArrayList<>();
 
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
@@ -79,7 +81,7 @@ public class UserDaoImpl implements IUserDao {
 			ResultSet rs = statement.executeQuery(query);
 
 			while (rs.next()) {
-				User user = new User();
+				IUser user = UserFactory.userObject(new UserObjectFactory());
 				user.setUserId(rs.getInt("user_id"));
 				user.setBannerId(rs.getString("banner_id"));
 				user.setFirstName(rs.getString("first_name"));
@@ -225,12 +227,12 @@ public class UserDaoImpl implements IUserDao {
 	}
 
 	@Override
-	public ArrayList<User> getByEmail(String email) {
+	public ArrayList<IUser> getByEmail(String email) {
 
 		Connection connection = null;
 		PreparedStatement statement = null;
 		String query = SqlQueryUtil.instance().getQueryByKey("userByEmail");
-		ArrayList<User> users = new ArrayList<>();
+		ArrayList<IUser> users = new ArrayList<>();
 
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
@@ -238,7 +240,7 @@ public class UserDaoImpl implements IUserDao {
 			statement.setString(1, email);
 			ResultSet rs = statement.executeQuery();
 			while (rs.next()) {
-				User user = new User();
+				IUser user = UserFactory.userObject(new UserObjectFactory());
 				user.setUserId(rs.getInt("user_id"));
 				user.setBannerId(rs.getString("banner_id"));
 				user.setFirstName(rs.getString("first_name"));
@@ -267,7 +269,7 @@ public class UserDaoImpl implements IUserDao {
 	}
 
 	@Override
-	public Boolean update(User user) {
+	public Boolean update(IUser user) {
 
 		Connection connection = null;
 		PreparedStatement statement = null;
@@ -305,7 +307,7 @@ public class UserDaoImpl implements IUserDao {
 	}
 
 	@Override
-	public boolean checkAccess(User user) {
+	public boolean checkAccess(IUser user) {
 		PreparedStatement statement = null;
 		Connection connection = null;
 		boolean isUser = false;
@@ -343,7 +345,7 @@ public class UserDaoImpl implements IUserDao {
 	}
 
 	@Override
-	public boolean registerUser(User user) {
+	public boolean registerUser(IUser user) {
 		Connection connection = null;
 		boolean isRegistered = false;
 		PreparedStatement statement = null;

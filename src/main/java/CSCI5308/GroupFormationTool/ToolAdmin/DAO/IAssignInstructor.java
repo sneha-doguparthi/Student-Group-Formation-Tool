@@ -2,14 +2,14 @@ package CSCI5308.GroupFormationTool.ToolAdmin.DAO;
 
 import java.util.ArrayList;
 
-import CSCI5308.GroupFormationTool.Model.User;
+import CSCI5308.GroupFormationTool.Profile.IUser;
 
 public interface IAssignInstructor {
 
-	public ArrayList<User> getUserList();
+	public ArrayList<IUser> getUserList();
 
-	public String assignRoleToUser(User user, String courseCode);
+	public String assignRoleToUser(IUser user, String courseCode);
 
-	public boolean checkIfCourseExistsForUser(User user, String course);
+	public boolean checkIfCourseExistsForUser(IUser user, String course);
 
 }

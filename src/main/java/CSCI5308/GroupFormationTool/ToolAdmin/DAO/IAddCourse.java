@@ -1,11 +1,11 @@
 package CSCI5308.GroupFormationTool.ToolAdmin.DAO;
 
-import CSCI5308.GroupFormationTool.Course.Course;
+import CSCI5308.GroupFormationTool.Course.ICourse;
 
 public interface IAddCourse {
 
-	public String addNewCourse(Course course);
+	public String addNewCourse(ICourse course);
 
-	public boolean checkIfCourseExists(Course course);
+	public boolean checkIfCourseExists(ICourse course);
 
 }

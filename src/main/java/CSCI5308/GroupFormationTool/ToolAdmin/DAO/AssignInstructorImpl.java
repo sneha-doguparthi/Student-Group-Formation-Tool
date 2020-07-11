@@ -11,7 +11,9 @@ import org.apache.logging.log4j.Logger;
 
 import CSCI5308.GroupFormationTool.DBUtil.CreateDatabaseConnection;
 import CSCI5308.GroupFormationTool.DBUtil.SqlQueryUtil;
-import CSCI5308.GroupFormationTool.Model.User;
+import CSCI5308.GroupFormationTool.Profile.IUser;
+import CSCI5308.GroupFormationTool.Profile.UserFactory;
+import CSCI5308.GroupFormationTool.Profile.UserObjectFactory;
 import CSCI5308.GroupFormationTool.Utilities.ApplicationConstants;
 
 public class AssignInstructorImpl implements IAssignInstructor {
@@ -19,17 +21,17 @@ public class AssignInstructorImpl implements IAssignInstructor {
 	private Logger logger = LogManager.getLogger(AssignInstructorImpl.class);
 
 	@Override
-	public ArrayList<User> getUserList() {
+	public ArrayList<IUser> getUserList() {
 		Connection connection = null;
 		PreparedStatement statement = null;
-		ArrayList<User> userList = new ArrayList<>();
+		ArrayList<IUser> userList = new ArrayList<>();
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
 			String selectQuery = SqlQueryUtil.instance().getQueryByKey("userList");
 			statement = connection.prepareStatement(selectQuery);
 			ResultSet resultSet = statement.executeQuery();
 			while (resultSet.next()) {
-				User user = new User();
+				IUser user = UserFactory.userObject(new UserObjectFactory());
 				user.setUserId(resultSet.getInt("user_id"));
 				user.setFirstName(resultSet.getString("first_name"));
 				user.setLastName(resultSet.getString("last_name"));
@@ -56,7 +58,7 @@ public class AssignInstructorImpl implements IAssignInstructor {
 	}
 
 	@Override
-	public String assignRoleToUser(User user, String courseCode) {
+	public String assignRoleToUser(IUser user, String courseCode) {
 
 		Connection connection = null;
 		PreparedStatement statement = null;
@@ -92,7 +94,7 @@ public class AssignInstructorImpl implements IAssignInstructor {
 	}
 
 	@Override
-	public boolean checkIfCourseExistsForUser(User user, String course) {
+	public boolean checkIfCourseExistsForUser(IUser user, String course) {
 
 		Connection connection = null;
 		PreparedStatement statement = null;

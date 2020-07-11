@@ -7,15 +7,17 @@ import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.Test;
 
-import CSCI5308.GroupFormationTool.Course.Course;
+import CSCI5308.GroupFormationTool.Course.CourseFactory;
+import CSCI5308.GroupFormationTool.Course.CourseObjectFactory;
+import CSCI5308.GroupFormationTool.Course.ICourse;
 import CSCI5308.GroupFormationTool.Utilities.ApplicationConstants;
 
 public class IAddCourseServiceTest {
 	IAddCourseService addCourseService = mock(AddCourseServiceImpl.class);
-	Course course;
+	ICourse course;
 
 	public IAddCourseServiceTest() {
-		course = new Course();
+		course = CourseFactory.courseObject(new CourseObjectFactory());
 		course.setCourseId(1);
 		course.setCourseCode("6708");
 		course.setCourseName("Adv. Web Development");

@@ -11,24 +11,28 @@ import org.junit.jupiter.api.Test;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
-import CSCI5308.GroupFormationTool.Course.Course;
-import CSCI5308.GroupFormationTool.Model.User;
+import CSCI5308.GroupFormationTool.Course.CourseFactory;
+import CSCI5308.GroupFormationTool.Course.CourseObjectFactory;
+import CSCI5308.GroupFormationTool.Course.ICourse;
+import CSCI5308.GroupFormationTool.Profile.IUser;
+import CSCI5308.GroupFormationTool.Profile.UserFactory;
+import CSCI5308.GroupFormationTool.Profile.UserObjectFactory;
 import CSCI5308.GroupFormationTool.Utilities.ApplicationConstants;
 
 public class IAssignInstructorTest {
 	IAssignInstructor assignInstructor = mock(AssignInstructorImpl.class);
-	Course course;
-	User user;
-	ArrayList<User> userList = new ArrayList<>();
+	ICourse course;
+	IUser user;
+	ArrayList<IUser> userList = new ArrayList<>();
 
 	public IAssignInstructorTest() {
-		user = new User();
+		user = UserFactory.userObject(new UserObjectFactory());
 		user.setFirstName("James");
 		user.setLastName("Smith");
 		user.setEmail("james@dal.ca");
 		userList.add(user);
 
-		course = new Course();
+		course = CourseFactory.courseObject(new CourseObjectFactory());
 		course.setCourseId(1);
 		course.setCourseCode("6708");
 		course.setCourseName("Adv. Web Development");
@@ -36,9 +40,9 @@ public class IAssignInstructorTest {
 
 	@Test
 	public void testGetUserList() {
-		when(assignInstructor.getUserList()).thenAnswer(new Answer<ArrayList<User>>() {
+		when(assignInstructor.getUserList()).thenAnswer(new Answer<ArrayList<IUser>>() {
 			@Override
-			public ArrayList<User> answer(InvocationOnMock invocation) throws Throwable {
+			public ArrayList<IUser> answer(InvocationOnMock invocation) throws Throwable {
 				return userList;
 			}
 		});

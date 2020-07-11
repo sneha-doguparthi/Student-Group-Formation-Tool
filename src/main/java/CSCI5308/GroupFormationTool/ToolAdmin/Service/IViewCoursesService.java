@@ -2,10 +2,10 @@ package CSCI5308.GroupFormationTool.ToolAdmin.Service;
 
 import java.util.ArrayList;
 
-import CSCI5308.GroupFormationTool.Course.Course;
+import CSCI5308.GroupFormationTool.Course.ICourse;
 
 public interface IViewCoursesService {
 
-	public ArrayList<Course> getCourseList();
+	public ArrayList<ICourse> getCourseList();
 
 }

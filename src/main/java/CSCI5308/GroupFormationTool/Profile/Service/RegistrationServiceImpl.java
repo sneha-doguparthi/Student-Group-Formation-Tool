@@ -1,13 +1,13 @@
 package CSCI5308.GroupFormationTool.Profile.Service;
 
-import CSCI5308.GroupFormationTool.Model.User;
+import CSCI5308.GroupFormationTool.Profile.IUser;
 import CSCI5308.GroupFormationTool.Profile.DAO.IPasswordHistoryDao;
 import CSCI5308.GroupFormationTool.Profile.DAO.IUserDao;
 import CSCI5308.GroupFormationTool.Profile.DAO.ProfileDaoFactory;
 
 public class RegistrationServiceImpl implements IRegistrationService {
 
-	public boolean registerUserService(User u) {
+	public boolean registerUserService(IUser u) {
 		IUserDao userDao = ProfileDaoFactory.instance().userDao();
 		IPasswordHistoryDao passwordHistoryDao = ProfileDaoFactory.instance().passwordHistoryDao();
 

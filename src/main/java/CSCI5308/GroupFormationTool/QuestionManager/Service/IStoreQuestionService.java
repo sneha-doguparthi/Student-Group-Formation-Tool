@@ -1,9 +1,9 @@
 package CSCI5308.GroupFormationTool.QuestionManager.Service;
 
-import CSCI5308.GroupFormationTool.Model.Question;
+import CSCI5308.GroupFormationTool.QuestionManager.IQuestion;
 
 public interface IStoreQuestionService {
 
-	public int saveQuestionDetails(Question question);
+	public int saveQuestionDetails(IQuestion question);
 
 }

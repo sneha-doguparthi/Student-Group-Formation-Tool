@@ -8,7 +8,9 @@ import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.Test;
 
-import CSCI5308.GroupFormationTool.Model.User;
+import CSCI5308.GroupFormationTool.Profile.IUser;
+import CSCI5308.GroupFormationTool.Profile.UserFactory;
+import CSCI5308.GroupFormationTool.Profile.UserObjectFactory;
 
 public class RegistrationServiceImplTest {
 
@@ -17,7 +19,7 @@ public class RegistrationServiceImplTest {
 	@Test
 	void testRegisterUserServiceTrue() {
 
-		User user = new User();
+		IUser user = UserFactory.userObject(new UserObjectFactory());
 		user.setBannerId("B00851234");
 		user.setFirstName("Bob");
 		user.setLastName("Builder");
@@ -32,7 +34,7 @@ public class RegistrationServiceImplTest {
 	@Test
 	void testRegisterUserServiceFalse() {
 
-		User user = new User();
+		IUser user = UserFactory.userObject(new UserObjectFactory());
 		user.setBannerId("B00851234");
 		user.setFirstName("Bob");
 		user.setLastName("Builder");

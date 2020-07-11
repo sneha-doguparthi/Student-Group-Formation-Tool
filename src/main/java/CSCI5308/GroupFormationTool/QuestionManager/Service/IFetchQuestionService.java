@@ -2,10 +2,10 @@ package CSCI5308.GroupFormationTool.QuestionManager.Service;
 
 import java.util.ArrayList;
 
-import CSCI5308.GroupFormationTool.Model.Question;
+import CSCI5308.GroupFormationTool.QuestionManager.IQuestion;
 
 public interface IFetchQuestionService {
 
-	public ArrayList<Question> fetchQuestionForInstructor();
+	public ArrayList<IQuestion> fetchQuestionForInstructor();
 
 }

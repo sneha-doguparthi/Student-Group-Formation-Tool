@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Survey</title>
+</head>
+<body>
+<ul lang="en" th:replace="fragments/course-header :: course-header"></ul>
+<div class="container">
+<form th:object="${questionModel}" th:action="@{/survey/addQuestions}" method="POST">
+    <p>
+        Add Questions from question bank
+    </p>
+    <select class="selectQuestions" id="questionSelected" name="questionSelected">
+        <option value="">-------------------- Select -------------------</option>
+        <option th:each="question : ${questions}" th:value="${question.questionId}" th:text="${question.questionText}"></option>
+    </select>
+    <button id="submit" class="btn btn-primary">Submit</button>
+</form>
+<br>
+    <table class="table table-bordered table-striped" id="questions">
+        <thead class="thead-dark">
+        <tr>
+            <th class="center-text">Question Type</th>
+            <th class="center-text">Question Title</th>
+            <th class="center-text">Question Text</th>
+            <th class="center-text">Logic Detail</th>
+            <th class="center-text">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="question : ${surveyQuestions}">
+            <td><span  th:text="${question.questionType}"> Type </span></td>
+            <td><span th:text="${question.questionTitle}"> Title </span></td>
+            <td><span th:text="${question.questionText}"> Text </span></td>
+            <td><span>
+              <select class="select"
+                      id="criteria" required>
+							<option value="">------ Select ------</option>
+							<option value="similar">Group Similar</option>
+							<option value="dissimilar">Group Dissimilar</option>
+					</select>
+            </span></td>
+            <td class="center-text">
+                <form method="POST" th:action="@{/survey/delete-question}">
+                    <input type="hidden" name="deleteQuestionId" id="questionId" th:value="${question.questionId}" />
+                    <button type="submit" name="submit" onclick="return confirm('Confirm delete?')" class="btn btn-primary"
+                            style="background-color: #ff2222;">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

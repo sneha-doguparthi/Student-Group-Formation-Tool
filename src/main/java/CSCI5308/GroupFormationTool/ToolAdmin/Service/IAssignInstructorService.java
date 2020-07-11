@@ -2,13 +2,13 @@ package CSCI5308.GroupFormationTool.ToolAdmin.Service;
 
 import java.util.ArrayList;
 
-import CSCI5308.GroupFormationTool.Model.User;
+import CSCI5308.GroupFormationTool.Profile.IUser;
 
 public interface IAssignInstructorService {
 
-	public ArrayList<User> getUserList();
+	public ArrayList<IUser> getUserList();
 
-	public String assignRoleToUser(User user, String courseCode);
+	public String assignRoleToUser(IUser user, String courseCode);
 
 	public String getCourseCodeFromString(String courseCode);
 

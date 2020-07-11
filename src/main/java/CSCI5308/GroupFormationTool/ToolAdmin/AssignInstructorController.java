@@ -8,8 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import CSCI5308.GroupFormationTool.Course.Course;
-import CSCI5308.GroupFormationTool.Model.User;
+import CSCI5308.GroupFormationTool.Course.ICourse;
+import CSCI5308.GroupFormationTool.Profile.IUser;
+import CSCI5308.GroupFormationTool.Profile.User;
 import CSCI5308.GroupFormationTool.ToolAdmin.Service.IAssignInstructorService;
 import CSCI5308.GroupFormationTool.ToolAdmin.Service.IViewCoursesService;
 import CSCI5308.GroupFormationTool.ToolAdmin.Service.ToolAdminServiceFactory;
@@ -18,8 +19,8 @@ import CSCI5308.GroupFormationTool.Utilities.ApplicationConstants;
 @Controller
 public class AssignInstructorController {
 
-	ArrayList<Course> courseList;
-	ArrayList<User> userList;
+	ArrayList<ICourse> courseList;
+	ArrayList<IUser> userList;
 	IViewCoursesService viewCourseService;
 	IAssignInstructorService assignInstructorService;
 

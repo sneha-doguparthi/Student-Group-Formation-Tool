@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import CSCI5308.GroupFormationTool.Model.PasswordPolicy;
-import CSCI5308.GroupFormationTool.Model.User;
 import CSCI5308.GroupFormationTool.Profile.Service.IRegistrationService;
 import CSCI5308.GroupFormationTool.Profile.Service.ProfileServiceFactory;
 
@@ -22,7 +21,7 @@ public class SignUpController {
 
 	@GetMapping("/profile/signup")
 	public String getSignup(Model model) {
-		model.addAttribute("user", new User());
+		model.addAttribute("user", UserFactory.userObject(new UserObjectFactory()));
 		model.addAttribute("policy", new PasswordPolicy());
 
 		return "profile/signup";
@@ -34,7 +33,7 @@ public class SignUpController {
 		PasswordPolicy policy = new PasswordPolicy();
 
 		if (!policy.validatePassword(user.getEmail(), user.getPassword())) {
-			model.addAttribute("user", new User());
+			model.addAttribute("user", UserFactory.userObject(new UserObjectFactory()));
 			model.addAttribute("policy", policy);
 			model.addAttribute("error", "Your new password does not satisfy password policy.");
 

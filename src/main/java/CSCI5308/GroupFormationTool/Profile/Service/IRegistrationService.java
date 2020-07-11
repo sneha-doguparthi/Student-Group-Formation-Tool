@@ -1,7 +1,7 @@
 package CSCI5308.GroupFormationTool.Profile.Service;
 
-import CSCI5308.GroupFormationTool.Model.User;
+import CSCI5308.GroupFormationTool.Profile.IUser;
 
 public interface IRegistrationService {
-	public boolean registerUserService(User u);
+	public boolean registerUserService(IUser u);
 }

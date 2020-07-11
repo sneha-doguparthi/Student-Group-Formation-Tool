@@ -12,7 +12,9 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import CSCI5308.GroupFormationTool.Model.Student;
-import CSCI5308.GroupFormationTool.Model.User;
+import CSCI5308.GroupFormationTool.Profile.IUser;
+import CSCI5308.GroupFormationTool.Profile.UserFactory;
+import CSCI5308.GroupFormationTool.Profile.UserObjectFactory;
 
 public class UserDAOImplTest {
 
@@ -21,12 +23,12 @@ public class UserDAOImplTest {
 	@Test
 	void testGetByUserID() {
 
-		ArrayList<User> userList = new ArrayList<>();
+		ArrayList<IUser> userList = new ArrayList<>();
 		ArrayList<Integer> parameter = new ArrayList<>();
 
 		parameter.add(0, 5);
 
-		User user = new User();
+		IUser user = UserFactory.userObject(new UserObjectFactory());
 		user.setUserId(5);
 		user.setBannerId("B00123456");
 		user.setFirstName("Tony");
@@ -45,9 +47,9 @@ public class UserDAOImplTest {
 	@Test
 	void testGetAll() {
 
-		ArrayList<User> userList = new ArrayList<>();
+		ArrayList<IUser> userList = new ArrayList<>();
 
-		User user = new User();
+		IUser user = UserFactory.userObject(new UserObjectFactory());
 		user.setUserId(5);
 		user.setBannerId("B00123456");
 		user.setFirstName("Tony");

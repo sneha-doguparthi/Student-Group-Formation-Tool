@@ -9,7 +9,9 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
-import CSCI5308.GroupFormationTool.Model.Question;
+import CSCI5308.GroupFormationTool.QuestionManager.IQuestion;
+import CSCI5308.GroupFormationTool.QuestionManager.QuestionFactory;
+import CSCI5308.GroupFormationTool.QuestionManager.QuestionObjectFactory;
 
 public class IFetchQuestionServiceTest {
 
@@ -17,9 +19,9 @@ public class IFetchQuestionServiceTest {
 
 	@Test
 	public void testFetchQuestionForInstructor() {
-		ArrayList<Question> result = new ArrayList<>();
+		ArrayList<IQuestion> result = new ArrayList<>();
 
-		Question question = new Question();
+		IQuestion question = QuestionFactory.questionObject(new QuestionObjectFactory());
 		question.setQuestionNo(1);
 		question.setQuestionId(5);
 		question.setQuestionTitle("This is the question title");

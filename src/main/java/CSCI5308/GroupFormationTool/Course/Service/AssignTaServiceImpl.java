@@ -6,7 +6,7 @@ import CSCI5308.GroupFormationTool.Course.DAO.CourseDaoFactory;
 import CSCI5308.GroupFormationTool.Course.DAO.ICourseAssociationDao;
 import CSCI5308.GroupFormationTool.Model.CourseAssociation;
 import CSCI5308.GroupFormationTool.Model.Role;
-import CSCI5308.GroupFormationTool.Model.User;
+import CSCI5308.GroupFormationTool.Profile.IUser;
 import CSCI5308.GroupFormationTool.Profile.DAO.IRoleDao;
 import CSCI5308.GroupFormationTool.Profile.DAO.IUserDao;
 import CSCI5308.GroupFormationTool.Profile.DAO.ProfileDaoFactory;
@@ -14,7 +14,7 @@ import CSCI5308.GroupFormationTool.Profile.DAO.ProfileDaoFactory;
 public class AssignTaServiceImpl implements IAssignTaService {
 
 	@Override
-	public ArrayList<User> getAllUsers() {
+	public ArrayList<IUser> getAllUsers() {
 		IUserDao userDao = ProfileDaoFactory.instance().userDao();
 
 		return userDao.getAll();

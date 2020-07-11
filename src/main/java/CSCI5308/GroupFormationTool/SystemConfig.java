@@ -26,4 +26,5 @@ public class SystemConfig {
 	public void setDatabaseConfiguration(IDatabaseConfiguration databaseConfiguration) {
 		this.databaseConfiguration = databaseConfiguration;
 	}
+
 }

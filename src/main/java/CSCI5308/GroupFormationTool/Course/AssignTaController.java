@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import CSCI5308.GroupFormationTool.Course.Service.CourseServiceFactory;
 import CSCI5308.GroupFormationTool.Course.Service.IAssignTaService;
-import CSCI5308.GroupFormationTool.Model.User;
+import CSCI5308.GroupFormationTool.Profile.IUser;
 
 @Controller
 public class AssignTaController {
@@ -24,7 +24,7 @@ public class AssignTaController {
 	public String searchTa(@RequestParam String courseId, @RequestParam String courseCode,
 			@RequestParam String courseName, Model model) {
 
-		ArrayList<User> users = assignTaService.getAllUsers();
+		ArrayList<IUser> users = assignTaService.getAllUsers();
 
 		model.addAttribute("users", users);
 		model.addAttribute("courseId", courseId);

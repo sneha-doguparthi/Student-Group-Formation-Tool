@@ -14,10 +14,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import CSCI5308.GroupFormationTool.DBUtil.CreateDatabaseConnection;
 import CSCI5308.GroupFormationTool.DBUtil.SqlQueryUtil;
-import CSCI5308.GroupFormationTool.Model.Question;
-import CSCI5308.GroupFormationTool.Model.User;
+import CSCI5308.GroupFormationTool.Profile.IUser;
 import CSCI5308.GroupFormationTool.Profile.DAO.IUserDao;
 import CSCI5308.GroupFormationTool.Profile.DAO.ProfileDaoFactory;
+import CSCI5308.GroupFormationTool.QuestionManager.IQuestion;
 
 public class StoreQuestionDAOImpl implements IStoreQuestionDAO {
 
@@ -25,7 +25,7 @@ public class StoreQuestionDAOImpl implements IStoreQuestionDAO {
 	Connection connection;
 
 	@Override
-	public int saveQuestionDetails(Question question) {
+	public int saveQuestionDetails(IQuestion question) {
 
 		int questionId = -1;
 		PreparedStatement statement = null;
@@ -65,7 +65,7 @@ public class StoreQuestionDAOImpl implements IStoreQuestionDAO {
 	private int getUserId() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		IUserDao userDao = ProfileDaoFactory.instance().userDao();
-		ArrayList<User> list = userDao.getByEmail(authentication.getName());
+		ArrayList<IUser> list = userDao.getByEmail(authentication.getName());
 		return list.get(0).getUserId();
 	}
 

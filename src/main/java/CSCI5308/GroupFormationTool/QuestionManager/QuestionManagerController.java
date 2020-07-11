@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import CSCI5308.GroupFormationTool.Model.Answer;
-import CSCI5308.GroupFormationTool.Model.Question;
 import CSCI5308.GroupFormationTool.QuestionManager.Service.IDeleteQuestionService;
 import CSCI5308.GroupFormationTool.QuestionManager.Service.IFetchQuestionService;
 import CSCI5308.GroupFormationTool.QuestionManager.Service.ISplitMcqAnswerService;
@@ -21,7 +20,7 @@ import CSCI5308.GroupFormationTool.Utilities.ApplicationConstants;
 @Controller
 public class QuestionManagerController {
 
-	Question question = new Question();
+	IQuestion question = QuestionFactory.questionObject(new QuestionObjectFactory());
 	IStoreQuestionService storeQuestionService;
 	ISplitMcqAnswerService splitMcqAnswerService;
 	IStoreMcqOptionService storeMcqOptionService;
@@ -76,7 +75,7 @@ public class QuestionManagerController {
 				questionAnswerStatus = ApplicationConstants.FAILED_QUESTION_ANSWERS_INSERTION;
 			}
 			model.addAttribute("questionAnswerStatus", questionAnswerStatus);
-			this.question = new Question();
+			this.question = QuestionFactory.questionObject(new QuestionObjectFactory());
 			return "questionmanager/question-answer-status";
 		}
 
@@ -101,7 +100,7 @@ public class QuestionManagerController {
 		}
 
 		model.addAttribute("questionAnswerStatus", questionAnswerStatus);
-		this.question = new Question();
+		this.question = QuestionFactory.questionObject(new QuestionObjectFactory());
 
 		return "questionmanager/question-answer-status";
 	}

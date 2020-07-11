@@ -21,10 +21,16 @@
 				</form>
 			</div>
 			<div th:if="${displayQuestionManager}" class="c-a-form-container">
-				<p class="txt-header">Create and Delete Questions for surveys.</p>
+				<p class="txt-header">Create and Delete Questions for surveys</p>
 				<form action="#" th:action="@{/question-manager/home}" method="GET">
                     <button class="btn btn-primary">Question Manager</button>
 			     </form>
+			</div>
+			<div class="c-a-form-container">
+				<p class="txt-header">Create a survey</p>
+				<form action="#" th:action="@{/survey/create-survey}" method="GET">
+					<button class="btn btn-primary">Create Survey</button>
+				</form>
 			</div>
 		</div>
 	</div>

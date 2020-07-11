@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import CSCI5308.GroupFormationTool.Course.Course;
+import CSCI5308.GroupFormationTool.Course.ICourse;
 import CSCI5308.GroupFormationTool.ToolAdmin.Service.IDeleteCourseService;
 import CSCI5308.GroupFormationTool.ToolAdmin.Service.IViewCoursesService;
 import CSCI5308.GroupFormationTool.ToolAdmin.Service.ToolAdminServiceFactory;
@@ -27,7 +27,7 @@ public class DeleteCourseController {
 	@GetMapping("admin/delete-course")
 	public String getAdminView(Model model) {
 
-		ArrayList<Course> courseList = viewCourseService.getCourseList();
+		ArrayList<ICourse> courseList = viewCourseService.getCourseList();
 
 		model.addAttribute("courseList", courseList);
 		model.addAttribute("deleteResultList", new ArrayList<>());

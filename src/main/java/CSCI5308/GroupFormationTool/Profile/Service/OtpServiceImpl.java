@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.Random;
 
 import CSCI5308.GroupFormationTool.Model.Otp;
-import CSCI5308.GroupFormationTool.Model.User;
+import CSCI5308.GroupFormationTool.Profile.IUser;
 import CSCI5308.GroupFormationTool.Profile.DAO.IOtpDao;
 import CSCI5308.GroupFormationTool.Profile.DAO.IPasswordHistoryDao;
 import CSCI5308.GroupFormationTool.Profile.DAO.IUserDao;
@@ -25,7 +25,7 @@ public class OtpServiceImpl implements IOtpService {
 		otpDao = ProfileDaoFactory.instance().otpDao();
 		IMailService mailService = ProfileServiceFactory.instance().mailService();
 
-		ArrayList<User> allUsers = userDao.getByEmail(email);
+		ArrayList<IUser> allUsers = userDao.getByEmail(email);
 
 		if (allUsers.size() == 0) {
 			return "user_not_found";
@@ -70,8 +70,8 @@ public class OtpServiceImpl implements IOtpService {
 			return "otp_expired";
 		} else {
 			if (Integer.valueOf(otp).equals(latestOtp.getOtp())) {
-				ArrayList<User> allUsers = userDao.getByEmail(email);
-				User userToUpdate = allUsers.get(0);
+				ArrayList<IUser> allUsers = userDao.getByEmail(email);
+				IUser userToUpdate = allUsers.get(0);
 				userToUpdate.setPassword(password);
 				userDao.update(userToUpdate);
 				passwordHistoryDao.insert(email, password);

@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import CSCI5308.GroupFormationTool.Course.Course;
+import CSCI5308.GroupFormationTool.Course.ICourse;
 import CSCI5308.GroupFormationTool.DBUtil.CreateDatabaseConnection;
 import CSCI5308.GroupFormationTool.DBUtil.SqlQueryUtil;
 import CSCI5308.GroupFormationTool.Utilities.ApplicationConstants;
@@ -18,7 +18,7 @@ public class AddCourseImpl implements IAddCourse {
 	private Logger logger = LogManager.getLogger(AddCourseImpl.class);
 
 	@Override
-	public String addNewCourse(Course course) {
+	public String addNewCourse(ICourse course) {
 		Connection connection = null;
 		PreparedStatement statement = null;
 		try {
@@ -52,7 +52,7 @@ public class AddCourseImpl implements IAddCourse {
 	}
 
 	@Override
-	public boolean checkIfCourseExists(Course course) {
+	public boolean checkIfCourseExists(ICourse course) {
 
 		Connection connection = null;
 		PreparedStatement statement = null;
