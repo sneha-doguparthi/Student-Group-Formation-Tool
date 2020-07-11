@@ -11,7 +11,7 @@ import org.apache.logging.log4j.Logger;
 import CSCI5308.GroupFormationTool.DBUtil.CreateDatabaseConnection;
 import CSCI5308.GroupFormationTool.DBUtil.SqlQueryUtil;
 
-public class DeleteCourseImpl implements DeleteCourse {
+public class DeleteCourseImpl implements IDeleteCourse {
 
 	private Logger logger = LogManager.getLogger(DeleteCourseImpl.class);
 

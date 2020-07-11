@@ -4,29 +4,26 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import CSCI5308.GroupFormationTool.DBUtil.SqlQueryUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import CSCI5308.GroupFormationTool.DBUtil.CreateDatabaseConnection;
+import CSCI5308.GroupFormationTool.DBUtil.SqlQueryUtil;
 import CSCI5308.GroupFormationTool.Model.Otp;
 
-public class OtpDaoImpl implements OtpDao {
+public class OtpDaoImpl implements IOtpDao {
 
 	private Logger logger = LogManager.getLogger(OtpDaoImpl.class);
 
 	@Override
 	public Boolean insertOtp(Otp otp) {
-
 		Connection connection = null;
 		PreparedStatement statement = null;
-
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
 			String insertQuery = SqlQueryUtil.instance().getQueryByKey("addOtp");
@@ -61,13 +58,12 @@ public class OtpDaoImpl implements OtpDao {
 
 		Connection connection = null;
 		PreparedStatement statement = null;
-		String query = SqlQueryUtil.instance().getQueryByKey("getOtp");;
+		String query = SqlQueryUtil.instance().getQueryByKey("getOtp");
 		ArrayList<Otp> otpList = new ArrayList<>();
-
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
 			statement = connection.prepareStatement(query);
-			statement.setString(1,email);
+			statement.setString(1, email);
 			ResultSet rs = statement.executeQuery();
 
 			while (rs.next()) {

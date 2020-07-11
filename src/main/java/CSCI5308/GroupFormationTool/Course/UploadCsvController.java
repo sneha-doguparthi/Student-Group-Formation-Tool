@@ -8,17 +8,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import CSCI5308.GroupFormationTool.SystemConfig;
-import CSCI5308.GroupFormationTool.Course.Service.UploadCsvFileService;
+import CSCI5308.GroupFormationTool.Course.Service.CourseServiceFactory;
+import CSCI5308.GroupFormationTool.Course.Service.IUploadCsvFileService;
 import CSCI5308.GroupFormationTool.Model.Student;
 
 @Controller
 public class UploadCsvController {
 
-	UploadCsvFileService uploadCsvFileService;
+	IUploadCsvFileService uploadCsvFileService;
 
 	public UploadCsvController() {
-		this.uploadCsvFileService = SystemConfig.instance().getUploadCsvFileService();
+		this.uploadCsvFileService = CourseServiceFactory.instance().uploadCsvFileService();
 	}
 
 	@PostMapping("course-admin/upload-csv-home")

@@ -6,14 +6,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import CSCI5308.GroupFormationTool.DBUtil.SqlQueryUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import CSCI5308.GroupFormationTool.DBUtil.CreateDatabaseConnection;
+import CSCI5308.GroupFormationTool.DBUtil.SqlQueryUtil;
 import CSCI5308.GroupFormationTool.Model.CourseAssociation;
 
-public class CourseAssociationDAOImpl implements CourseAssociationDAO {
+public class CourseAssociationDAOImpl implements ICourseAssociationDao {
 
 	private Logger logger = LogManager.getLogger(CourseAssociationDAOImpl.class);
 
@@ -28,7 +28,7 @@ public class CourseAssociationDAOImpl implements CourseAssociationDAO {
 			connection = CreateDatabaseConnection.instance().createConnection();
 			String getUserId = SqlQueryUtil.instance().getQueryByKey("getUserByCourse");
 			statement = connection.prepareStatement(getUserId);
-			statement.setInt(1,courseId);
+			statement.setInt(1, courseId);
 			ResultSet rs = statement.executeQuery();
 			while (rs.next()) {
 				int userId;
@@ -131,7 +131,7 @@ public class CourseAssociationDAOImpl implements CourseAssociationDAO {
 			connection = CreateDatabaseConnection.instance().createConnection();
 			String query = SqlQueryUtil.instance().getQueryByKey("getCourseAssociation");
 			statement = connection.prepareStatement(query);
-			statement.setInt(1,userId);
+			statement.setInt(1, userId);
 			ResultSet rs = statement.executeQuery();
 			while (rs.next()) {
 				CourseAssociation association = new CourseAssociation();

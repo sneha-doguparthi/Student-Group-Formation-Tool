@@ -1,100 +1,100 @@
 package CSCI5308.GroupFormationTool.Survey.DAO;
 
-import CSCI5308.GroupFormationTool.DBUtil.CreateDatabaseConnection;
-import CSCI5308.GroupFormationTool.Model.SurveyQuestion;
-import CSCI5308.GroupFormationTool.Model.User;
-import CSCI5308.GroupFormationTool.Profile.DAO.UserDao;
-import CSCI5308.GroupFormationTool.SystemConfig;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class GetQuestionsDAOImpl implements GetQuestionsDAO {
-    Logger logger = LogManager.getLogger(GetQuestionsDAOImpl.class);
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
-    public ArrayList<SurveyQuestion> getQuestionByInstructorId() {
-        Connection connection = null;
-        Statement statement = null;
-        ArrayList<SurveyQuestion> questions = new ArrayList<>();
-        try {
-            connection = CreateDatabaseConnection.instance().createConnection();
-            statement = connection.createStatement();
-            String query = "SELECT * FROM question WHERE user_id=" + getUserId();
-            ResultSet rs = statement.executeQuery(query);
-            int i = 1;
-            while (rs.next()) {
-                SurveyQuestion question = new SurveyQuestion();
-                question.setQuestionId(rs.getInt("question_id"));
-                question.setQuestionTitle(rs.getString("question_title"));
-                question.setQuestionText(rs.getString("question_text"));
-                question.setQuestionType(rs.getString("question_type"));
-                questions.add(question);
-            }
-        } catch (SQLException e) {
-            logger.error("Exception occurred while getting all the questions: ", e);
-        } finally {
-            try {
-                if (null != statement) {
-                    statement.close();
-                }
-                if (null != connection) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Exception occurred while closing connection/statement: ", e);
-            }
-        }
+import CSCI5308.GroupFormationTool.DBUtil.CreateDatabaseConnection;
+import CSCI5308.GroupFormationTool.Profile.IUser;
+import CSCI5308.GroupFormationTool.Profile.DAO.IUserDao;
+import CSCI5308.GroupFormationTool.Profile.DAO.ProfileDaoFactory;
+import CSCI5308.GroupFormationTool.Survey.SurveyQuestion;
 
-        return questions;
-    }
+public class GetQuestionsDAOImpl implements IGetQuestionsDAO {
+	Logger logger = LogManager.getLogger(GetQuestionsDAOImpl.class);
 
-    public SurveyQuestion getQuestionById(int questionId){
-        SurveyQuestion question = new SurveyQuestion();
-        Connection connection = null;
-        Statement statement = null;
-        try {
-            connection = CreateDatabaseConnection.instance().createConnection();
-            statement = connection.createStatement();
-            String query = "SELECT * FROM question WHERE question_id=" + questionId;
-            ResultSet rs = statement.executeQuery(query);
-            while (rs.next()) {
-                question.setQuestionId(rs.getInt("question_id"));
-                question.setQuestionTitle(rs.getString("question_title"));
-                question.setQuestionText(rs.getString("question_text"));
-                question.setQuestionType(rs.getString("question_type"));
-            }
-        } catch (SQLException e) {
-            logger.error("Exception occurred while getting all the questions: ", e);
-        } finally {
-            try {
-                if (null != statement) {
-                    statement.close();
-                }
-                if (null != connection) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Exception occurred while closing connection/statement: ", e);
-            }
-        }
-        return question;
+	public ArrayList<SurveyQuestion> getQuestionByInstructorId() {
+		Connection connection = null;
+		Statement statement = null;
+		ArrayList<SurveyQuestion> questions = new ArrayList<>();
+		try {
+			connection = CreateDatabaseConnection.instance().createConnection();
+			statement = connection.createStatement();
+			String query = "SELECT * FROM question WHERE user_id=" + getUserId();
+			ResultSet rs = statement.executeQuery(query);
+			while (rs.next()) {
+				SurveyQuestion question = new SurveyQuestion();
+				question.setQuestionId(rs.getInt("question_id"));
+				question.setQuestionTitle(rs.getString("question_title"));
+				question.setQuestionText(rs.getString("question_text"));
+				question.setQuestionType(rs.getString("question_type"));
+				questions.add(question);
+			}
+		} catch (SQLException e) {
+			logger.error("Exception occurred while getting all the questions: ", e);
+		} finally {
+			try {
+				if (null != statement) {
+					statement.close();
+				}
+				if (null != connection) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				logger.error("Exception occurred while closing connection/statement: ", e);
+			}
+		}
 
-    }
-    public int getUserId() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDao userDao = SystemConfig.instance().getUserDao();
+		return questions;
+	}
 
-        ArrayList<User> list = userDao.getByEmail(authentication.getName());
+	public SurveyQuestion getQuestionById(int questionId) {
+		SurveyQuestion question = new SurveyQuestion();
+		Connection connection = null;
+		Statement statement = null;
+		try {
+			connection = CreateDatabaseConnection.instance().createConnection();
+			statement = connection.createStatement();
+			String query = "SELECT * FROM question WHERE question_id=" + questionId;
+			ResultSet rs = statement.executeQuery(query);
+			while (rs.next()) {
+				question.setQuestionId(rs.getInt("question_id"));
+				question.setQuestionTitle(rs.getString("question_title"));
+				question.setQuestionText(rs.getString("question_text"));
+				question.setQuestionType(rs.getString("question_type"));
+			}
+		} catch (SQLException e) {
+			logger.error("Exception occurred while getting all the questions: ", e);
+		} finally {
+			try {
+				if (null != statement) {
+					statement.close();
+				}
+				if (null != connection) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				logger.error("Exception occurred while closing connection/statement: ", e);
+			}
+		}
+		return question;
 
-        return list.get(0).getUserId();
-    }
+	}
 
+	public int getUserId() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		IUserDao userDao = ProfileDaoFactory.instance().userDao();
+
+		ArrayList<IUser> list = userDao.getByEmail(authentication.getName());
+
+		return list.get(0).getUserId();
+	}
 
 }

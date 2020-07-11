@@ -9,20 +9,22 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
-import CSCI5308.GroupFormationTool.Course.DAO.CourseDao;
+import CSCI5308.GroupFormationTool.Course.CourseFactory;
+import CSCI5308.GroupFormationTool.Course.CourseObjectFactory;
+import CSCI5308.GroupFormationTool.Course.ICourse;
 import CSCI5308.GroupFormationTool.Course.DAO.CourseDaoImpl;
-import CSCI5308.GroupFormationTool.Model.Course;
+import CSCI5308.GroupFormationTool.Course.DAO.ICourseDao;
 
 public class CourseDaoImplTest {
 
-	CourseDao courseDaoImplMock = mock(CourseDaoImpl.class);
+	ICourseDao courseDaoImplMock = mock(CourseDaoImpl.class);
 
 	@Test
 	void testGetAll() {
 
-		ArrayList<Course> list = new ArrayList<>();
+		ArrayList<ICourse> list = new ArrayList<>();
 
-		Course courses = new Course();
+		ICourse courses = CourseFactory.courseObject(new CourseObjectFactory());
 
 		courses.setCourseId(1);
 		courses.setCourseCode("CSCI5100");
@@ -38,7 +40,7 @@ public class CourseDaoImplTest {
 	@Test
 	void testGetById() {
 
-		Course course = new Course();
+		ICourse course = CourseFactory.courseObject(new CourseObjectFactory());
 		course.setCourseId(1);
 		course.setCourseCode("CSCI5100");
 		course.setCourseName("Communication Skills");

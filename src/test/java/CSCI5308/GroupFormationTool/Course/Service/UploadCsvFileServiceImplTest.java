@@ -16,7 +16,7 @@ import CSCI5308.GroupFormationTool.Model.Student;
 
 public class UploadCsvFileServiceImplTest {
 
-	UploadCsvFileService uploadCsvFileServiceImplMock = mock(UploadCsvFileServiceImpl.class);
+	IUploadCsvFileService uploadCsvFileServiceImplMock = mock(UploadCsvFileServiceImpl.class);
 
 	@Test
 	void testUploadCsvFile() {

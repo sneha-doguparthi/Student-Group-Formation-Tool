@@ -11,17 +11,17 @@ import org.apache.logging.log4j.Logger;
 
 import CSCI5308.GroupFormationTool.DBUtil.CreateDatabaseConnection;
 import CSCI5308.GroupFormationTool.Model.Student;
-import CSCI5308.GroupFormationTool.Model.User;
+import CSCI5308.GroupFormationTool.Profile.IUser;
 
-public class GetStudentListServiceImpl implements GetStudentListService {
+public class GetStudentListServiceImpl implements IGetStudentListService {
 
 	private Logger logger = LogManager.getLogger(GetStudentListServiceImpl.class);
 
 	@Override
-	public List<Student> getNewToCourseStudentList(List<Student> studentsFromCsv, ArrayList<User> specificUserList) {
+	public List<Student> getNewToCourseStudentList(List<Student> studentsFromCsv, ArrayList<IUser> specificUserList) {
 
 		List<Student> students = new ArrayList<Student>(studentsFromCsv);
-		List<User> users = new ArrayList<User>(specificUserList);
+		List<IUser> users = new ArrayList<IUser>(specificUserList);
 		int studentsSize = students.size();
 		int usersSize = users.size();
 
@@ -39,10 +39,10 @@ public class GetStudentListServiceImpl implements GetStudentListService {
 	}
 
 	@Override
-	public List<Student> getNewToPortalStudentList(List<Student> newToCourseList, ArrayList<User> allUserList) {
+	public List<Student> getNewToPortalStudentList(List<Student> newToCourseList, ArrayList<IUser> allUserList) {
 
 		List<Student> students = new ArrayList<Student>(newToCourseList);
-		List<User> users = new ArrayList<User>(allUserList);
+		List<IUser> users = new ArrayList<IUser>(allUserList);
 		int studentsSize = students.size();
 		int usersSize = users.size();
 		Connection connection = null;

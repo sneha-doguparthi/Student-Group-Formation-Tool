@@ -9,16 +9,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import CSCI5308.GroupFormationTool.SystemConfig;
-import CSCI5308.GroupFormationTool.Profile.Service.LoginService;
+import CSCI5308.GroupFormationTool.Profile.Service.ILoginService;
+import CSCI5308.GroupFormationTool.Profile.Service.ProfileServiceFactory;
 
 @Controller
 public class LoginController {
 
-	LoginService loginService;
+	ILoginService loginService;
 
 	public LoginController() {
-		this.loginService = SystemConfig.instance().getLoginService();
+		this.loginService = ProfileServiceFactory.instance().loginService();
 	}
 
 	@RequestMapping(value = "/", method = { RequestMethod.POST, RequestMethod.GET })

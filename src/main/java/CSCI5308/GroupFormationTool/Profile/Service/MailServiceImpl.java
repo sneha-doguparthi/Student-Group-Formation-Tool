@@ -5,7 +5,7 @@ import java.util.Properties;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
-public class MailServiceImpl implements MailService {
+public class MailServiceImpl implements IMailService {
 
 	@Override
 	public Boolean sendMail(String email, String subject, String text) {

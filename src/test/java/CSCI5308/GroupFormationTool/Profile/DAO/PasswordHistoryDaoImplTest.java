@@ -15,7 +15,7 @@ import CSCI5308.GroupFormationTool.Model.PasswordHistory;
 
 public class PasswordHistoryDaoImplTest {
 
-	PasswordHistoryDao passwordHistoryDaoImplMock = mock(PasswordHistoryDaoImpl.class);
+	IPasswordHistoryDao passwordHistoryDaoImplMock = mock(PasswordHistoryDaoImpl.class);
 
 	@Test
 	void testInsertTrue() {

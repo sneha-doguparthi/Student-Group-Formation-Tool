@@ -11,22 +11,24 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import CSCI5308.GroupFormationTool.SystemConfig;
 import CSCI5308.GroupFormationTool.DBUtil.CreateDatabaseConnection;
 import CSCI5308.GroupFormationTool.DBUtil.SqlQueryUtil;
-import CSCI5308.GroupFormationTool.Model.Question;
-import CSCI5308.GroupFormationTool.Model.User;
-import CSCI5308.GroupFormationTool.Profile.DAO.UserDao;
+import CSCI5308.GroupFormationTool.Profile.IUser;
+import CSCI5308.GroupFormationTool.Profile.DAO.IUserDao;
+import CSCI5308.GroupFormationTool.Profile.DAO.ProfileDaoFactory;
+import CSCI5308.GroupFormationTool.QuestionManager.IQuestion;
+import CSCI5308.GroupFormationTool.QuestionManager.QuestionFactory;
+import CSCI5308.GroupFormationTool.QuestionManager.QuestionObjectFactory;
 
-public class FetchQuestionDAOImpl implements FetchQuestionDAO {
+public class FetchQuestionDAOImpl implements IFetchQuestionDAO {
 
 	Logger logger = LogManager.getLogger(FetchQuestionDAOImpl.class);
-	
+
 	@Override
-	public ArrayList<Question> getQuestionByUserId() {
+	public ArrayList<IQuestion> getQuestionByUserId() {
 		Connection connection = null;
 		Statement statement = null;
-		ArrayList<Question> questions = new ArrayList<>();
+		ArrayList<IQuestion> questions = new ArrayList<>();
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
 			statement = connection.createStatement();
@@ -34,7 +36,7 @@ public class FetchQuestionDAOImpl implements FetchQuestionDAO {
 			ResultSet rs = statement.executeQuery(query);
 			int i = 1;
 			while (rs.next()) {
-				Question question = new Question();
+				IQuestion question = QuestionFactory.questionObject(new QuestionObjectFactory());
 				question.setQuestionNo(i++);
 				question.setQuestionId(rs.getInt("question_id"));
 				question.setQuestionTitle(rs.getString("question_title"));
@@ -63,9 +65,9 @@ public class FetchQuestionDAOImpl implements FetchQuestionDAO {
 
 	public int getUserId() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		UserDao userDao = SystemConfig.instance().getUserDao();
+		IUserDao userDao = ProfileDaoFactory.instance().userDao();
 
-		ArrayList<User> list = userDao.getByEmail(authentication.getName());
+		ArrayList<IUser> list = userDao.getByEmail(authentication.getName());
 
 		return list.get(0).getUserId();
 	}

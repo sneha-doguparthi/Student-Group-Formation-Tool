@@ -10,7 +10,7 @@ import org.apache.logging.log4j.Logger;
 import CSCI5308.GroupFormationTool.DBUtil.CreateDatabaseConnection;
 import CSCI5308.GroupFormationTool.DBUtil.SqlQueryUtil;
 
-public class DeleteQuestionDAOImpl implements DeleteQuestionDAO {
+public class DeleteQuestionDAOImpl implements IDeleteQuestionDAO {
 
 	@Override
 	public boolean deleteQuestionByQuestionId(Integer questionId) {

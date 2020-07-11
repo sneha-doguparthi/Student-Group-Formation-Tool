@@ -4,17 +4,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
-import CSCI5308.GroupFormationTool.DBUtil.SqlQueryUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import CSCI5308.GroupFormationTool.DBUtil.CreateDatabaseConnection;
+import CSCI5308.GroupFormationTool.DBUtil.SqlQueryUtil;
 import CSCI5308.GroupFormationTool.Model.PasswordHistory;
 
-public class PasswordHistoryDaoImpl implements PasswordHistoryDao {
+public class PasswordHistoryDaoImpl implements IPasswordHistoryDao {
 
 	Logger logger = LogManager.getLogger(PasswordHistoryDaoImpl.class);
 
@@ -54,13 +53,12 @@ public class PasswordHistoryDaoImpl implements PasswordHistoryDao {
 		Connection connection = null;
 		PreparedStatement statement = null;
 		ArrayList<PasswordHistory> list = new ArrayList<>();
-
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
-			String query = "SELECT * FROM password_history WHERE email = ? ORDER BY id DESC LIMIT ?";
+			String query = SqlQueryUtil.instance().getQueryByKey("passwordHistory");
 			statement = connection.prepareStatement(query);
-			statement.setString(1,email);
-			statement.setInt(2,limit);
+			statement.setString(1, email);
+			statement.setInt(2, limit);
 			ResultSet rs = statement.executeQuery(query);
 			while (rs.next()) {
 				PasswordHistory passwordHistory = new PasswordHistory();

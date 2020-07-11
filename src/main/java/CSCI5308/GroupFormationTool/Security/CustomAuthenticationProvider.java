@@ -11,9 +11,9 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import CSCI5308.GroupFormationTool.SystemConfig;
-import CSCI5308.GroupFormationTool.Model.User;
-import CSCI5308.GroupFormationTool.Profile.DAO.UserDao;
+import CSCI5308.GroupFormationTool.Profile.IUser;
+import CSCI5308.GroupFormationTool.Profile.DAO.IUserDao;
+import CSCI5308.GroupFormationTool.Profile.DAO.ProfileDaoFactory;
 
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
@@ -22,11 +22,11 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
 		String email = authentication.getName();
 		String password = authentication.getCredentials().toString();
-		UserDao userDao = SystemConfig.instance().getUserDao();
-		ArrayList<User> allUsers = userDao.getByEmail(email);
+		IUserDao userDao = ProfileDaoFactory.instance().userDao();
+		ArrayList<IUser> allUsers = userDao.getByEmail(email);
 
 		if (allUsers.size() != 0) {
-			User validUser = allUsers.get(0);
+			IUser validUser = allUsers.get(0);
 			if (validUser.getPassword().equals(password)) {
 				List<GrantedAuthority> authority = new ArrayList<>();
 				if (validUser.getUserType().equals("A")) {

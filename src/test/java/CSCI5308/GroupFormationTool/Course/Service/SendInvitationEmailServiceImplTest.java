@@ -14,7 +14,7 @@ import CSCI5308.GroupFormationTool.Model.Student;
 
 public class SendInvitationEmailServiceImplTest {
 
-	SendInvitationEmailService sendInvitationEmailServiceImplMock = mock(SendInvitationEmailServiceImpl.class);
+	ISendInvitationEmailService sendInvitationEmailServiceImplMock = mock(SendInvitationEmailServiceImpl.class);
 
 	@Test
 	void sendUserInvitationEmail() {

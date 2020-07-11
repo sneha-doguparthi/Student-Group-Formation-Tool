@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 
 public class CourseAssociationDAOImplTest {
 
-	CourseAssociationDAO courseAssociationDaoImplMock = mock(CourseAssociationDAOImpl.class);
+	ICourseAssociationDao courseAssociationDaoImplMock = mock(CourseAssociationDAOImpl.class);
 
 	@Test
 	void testGetUserID() {
