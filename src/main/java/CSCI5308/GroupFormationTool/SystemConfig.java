@@ -48,6 +48,10 @@ import CSCI5308.GroupFormationTool.QuestionManager.Service.StoreMcqOptionService
 import CSCI5308.GroupFormationTool.QuestionManager.Service.StoreMcqOptionServiceImpl;
 import CSCI5308.GroupFormationTool.QuestionManager.Service.StoreQuestionService;
 import CSCI5308.GroupFormationTool.QuestionManager.Service.StoreQuestionServiceImpl;
+import CSCI5308.GroupFormationTool.Survey.DAO.GetQuestionsDAO;
+import CSCI5308.GroupFormationTool.Survey.DAO.GetQuestionsDAOImpl;
+import CSCI5308.GroupFormationTool.Survey.Service.GetQuestionsService;
+import CSCI5308.GroupFormationTool.Survey.Service.GetQuestionsServiceImpl;
 import CSCI5308.GroupFormationTool.ToolAdmin.DAO.AddCourse;
 import CSCI5308.GroupFormationTool.ToolAdmin.DAO.AddCourseImpl;
 import CSCI5308.GroupFormationTool.ToolAdmin.DAO.AssignInstructor;
@@ -100,6 +104,8 @@ public class SystemConfig {
 	private DeleteQuestionService deleteQuestionService;
 	private FetchQuestionDAO fetchQuestionDAO;
 	private DeleteQuestionDAO deleteQuestionDAO;
+	private GetQuestionsDAO getQuestionsDAO;
+	private GetQuestionsService getQuestionsService;
 
 	private SystemConfig() {
 		databaseConfiguration = new DefaultDatabaseConfiguration();
@@ -136,6 +142,8 @@ public class SystemConfig {
 		deleteQuestionService = new DeleteQuestionServiceImpl();
 		fetchQuestionDAO = new FetchQuestionDAOImpl();
 		deleteQuestionDAO = new DeleteQuestionDAOImpl();
+		getQuestionsService = new GetQuestionsServiceImpl();
+		getQuestionsDAO = new GetQuestionsDAOImpl();
 	}
 
 	public static SystemConfig instance() {
@@ -401,6 +409,22 @@ public class SystemConfig {
 
 	public void setDeleteQuestionDAO(DeleteQuestionDAO deleteQuestionDAO) {
 		this.deleteQuestionDAO = deleteQuestionDAO;
+	}
+
+	public void setQuestionService(GetQuestionsService getQuestionService) {
+		this.getQuestionsService = getQuestionService;
+	}
+
+	public void setQuestionDAO(GetQuestionsDAO getQuestionDAO) {
+		this.getQuestionsDAO = getQuestionDAO;
+	}
+
+	public GetQuestionsService getQuestionService() {
+		return getQuestionsService;
+	}
+
+	public GetQuestionsDAO getQuestionDAO() {
+		return getQuestionsDAO;
 	}
 
 }
