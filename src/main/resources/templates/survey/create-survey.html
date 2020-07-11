@@ -24,14 +24,23 @@
             <th class="center-text">Question Type</th>
             <th class="center-text">Question Title</th>
             <th class="center-text">Question Text</th>
+            <th class="center-text">Logic Detail</th>
             <th class="center-text">Action</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="question : ${surveyQuestions}">
-            <td><span th:text="${question.questionType}"> Type </span></td>
-            <td><span th:text="${question.questionTitle}"> Date </span></td>
-            <td><span th:text="${question.questionText}"> Date </span></td>
+            <td><span  th:text="${question.questionType}"> Type </span></td>
+            <td><span th:text="${question.questionTitle}"> Title </span></td>
+            <td><span th:text="${question.questionText}"> Text </span></td>
+            <td><span>
+              <select class="select"
+                      id="criteria" required>
+							<option value="">------ Select ------</option>
+							<option value="similar">Group Similar</option>
+							<option value="dissimilar">Group Dissimilar</option>
+					</select>
+            </span></td>
             <td class="center-text">
                 <form method="POST" th:action="@{/survey/delete-question}">
                     <input type="hidden" name="deleteQuestionId" id="questionId" th:value="${question.questionId}" />
