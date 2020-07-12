@@ -12,6 +12,11 @@ import CSCI5308.GroupFormationTool.Course.DAO.CourseDaoFactory;
 import CSCI5308.GroupFormationTool.Course.DAO.ICourseAssociationDao;
 import CSCI5308.GroupFormationTool.Course.DAO.ICourseDao;
 import CSCI5308.GroupFormationTool.Model.CourseAssociation;
+import CSCI5308.GroupFormationTool.Survey.ISurvey;
+import CSCI5308.GroupFormationTool.Survey.SurveyFactory;
+import CSCI5308.GroupFormationTool.Survey.SurveyObjectFactory;
+import CSCI5308.GroupFormationTool.Survey.Service.ISurveyService;
+import CSCI5308.GroupFormationTool.Survey.Service.SurveyServiceFactory;
 import CSCI5308.GroupFormationTool.Utilities.ApplicationConstants;
 
 @Controller
@@ -54,7 +59,6 @@ public class CourseController {
 				courseListAsInstructor.add(courseDao.getById(a.getCourseId()));
 			}
 		}
-
 		model.addAttribute("courseListAsStudent", courseListAsStudent);
 		model.addAttribute("courseListAsTA", courseListAsTA);
 		model.addAttribute("courseListAsInstructor", courseListAsInstructor);
@@ -63,10 +67,17 @@ public class CourseController {
 	}
 
 	@PostMapping("/course/student-course-home")
-	public String studentHome(@RequestParam String courseName, Model model) {
-
-		model.addAttribute("courseName", courseName);
-
+	public String studentHome(Course course, Model model) {
+		model.addAttribute("courseName", course.getCourseName());
+		model.addAttribute("courseHasActiveSurvey", false);
+		
+		ISurvey survey = SurveyFactory.surveyObject(new SurveyObjectFactory());
+		ISurveyService surveyService = SurveyServiceFactory.instance().surveyService();
+		survey = surveyService.getSurveyForCourse(course);
+		model.addAttribute("surveyInfo", survey);
+		if(null != survey && survey.getQuestionList().size() > 0) {
+			model.addAttribute("courseHasActiveSurvey", true);
+		}
 		return "course/student-course-home";
 	}
 }

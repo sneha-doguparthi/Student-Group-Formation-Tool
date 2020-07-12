@@ -32,4 +32,8 @@ public interface IQuestion {
 	public int getQuestionNo();
 
 	public void setQuestionNo(int questionNo);
+
+	public String getCriteria();
+
+	public void setCriteria(String criteria);
 }

@@ -9,6 +9,31 @@
 		<div class="course-title">
 			<h1 th:text="'Welcome to '+ ${courseName}"></h1>
 		</div>
+		<div th:if="courseHasActiveSurvey">
+			<p>Please answer the following questions:</p>
+			<div>
+				<form  method="post">
+					<div th:each="questionModel: ${surveyInfo.questionList}">
+						<p th:text="${questionModel.questionText}"></p>
+						<div th:if="${questionModel.questionType.equals('MCQO')}">
+							<div th:each="answerModel:${questionModel.answerList}">
+								<input type="radio" th:name="${questionModel.questionId}">
+								<label th:text="${answerModel.answerText}"></label>
+							</div>
+						</div>
+						<div th:if="${questionModel.questionType.equals('MCQM')}">
+							<div th:each="answerModel:${questionModel.answerList}">
+								<input type="checkbox" th:name="${questionModel.questionId}">
+								<label th:text="${answerModel.answerText}"></label>
+							</div>
+						</div>
+						<div>
+						</div>
+					</div>
+					<button class="btn btn-primary">Submit</button>
+				</form>
+			</div>
+		</div>
 	</div>
 </body>
 </html>

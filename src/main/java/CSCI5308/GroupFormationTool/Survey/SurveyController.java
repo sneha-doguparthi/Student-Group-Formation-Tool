@@ -23,7 +23,7 @@ public class SurveyController {
 
 	@GetMapping("/survey/create-survey")
 	public String getAllQuestions(Model model) {
-		ArrayList<SurveyQuestion> questionslist = getQuestionsService.getQuestionForInstructor();
+		ArrayList<IQuestion> questionslist = getQuestionsService.getQuestionForInstructor();
 		model.addAttribute("questions", questionslist);
 		model.addAttribute("questionModel", question);
 		return ("survey/create-survey");
@@ -32,7 +32,7 @@ public class SurveyController {
 	@PostMapping("/survey/addQuestions")
 	public String addQuestionsToSurvey(Model model, HttpServletRequest httpServletRequest) {
 		String questionId = httpServletRequest.getParameter("questionSelected");
-		ArrayList<SurveyQuestion> questionslist = getQuestionsService.getQuestionForInstructor();
+		ArrayList<IQuestion> questionslist = getQuestionsService.getQuestionForInstructor();
 		model.addAttribute("questions", questionslist);
 		ISurvey question = getQuestionsService.getOneQuestion(Integer.parseInt(questionId));
 		model.addAttribute("surveyQuestions", question.getQuestionList());

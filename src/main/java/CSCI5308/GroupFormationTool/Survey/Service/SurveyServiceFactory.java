@@ -4,6 +4,7 @@ public class SurveyServiceFactory extends SurveyServiceAbstractFactory {
 
 	private static SurveyServiceFactory instance = null;
 	private IGetQuestionsService getQuestionsService;
+	private ISurveyService surveyService;
 
 	private SurveyServiceFactory() {
 	}
@@ -21,6 +22,14 @@ public class SurveyServiceFactory extends SurveyServiceAbstractFactory {
 			getQuestionsService = new GetQuestionsServiceImpl();
 		}
 		return getQuestionsService;
+	}
+
+	@Override
+	public ISurveyService surveyService() {
+		if (null == surveyService) {
+			surveyService = new SurveyServiceImpl();
+		}
+		return surveyService;
 	}
 
 }

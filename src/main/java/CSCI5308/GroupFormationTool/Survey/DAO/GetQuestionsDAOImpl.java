@@ -15,22 +15,24 @@ import CSCI5308.GroupFormationTool.DBUtil.CreateDatabaseConnection;
 import CSCI5308.GroupFormationTool.Profile.IUser;
 import CSCI5308.GroupFormationTool.Profile.DAO.IUserDao;
 import CSCI5308.GroupFormationTool.Profile.DAO.ProfileDaoFactory;
-import CSCI5308.GroupFormationTool.Survey.SurveyQuestion;
+import CSCI5308.GroupFormationTool.QuestionManager.IQuestion;
+import CSCI5308.GroupFormationTool.QuestionManager.QuestionFactory;
+import CSCI5308.GroupFormationTool.QuestionManager.QuestionObjectFactory;
 
 public class GetQuestionsDAOImpl implements IGetQuestionsDAO {
 	Logger logger = LogManager.getLogger(GetQuestionsDAOImpl.class);
 
-	public ArrayList<SurveyQuestion> getQuestionByInstructorId() {
+	public ArrayList<IQuestion> getQuestionByInstructorId() {
 		Connection connection = null;
 		Statement statement = null;
-		ArrayList<SurveyQuestion> questions = new ArrayList<>();
+		ArrayList<IQuestion> questions = new ArrayList<>();
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
 			statement = connection.createStatement();
 			String query = "SELECT * FROM question WHERE user_id=" + getUserId();
 			ResultSet rs = statement.executeQuery(query);
 			while (rs.next()) {
-				SurveyQuestion question = new SurveyQuestion();
+				IQuestion question = QuestionFactory.questionObject(new QuestionObjectFactory());
 				question.setQuestionId(rs.getInt("question_id"));
 				question.setQuestionTitle(rs.getString("question_title"));
 				question.setQuestionText(rs.getString("question_text"));
@@ -55,8 +57,8 @@ public class GetQuestionsDAOImpl implements IGetQuestionsDAO {
 		return questions;
 	}
 
-	public SurveyQuestion getQuestionById(int questionId) {
-		SurveyQuestion question = new SurveyQuestion();
+	public IQuestion getQuestionById(int questionId) {
+		IQuestion question = QuestionFactory.questionObject(new QuestionObjectFactory());
 		Connection connection = null;
 		Statement statement = null;
 		try {

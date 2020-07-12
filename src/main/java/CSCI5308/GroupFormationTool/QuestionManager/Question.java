@@ -12,6 +12,7 @@ public class Question implements IQuestion {
 	private String questionType;
 	private String questionDate;
 	private int questionNo;
+	private String criteria;
 	private ArrayList<Answer> answerList;
 
 	public Question() {
@@ -89,6 +90,16 @@ public class Question implements IQuestion {
 	@Override
 	public void setQuestionNo(int questionNo) {
 		this.questionNo = questionNo;
+	}
+
+	@Override
+	public String getCriteria() {
+		return criteria;
+	}
+
+	@Override
+	public void setCriteria(String criteria) {
+		this.criteria = criteria;
 	}
 
 }
