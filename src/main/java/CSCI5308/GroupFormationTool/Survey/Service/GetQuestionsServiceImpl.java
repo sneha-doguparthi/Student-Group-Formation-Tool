@@ -15,9 +15,8 @@ import CSCI5308.GroupFormationTool.Survey.DAO.SurveyDaoFactory;
 
 public class GetQuestionsServiceImpl implements IGetQuestionsService {
 
-	IQuestion question = QuestionFactory.questionObject(new QuestionObjectFactory());
 	ISurvey survey = SurveyFactory.surveyObject(new SurveyObjectFactory());
-
+	private static List<SurveyQuestion> surveyQuestionList = new ArrayList<SurveyQuestion>();
 	public ArrayList<SurveyQuestion> getQuestionForInstructor() {
 		IGetQuestionsDAO getQuestionDao = SurveyDaoFactory.instance().getQuestionsDAO();
 		return getQuestionDao.getQuestionByInstructorId();
@@ -25,9 +24,18 @@ public class GetQuestionsServiceImpl implements IGetQuestionsService {
 
 	public ISurvey getOneQuestion(int questionId) {
 		IGetQuestionsDAO getQuestionDao = SurveyDaoFactory.instance().getQuestionsDAO();
-		List<SurveyQuestion> surveyQuestionList = survey.getQuestionList();
 		surveyQuestionList.add(getQuestionDao.getQuestionById(questionId));
 		survey.setQuestionList(surveyQuestionList);
 		return survey;
 	}
+
+	public ISurvey deleteQuestion(int questionId) {
+		for (SurveyQuestion question:surveyQuestionList){
+			if(question.getQuestionId() == questionId){
+				surveyQuestionList.remove(question);
+			}
+		}
+		return survey;
+	}
+
 }

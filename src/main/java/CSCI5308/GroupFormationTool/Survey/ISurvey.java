@@ -11,4 +11,15 @@ public interface ISurvey {
 
 	public void setQuestionList(List<SurveyQuestion> questionList);
 
+	public String getCourseId();
+
+	public void setCourseId(String courseId);
+
+	public boolean isPublished();
+
+	public void setPublished(boolean published);
+
+	public int getGroupSize();
+
+	public void setGroupSize(int groupSize);
 }

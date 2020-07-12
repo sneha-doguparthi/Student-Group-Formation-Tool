@@ -5,6 +5,9 @@ import java.util.List;
 public class Survey implements ISurvey {
 	private int surveyId;
 	private List<SurveyQuestion> questionList;
+	private String courseId;
+	private boolean isPublished;
+	private int groupSize;
 
 	@Override
 	public int getSurveyId() {
@@ -24,6 +27,30 @@ public class Survey implements ISurvey {
 	@Override
 	public void setQuestionList(List<SurveyQuestion> questionList) {
 		this.questionList = questionList;
+	}
+
+	public String getCourseId() {
+		return courseId;
+	}
+
+	public void setCourseId(String courseId) {
+		this.courseId = courseId;
+	}
+
+	public boolean isPublished() {
+		return isPublished;
+	}
+
+	public void setPublished(boolean published) {
+		isPublished = published;
+	}
+
+	public int getGroupSize() {
+		return groupSize;
+	}
+
+	public void setGroupSize(int groupSize) {
+		this.groupSize = groupSize;
 	}
 
 }
