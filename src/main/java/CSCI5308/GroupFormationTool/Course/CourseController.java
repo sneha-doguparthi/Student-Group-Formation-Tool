@@ -70,12 +70,12 @@ public class CourseController {
 	public String studentHome(Course course, Model model) {
 		model.addAttribute("courseName", course.getCourseName());
 		model.addAttribute("courseHasActiveSurvey", false);
-		
+
 		ISurvey survey = SurveyFactory.surveyObject(new SurveyObjectFactory());
 		ISurveyService surveyService = SurveyServiceFactory.instance().surveyService();
 		survey = surveyService.getSurveyForCourse(course);
 		model.addAttribute("surveyInfo", survey);
-		if(null != survey && survey.getQuestionList().size() > 0) {
+		if (null != survey && survey.getQuestionList().size() > 0) {
 			model.addAttribute("courseHasActiveSurvey", true);
 		}
 		return "course/student-course-home";

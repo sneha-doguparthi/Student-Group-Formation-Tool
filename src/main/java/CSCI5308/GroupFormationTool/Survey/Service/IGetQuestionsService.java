@@ -9,4 +9,6 @@ public interface IGetQuestionsService {
 	public ArrayList<IQuestion> getQuestionForInstructor();
 
 	public ISurvey getOneQuestion(int questionId);
+
+	public ISurvey deleteQuestion(int questionId);
 }

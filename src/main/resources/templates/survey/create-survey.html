@@ -7,7 +7,7 @@
 <body>
 <ul lang="en" th:replace="fragments/course-header :: course-header"></ul>
 <div class="container">
-<form th:object="${questionModel}" th:action="@{/survey/addQuestions}" method="POST">
+<form th:action="@{/survey/addQuestions}" method="POST">
     <p>
         Add Questions from question bank
     </p>
@@ -15,9 +15,22 @@
         <option value="">-------------------- Select -------------------</option>
         <option th:each="question : ${questions}" th:value="${question.questionId}" th:text="${question.questionText}"></option>
     </select>
-    <button id="submit" class="btn btn-primary">Submit</button>
+    <button id="submit" class="btn btn-primary">Add Question to Survey</button>
 </form>
-<br>
+    <br>
+    <form th:action="@{/survey/saveQuestions}">
+        <p>Group Size</p>
+        <select style="width: 200px;" class="custom-select"
+                id="group-size"
+                name="group">
+            <option value="2" selected="selected">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+        <button id="save" class="btn btn-primary">Save Survey</button>
+    </form>
+    <br>
     <table class="table table-bordered table-striped" id="questions">
         <thead class="thead-dark">
         <tr>

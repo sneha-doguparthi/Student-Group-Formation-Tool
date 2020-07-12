@@ -33,8 +33,8 @@ public class SurveyDaoImpl implements ISurveyDao {
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
 			String selectQuery = SqlQueryUtil.instance().getQueryByKey("surveyForCourse");
-			statement = connection.prepareStatement(selectQuery, ResultSet.TYPE_SCROLL_SENSITIVE, 
-                    ResultSet.CONCUR_UPDATABLE);
+			statement = connection.prepareStatement(selectQuery, ResultSet.TYPE_SCROLL_SENSITIVE,
+					ResultSet.CONCUR_UPDATABLE);
 			statement.setInt(1, course.getCourseId());
 			ResultSet resultSet = statement.executeQuery();
 			ArrayList<IQuestion> surveyQuestions = new ArrayList<IQuestion>();

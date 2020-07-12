@@ -20,12 +20,12 @@ public class SurveyController {
 
 	IQuestion question = QuestionFactory.questionObject(new QuestionObjectFactory());
 	IGetQuestionsService getQuestionsService = SurveyServiceFactory.instance().getQuestionsService();
+	ISurvey survey = SurveyFactory.surveyObject(new SurveyObjectFactory());
 
 	@GetMapping("/survey/create-survey")
-	public String getAllQuestions(Model model) {
+	public String getAllQuestions(Model model, HttpServletRequest request) {
 		ArrayList<IQuestion> questionslist = getQuestionsService.getQuestionForInstructor();
 		model.addAttribute("questions", questionslist);
-		model.addAttribute("questionModel", question);
 		return ("survey/create-survey");
 	}
 
@@ -33,8 +33,8 @@ public class SurveyController {
 	public String addQuestionsToSurvey(Model model, HttpServletRequest httpServletRequest) {
 		String questionId = httpServletRequest.getParameter("questionSelected");
 		ArrayList<IQuestion> questionslist = getQuestionsService.getQuestionForInstructor();
-		model.addAttribute("questions", questionslist);
 		ISurvey question = getQuestionsService.getOneQuestion(Integer.parseInt(questionId));
+		model.addAttribute("questions", questionslist);
 		model.addAttribute("surveyQuestions", question.getQuestionList());
 		return ("survey/create-survey");
 	}
@@ -42,6 +42,16 @@ public class SurveyController {
 	@PostMapping("/survey/delete-question")
 	public String deleteQuestion(Model model, HttpServletRequest httpServletRequest) {
 		String questionId = httpServletRequest.getParameter("deleteQuestionId");
+		ISurvey survey = getQuestionsService.deleteQuestion(Integer.parseInt(questionId));
+		ArrayList<IQuestion> questionslist = getQuestionsService.getQuestionForInstructor();
+		model.addAttribute("questions", questionslist);
+		model.addAttribute("surveyQuestions", survey.getQuestionList());
+		return ("survey/create-survey");
+	}
+
+	@PostMapping("/survey/save-survey")
+	public String saveSurvey(Model model) {
+		model.addAttribute("surveyModel", survey);
 		return ("survey/create-survey");
 	}
 
