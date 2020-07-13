@@ -7,6 +7,7 @@ public class CourseServiceFactory extends CourseServiceAbstractFactory {
 	private IGetStudentListService getStudentListService;
 	private ISendInvitationEmailService sendInvitationEmailService;
 	private IUploadCsvFileService uploadCsvFileService;
+	private ICourseSurveyService courseSurveyService;
 
 	private CourseServiceFactory() {
 	}
@@ -48,6 +49,14 @@ public class CourseServiceFactory extends CourseServiceAbstractFactory {
 			uploadCsvFileService = new UploadCsvFileServiceImpl();
 		}
 		return uploadCsvFileService;
+	}
+
+	@Override
+	public ICourseSurveyService courseSurveyService() {
+		if (null == courseSurveyService) {
+			courseSurveyService = new CourseSurveyServiceImpl();
+		}
+		return courseSurveyService;
 	}
 
 }

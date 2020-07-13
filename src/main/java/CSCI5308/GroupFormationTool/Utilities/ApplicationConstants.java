@@ -32,4 +32,9 @@ public class ApplicationConstants {
 
 	public static final String QUESTION_ANSWERS_ADDED = "Question and answers added successfully!";
 	public static final String FAILED_QUESTION_ANSWERS_INSERTION = "Failed to add Question and answers!";
+
+	public static final String FAILED_TO_SAVE_RESPONSE = "Failed to save survey response!";
+	public static final String SURVEY_RESPONSE_SAVED = "Survey Response saved successfully!";
+	public static final String DB_NOT_ACCESSIBLE = "Failed to connected to the database. Please try again after sometime.";
+	
 }

@@ -8,4 +8,6 @@ public abstract class CourseServiceAbstractFactory {
 	public abstract ISendInvitationEmailService sendInvitationEmailService();
 
 	public abstract IUploadCsvFileService uploadCsvFileService();
+
+	public abstract ICourseSurveyService courseSurveyService();
 }
