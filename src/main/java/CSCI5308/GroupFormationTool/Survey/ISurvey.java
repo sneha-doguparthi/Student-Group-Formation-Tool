@@ -4,6 +4,7 @@ import java.util.List;
 
 import CSCI5308.GroupFormationTool.Course.ICourse;
 import CSCI5308.GroupFormationTool.QuestionManager.IQuestion;
+import CSCI5308.GroupFormationTool.QuestionManager.Question;
 import CSCI5308.GroupFormationTool.Survey.Service.ISurveyService;
 
 public interface ISurvey {
@@ -17,15 +18,17 @@ public interface ISurvey {
 
 	public ISurvey getSurveyForCourse(ICourse course, ISurveyService surveyService);
 
-	public String getCourseId();
+	public int getCourseId();
 
-	public void setCourseId(String courseId);
-
-	public boolean isPublished();
-
-	public void setPublished(boolean published);
+	public void setCourseId(int courseId);
 
 	public int getGroupSize();
 
 	public void setGroupSize(int groupSize);
+
+	public String getSurveyStatus();
+
+	public void setSurveyStatus(String surveyStatus);
+
+
 }

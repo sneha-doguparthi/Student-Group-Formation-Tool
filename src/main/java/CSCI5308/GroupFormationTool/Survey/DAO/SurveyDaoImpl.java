@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
+import CSCI5308.GroupFormationTool.QuestionManager.Question;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -28,7 +30,7 @@ public class SurveyDaoImpl implements ISurveyDao {
 	@Override
 	public ISurvey getSurveyForCourse(ICourse course) {
 		PreparedStatement statement = null;
-		Connection connection = null;
+				Connection connection = null;
 		ISurvey survey = SurveyFactory.surveyObject(new SurveyObjectFactory());
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
@@ -37,7 +39,7 @@ public class SurveyDaoImpl implements ISurveyDao {
 					ResultSet.CONCUR_UPDATABLE);
 			statement.setInt(1, course.getCourseId());
 			ResultSet resultSet = statement.executeQuery();
-			ArrayList<IQuestion> surveyQuestions = new ArrayList<IQuestion>();
+			List<IQuestion> surveyQuestions = new ArrayList<IQuestion>();
 			if (resultSet.next()) {
 				resultSet.beforeFirst();
 				while (resultSet.next()) {

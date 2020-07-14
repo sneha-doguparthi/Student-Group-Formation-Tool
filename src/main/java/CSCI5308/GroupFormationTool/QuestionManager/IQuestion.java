@@ -36,4 +36,8 @@ public interface IQuestion {
 	public String getCriteria();
 
 	public void setCriteria(String criteria);
+
+	public int getCourseId();
+
+	public void setCourseId(int courseId);
 }

@@ -13,6 +13,7 @@ public class Question implements IQuestion {
 	private String questionDate;
 	private int questionNo;
 	private String criteria;
+	private int courseId;
 	private ArrayList<Answer> answerList;
 
 	public Question() {
@@ -100,6 +101,14 @@ public class Question implements IQuestion {
 	@Override
 	public void setCriteria(String criteria) {
 		this.criteria = criteria;
+	}
+
+	public int getCourseId() {
+		return courseId;
+	}
+
+	public void setCourseId(int courseId) {
+		this.courseId = courseId;
 	}
 
 }

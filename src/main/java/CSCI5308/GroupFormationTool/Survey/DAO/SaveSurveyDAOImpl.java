@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
+import CSCI5308.GroupFormationTool.Survey.ISurvey;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -24,11 +25,67 @@ public class SaveSurveyDAOImpl implements ISaveSurveyDAO {
 			for (int i = 0; i < listSize; i++) {
 				String query = "INSERT INTO survey_question_association(course_id,question_id,criteria) values(?,?,?)";
 				statement = connection.prepareStatement(query);
-				statement.setInt(1, questions.get(i).getQuestionId());
+				statement.setInt(1, questions.get(i).getCourseId() );
 				statement.setInt(2, questions.get(i).getQuestionId());
 				statement.setString(3, questions.get(i).getCriteria());
 				statement.executeUpdate();
 			}
+		} catch (SQLException e) {
+			logger.error("Exception occurred while adding the user: ", e);
+		} finally {
+			try {
+				if (null != statement) {
+					statement.close();
+				}
+				if (null != connection) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				logger.error("Exception occurred while closing connection/statement", e);
+			}
+		}
+
+		return true;
+	}
+
+	public void saveSurveyDetails(ISurvey survey){
+		Connection connection = null;
+		PreparedStatement statement = null;
+
+		try {
+			connection = CreateDatabaseConnection.instance().createConnection();
+			String query = "INSERT INTO instructor_survey_association(survey_status,course_id,group_size) values(?,?,?)";
+			statement = connection.prepareStatement(query);
+			statement.setString(1, "S");
+			statement.setInt(2, survey.getCourseId());
+			statement.setInt(3,survey.getGroupSize());
+			statement.executeUpdate();
+		} catch (SQLException e) {
+			logger.error("Exception occurred while adding the user: ", e);
+		} finally {
+			try {
+				if (null != statement) {
+					statement.close();
+				}
+				if (null != connection) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				logger.error("Exception occurred while closing connection/statement", e);
+			}
+		}
+
+	}
+
+	public boolean publishSurvey(int course_id){
+		Connection connection = null;
+		PreparedStatement statement = null;
+
+		try {
+			connection = CreateDatabaseConnection.instance().createConnection();
+			String query = "UPDATE instructor_survey_association SET survey_status=\"A\" where course_id=" +course_id;
+			statement = connection.prepareStatement(query);
+			statement.executeUpdate();
 		} catch (SQLException e) {
 			logger.error("Exception occurred while adding the user: ", e);
 		} finally {

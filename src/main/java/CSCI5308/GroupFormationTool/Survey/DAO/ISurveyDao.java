@@ -5,4 +5,5 @@ import CSCI5308.GroupFormationTool.Survey.ISurvey;
 
 public interface ISurveyDao {
 	public ISurvey getSurveyForCourse(ICourse course);
+
 }

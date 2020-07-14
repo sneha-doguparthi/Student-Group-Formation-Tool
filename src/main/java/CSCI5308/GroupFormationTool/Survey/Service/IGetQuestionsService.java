@@ -8,7 +8,7 @@ import CSCI5308.GroupFormationTool.Survey.ISurvey;
 public interface IGetQuestionsService {
 	public ArrayList<IQuestion> getQuestionForInstructor();
 
-	public ISurvey getOneQuestion(int questionId);
+	public ISurvey getOneQuestion(ISurvey survey, int questionId);
 
-	public ISurvey deleteQuestion(int questionId);
+	public ISurvey deleteQuestion(ISurvey survey, int questionId);
 }

@@ -5,6 +5,7 @@ public class SurveyDaoFactory extends SurveyDaoAbstractFactory {
 	private static SurveyDaoFactory instance = null;
 	private IGetQuestionsDAO getQuestionsDAO;
 	private ISurveyDao surveyDao;
+	private ISaveSurveyDAO saveSurveyDAO;
 
 	private SurveyDaoFactory() {
 	}
@@ -16,7 +17,6 @@ public class SurveyDaoFactory extends SurveyDaoAbstractFactory {
 		return instance;
 	}
 
-	@Override
 	public IGetQuestionsDAO getQuestionsDAO() {
 		if (null == getQuestionsDAO) {
 			getQuestionsDAO = new GetQuestionsDAOImpl();
@@ -24,12 +24,18 @@ public class SurveyDaoFactory extends SurveyDaoAbstractFactory {
 		return getQuestionsDAO;
 	}
 
-	@Override
 	public ISurveyDao surveyDao() {
 		if (null == surveyDao) {
 			surveyDao = new SurveyDaoImpl();
 		}
 		return surveyDao;
+	}
+
+	public ISaveSurveyDAO saveSurveyDAO() {
+		if (null == saveSurveyDAO) {
+			saveSurveyDAO = new SaveSurveyDAOImpl();
+		}
+		return saveSurveyDAO;
 	}
 
 }
