@@ -4,7 +4,6 @@ import java.util.List;
 
 import CSCI5308.GroupFormationTool.Course.ICourse;
 import CSCI5308.GroupFormationTool.QuestionManager.IQuestion;
-import CSCI5308.GroupFormationTool.QuestionManager.Question;
 import CSCI5308.GroupFormationTool.Survey.Service.ISurveyService;
 
 public interface ISurvey {
@@ -29,6 +28,5 @@ public interface ISurvey {
 	public String getSurveyStatus();
 
 	public void setSurveyStatus(String surveyStatus);
-
 
 }

@@ -2,6 +2,9 @@ package CSCI5308.GroupFormationTool.Course.Service;
 
 import java.util.ArrayList;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import CSCI5308.GroupFormationTool.Course.DAO.CourseDaoFactory;
 import CSCI5308.GroupFormationTool.Course.DAO.ICourseSurveyDao;
 import CSCI5308.GroupFormationTool.Model.SurveyResponse;
@@ -9,12 +12,17 @@ import CSCI5308.GroupFormationTool.QuestionManager.IQuestion;
 import CSCI5308.GroupFormationTool.Survey.ISurvey;
 
 public class CourseSurveyServiceImpl implements ICourseSurveyService {
+	
+	private Logger logger = LogManager.getLogger(CourseSurveyServiceImpl.class);
+	
 	@Override
 	public boolean validateResponses(IQuestion surveyQuestions, ISurvey survey) {
 		String[] questionAndAnwers = surveyQuestions.getQuestionType().split(",");
 		if (questionAndAnwers.length >= survey.getQuestionList().size()) {
+			logger.info("Survey question responses validated successfilly.");
 			return true;
 		}
+		logger.info("Survey question responses validation failed. All answers are not answered.");
 		return false;
 	}
 

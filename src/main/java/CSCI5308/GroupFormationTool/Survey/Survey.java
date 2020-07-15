@@ -1,11 +1,9 @@
 package CSCI5308.GroupFormationTool.Survey;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import CSCI5308.GroupFormationTool.Course.ICourse;
 import CSCI5308.GroupFormationTool.QuestionManager.IQuestion;
-import CSCI5308.GroupFormationTool.QuestionManager.Question;
 import CSCI5308.GroupFormationTool.Survey.Service.ISurveyService;
 
 public class Survey implements ISurvey {

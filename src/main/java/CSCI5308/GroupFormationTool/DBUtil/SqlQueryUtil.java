@@ -32,8 +32,9 @@ public class SqlQueryUtil {
 			queryPropFile = "application.sql.properties";
 			queryPropsFileStream = getClass().getClassLoader().getResourceAsStream(queryPropFile);
 			queryProps.load(queryPropsFileStream);
+			logger.info("Application queries loaded successfully.");
 		} catch (IOException e) {
-			logger.error("Exception occurred while loading properties file: ", e);
+			logger.error("Exception occurred while sql loading properties file: ", e);
 		}
 	}
 

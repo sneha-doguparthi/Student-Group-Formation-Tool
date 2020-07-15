@@ -2,6 +2,8 @@ package CSCI5308.GroupFormationTool.Course;
 
 import java.util.ArrayList;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +31,7 @@ import CSCI5308.GroupFormationTool.Utilities.ApplicationConstants;
 @Controller
 public class CourseController {
 
+	private Logger logger = LogManager.getLogger(CourseController.class);
 	ICourseAssociationDao courseAssociationDAO;
 	ICourseDao courseDao;
 	ICourse course;
@@ -53,6 +56,8 @@ public class CourseController {
 		ArrayList<ICourse> courseListAsTA = new ArrayList<ICourse>();
 		ArrayList<ICourse> courseListAsInstructor = new ArrayList<ICourse>();
 		this.userId = userId;
+		logger.info("Course home page launched by user: ", userId);
+		logger.info("Initializing the model attributes");
 		model.addAttribute("allCourses", new ArrayList<Course>());
 		model.addAttribute("courseListAsStudent", new ArrayList<Course>());
 		model.addAttribute("courseListAsTA", new ArrayList<Course>());
@@ -83,6 +88,7 @@ public class CourseController {
 
 	@PostMapping("/course/student-course-home")
 	public String studentHome(Course course, Model model, int userId) {
+		logger.info("Performing intial checks for the course survey.");
 		this.course = course;
 		this.userId = userId;
 		model = initializeCourseModel(model);
@@ -105,6 +111,7 @@ public class CourseController {
 
 	@PostMapping("/course/student-survey-response")
 	public String surveyResponseHome(@ModelAttribute Question question, Model model, int userId) {
+		logger.info("Request for storing the responses of survey questions.");
 		this.userId = userId;
 		model = initializeCourseModel(model);
 		boolean validatioResult = this.courseSurveyService.validateResponses(question, this.survey);
@@ -124,6 +131,7 @@ public class CourseController {
 	}
 
 	public Model initializeCourseModel(Model courseHomeModel) {
+		logger.info("Initializing the model attributes for survey section.");
 		courseHomeModel.addAttribute("courseName", this.course.getCourseName());
 		courseHomeModel.addAttribute("courseHasActiveSurvey", false);
 		courseHomeModel.addAttribute("errMsg", "");

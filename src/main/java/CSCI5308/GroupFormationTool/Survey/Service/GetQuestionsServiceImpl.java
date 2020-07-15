@@ -4,10 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import CSCI5308.GroupFormationTool.QuestionManager.IQuestion;
-import CSCI5308.GroupFormationTool.QuestionManager.Question;
 import CSCI5308.GroupFormationTool.Survey.ISurvey;
-import CSCI5308.GroupFormationTool.Survey.SurveyFactory;
-import CSCI5308.GroupFormationTool.Survey.SurveyObjectFactory;
 import CSCI5308.GroupFormationTool.Survey.DAO.IGetQuestionsDAO;
 import CSCI5308.GroupFormationTool.Survey.DAO.SurveyDaoFactory;
 
@@ -22,7 +19,7 @@ public class GetQuestionsServiceImpl implements IGetQuestionsService {
 		IGetQuestionsDAO getQuestionDao = SurveyDaoFactory.instance().getQuestionsDAO();
 		IQuestion questionById = getQuestionDao.getQuestionById(questionId);
 		List<IQuestion> surveyQuestionList = survey.getQuestionList();
-		if(null == surveyQuestionList) {
+		if (null == surveyQuestionList) {
 			surveyQuestionList = new ArrayList<IQuestion>();
 		}
 		surveyQuestionList.add(questionById);

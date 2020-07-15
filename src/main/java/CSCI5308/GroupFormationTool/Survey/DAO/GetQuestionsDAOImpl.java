@@ -1,6 +1,9 @@
 package CSCI5308.GroupFormationTool.Survey.DAO;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import org.apache.logging.log4j.LogManager;
@@ -96,14 +99,14 @@ public class GetQuestionsDAOImpl implements IGetQuestionsDAO {
 		return list.get(0).getUserId();
 	}
 
-	public String getSurveyStatus(int couser_id){
+	public String getSurveyStatus(int couser_id) {
 		Connection connection = null;
 		Statement statement = null;
-		String status="";
+		String status = "";
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
 			statement = connection.createStatement();
-			String query = "SELECT survey_status from instructor_survey_association where course_id =" +couser_id;
+			String query = "SELECT survey_status from instructor_survey_association where course_id =" + couser_id;
 			ResultSet rs = statement.executeQuery(query);
 			while (rs.next()) {
 				status = rs.getString("course_id");

@@ -55,8 +55,10 @@ public class CourseSurveyDaoImpl implements ICourseSurveyDao {
 			}
 		}
 		if (flag == -1) {
+			logger.info("Store survey response: ", ApplicationConstants.FAILED_TO_SAVE_RESPONSE);
 			return ApplicationConstants.FAILED_TO_SAVE_RESPONSE;
 		} else {
+			logger.info("Store survey response: ", ApplicationConstants.SURVEY_RESPONSE_SAVED);
 			return ApplicationConstants.SURVEY_RESPONSE_SAVED;
 		}
 	}
@@ -78,7 +80,7 @@ public class CourseSurveyDaoImpl implements ICourseSurveyDao {
 			}
 		} catch (SQLException e) {
 			i = 0;
-			logger.error("Exception occured while fetching the course list", e);
+			logger.error("Exception occured while fetching the course list: ", e);
 		} finally {
 			try {
 				if (null != statement) {
@@ -88,12 +90,14 @@ public class CourseSurveyDaoImpl implements ICourseSurveyDao {
 					connection.close();
 				}
 			} catch (SQLException e) {
-				logger.error("Exception occured while closing connection/statement", e);
+				logger.error("Exception occured while closing connection/statement: ", e);
 			}
 		}
 		if (i > 0) {
+			logger.info("User has already submitted the survey.");
 			return true;
 		} else {
+			logger.info("Survey pending for user.");
 			return false;
 		}
 	}

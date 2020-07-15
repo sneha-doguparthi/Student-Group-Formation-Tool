@@ -40,8 +40,9 @@ public class CreateDatabaseConnection {
 
 	public static boolean closeConnection() {
 		try {
-			if (null != dbConnection && !(dbConnection.isClosed()))
+			if (null != dbConnection && !(dbConnection.isClosed())) {
 				dbConnection.close();
+			}
 		} catch (SQLException e) {
 			logger.error("Exception occurred while closing database connection " + e);
 		}
