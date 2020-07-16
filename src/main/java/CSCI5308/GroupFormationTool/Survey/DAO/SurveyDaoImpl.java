@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import CSCI5308.GroupFormationTool.Model.SurveyResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,6 +14,7 @@ import CSCI5308.GroupFormationTool.Course.ICourse;
 import CSCI5308.GroupFormationTool.DBUtil.CreateDatabaseConnection;
 import CSCI5308.GroupFormationTool.DBUtil.SqlQueryUtil;
 import CSCI5308.GroupFormationTool.Model.Answer;
+import CSCI5308.GroupFormationTool.Model.SurveyResponse;
 import CSCI5308.GroupFormationTool.QuestionManager.IQuestion;
 import CSCI5308.GroupFormationTool.QuestionManager.QuestionFactory;
 import CSCI5308.GroupFormationTool.QuestionManager.QuestionObjectFactory;
@@ -89,7 +89,7 @@ public class SurveyDaoImpl implements ISurveyDao {
 			statement.setInt(1, course.getCourseId());
 			ResultSet resultSet = statement.executeQuery();
 
-			while (resultSet.next()){
+			while (resultSet.next()) {
 				SurveyResponse response = new SurveyResponse();
 				response.setUserId(resultSet.getInt("user_id"));
 				response.setQuestionId(resultSet.getInt("question_id"));
