@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import CSCI5308.GroupFormationTool.Profile.IUser;
 import CSCI5308.GroupFormationTool.QuestionManager.IQuestion;
 import CSCI5308.GroupFormationTool.Survey.Service.IDesignGroupService;
 import CSCI5308.GroupFormationTool.Survey.Service.IGetQuestionsService;

@@ -11,10 +11,6 @@ import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
-import CSCI5308.GroupFormationTool.Profile.IUser;
-import CSCI5308.GroupFormationTool.Profile.UserFactory;
-import CSCI5308.GroupFormationTool.Profile.UserObjectFactory;
-
 public class DesignGroupServiceImplTest {
 	IDesignGroupService designGroupServiceMock = mock(DesignGroupServiceImpl.class);
 
