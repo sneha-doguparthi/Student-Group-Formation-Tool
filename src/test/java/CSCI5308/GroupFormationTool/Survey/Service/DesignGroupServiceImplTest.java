@@ -20,17 +20,12 @@ public class DesignGroupServiceImplTest {
 
 	@Test
 	void designGroupTest() {
-		Map<String, ArrayList<IUser>> groupInformation = new HashMap<>();
-		ArrayList<IUser> users = new ArrayList<>();
+		Map<String, ArrayList<String>> groupInformation = new HashMap<>();
+		ArrayList<String> users = new ArrayList<>();
 
-		IUser user = UserFactory.userObject(new UserObjectFactory());
-		user.setBannerId("B12345678");
-		user.setFirstName("First");
-		user.setLastName("Last");
-		user.setUserId(1);
-		user.setPassword("password");
-
-		users.add(user);
+		users.add("B00123456| First | Last");
+		users.add("B00123456| Hello | World");
+		users.add("B00123456| No | Name");
 
 		groupInformation.put("groupedUser", users);
 
