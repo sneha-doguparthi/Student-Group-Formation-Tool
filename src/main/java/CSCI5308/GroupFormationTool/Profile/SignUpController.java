@@ -17,7 +17,7 @@ public class SignUpController {
 
 	IRegistrationService registrationService;
 	private Logger logger = LogManager.getLogger(LoginController.class);
-	
+
 	public SignUpController() {
 		this.registrationService = ProfileServiceFactory.instance().registrationService();
 	}

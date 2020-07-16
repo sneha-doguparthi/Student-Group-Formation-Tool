@@ -125,6 +125,7 @@ public class CourseController {
 			model.addAttribute("surveySubmissionResponse", surveyResponse);
 			model.addAttribute("courseHasActiveSurvey", false);
 		} else {
+			model.addAttribute("courseHasActiveSurvey", true);
 			model.addAttribute("errMsg", "Please answer all questions");
 		}
 		return "course/student-course-home";

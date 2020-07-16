@@ -19,7 +19,7 @@ public class LoginController {
 
 	private Logger logger = LogManager.getLogger(LoginController.class);
 	ILoginService loginService;
-	
+
 	public LoginController() {
 		this.loginService = ProfileServiceFactory.instance().loginService();
 	}

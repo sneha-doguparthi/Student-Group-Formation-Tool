@@ -55,10 +55,10 @@ public class CourseSurveyDaoImpl implements ICourseSurveyDao {
 			}
 		}
 		if (flag == -1) {
-			logger.info("Store survey response: ", ApplicationConstants.FAILED_TO_SAVE_RESPONSE);
+			logger.info("Store survey response: " + ApplicationConstants.FAILED_TO_SAVE_RESPONSE);
 			return ApplicationConstants.FAILED_TO_SAVE_RESPONSE;
 		} else {
-			logger.info("Store survey response: ", ApplicationConstants.SURVEY_RESPONSE_SAVED);
+			logger.info("Store survey response: " + ApplicationConstants.SURVEY_RESPONSE_SAVED);
 			return ApplicationConstants.SURVEY_RESPONSE_SAVED;
 		}
 	}
