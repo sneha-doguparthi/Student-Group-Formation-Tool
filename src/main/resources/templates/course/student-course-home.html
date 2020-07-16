@@ -5,11 +5,22 @@
 <script type="text/javascript">
 	function onBlurNumField(data) {
 		var element = document.getElementById("num_" + data);
-		element.value = data + " - " + document.getElementById("num_ip_" + data).value;
+		element.value = data + " - "
+				+ document.getElementById("num_ip_" + data).value;
 	}
 	function onBlurFreeTextField(data) {
 		var element = document.getElementById("freetext_" + data);
-		element.value = data + " - " + document.getElementById("freetext_ip_" + data).value;
+		element.value = data + " - "
+				+ document.getElementById("freetext_ip_" + data).value;
+	}
+	function updateRadioFields() {
+		var radios = document.getElementsByTagName('input');
+		for (i = 0; i < radios.length; i++) {
+			if (radios[i].type == 'radio' && radios[i].checked) {
+				var qId = radios[i].name;
+				document.getElementById("radioField_" + qId).value = radios[i].value;
+			}
+		}
 	}
 </script>
 </head>
@@ -44,8 +55,9 @@
 							<div th:each="answerModel:${questionModel.answerList}">
 								<input type="radio" th:name="${questionModel.questionId}"
 									th:value="${questionModel.questionId}+' - '+${answerModel.storedAs}"
-									th:field="*{questionType}" required> <label
-									th:text="${answerModel.answerText}"></label>
+									required> <label th:text="${answerModel.answerText}">
+								</label> <input type="hidden" name="questionType"
+									th:id="'radioField_'+${questionModel.questionId}" />
 							</div>
 						</div>
 						<div th:if="${questionModel.questionType.equals('MCQM')}">
@@ -77,7 +89,10 @@
 								required>
 						</div>
 					</div>
-					<button class="btn btn-primary">Submit</button>
+					<div>
+						<p style="color:red;" th:if="${errMsg.length() > 0}" th:text="${errMsg}"></p>
+					</div>
+					<button class="btn btn-primary" th:onclick="updateRadioFields()">Submit</button>
 				</form>
 			</div>
 		</div>

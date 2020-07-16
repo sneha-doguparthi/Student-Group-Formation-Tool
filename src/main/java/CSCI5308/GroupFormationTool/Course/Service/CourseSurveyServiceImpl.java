@@ -12,13 +12,19 @@ import CSCI5308.GroupFormationTool.QuestionManager.IQuestion;
 import CSCI5308.GroupFormationTool.Survey.ISurvey;
 
 public class CourseSurveyServiceImpl implements ICourseSurveyService {
-	
+
 	private Logger logger = LogManager.getLogger(CourseSurveyServiceImpl.class);
-	
+
 	@Override
 	public boolean validateResponses(IQuestion surveyQuestions, ISurvey survey) {
 		String[] questionAndAnwers = surveyQuestions.getQuestionType().split(",");
-		if (questionAndAnwers.length >= survey.getQuestionList().size()) {
+		int qAnsweredCount = 0;
+		for (String qNa : questionAndAnwers) {
+			if (null != qNa && qNa.contains(" - ")) {
+				qAnsweredCount++;
+			}
+		}
+		if (qAnsweredCount >= survey.getQuestionList().size()) {
 			logger.info("Survey question responses validated successfilly.");
 			return true;
 		}
@@ -32,11 +38,13 @@ public class CourseSurveyServiceImpl implements ICourseSurveyService {
 		ArrayList<SurveyResponse> splittedResponses = new ArrayList<>();
 		for (String qNa : questionAndAnwers) {
 			SurveyResponse response = new SurveyResponse();
-			int questionId = Integer.parseInt(qNa.split(" - ")[0]);
-			String answer = qNa.split(" - ")[1];
-			response.setQuestionId(questionId);
-			response.setAnswer(answer);
-			splittedResponses.add(response);
+			if (null != qNa && qNa.contains(" - ")) {
+				int questionId = Integer.parseInt(qNa.split(" - ")[0]);
+				String answer = qNa.split(" - ")[1];
+				response.setQuestionId(questionId);
+				response.setAnswer(answer);
+				splittedResponses.add(response);
+			}
 		}
 		return splittedResponses;
 	}

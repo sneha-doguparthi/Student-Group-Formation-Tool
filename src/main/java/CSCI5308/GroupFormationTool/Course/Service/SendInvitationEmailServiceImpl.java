@@ -14,6 +14,7 @@ import CSCI5308.GroupFormationTool.Utilities.ApplicationConstants;
 
 public class SendInvitationEmailServiceImpl implements ISendInvitationEmailService {
 	Logger logger = LogManager.getLogger(SendInvitationEmailServiceImpl.class);
+
 	@Override
 	public boolean sendUserInvitationEmail(List<Student> newToPortalList, ArrayList<String> passwords) {
 		JavaMailSenderImpl mailSender = initializeMailSender();

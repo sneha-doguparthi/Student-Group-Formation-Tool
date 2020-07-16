@@ -7,7 +7,7 @@ public class ApplicationConstants {
 	public static final int MAIL_PORT = 587;
 	public static final String MAIL_SENDER_ID = "dalmcproject@gmail.com";
 	public static final String MAIL_SENDER_PASSWORD = "ccsezaisrrtwpdzh";
-	
+
 	public static final String FILE_EMPTY = "Kindly select a CSV file to upload.";
 	public static final String FILE_UPLOADED = "File uploaded successfully!";
 	public static final String FILE_ERROR = "An error occured while processing the CSV file.";
