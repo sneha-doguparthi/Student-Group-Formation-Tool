@@ -4,4 +4,6 @@ public abstract class SurveyServiceAbstractFactory {
 	public abstract IGetQuestionsService getQuestionsService();
 
 	public abstract ISaveSurveyService saveSurveyService();
+
+	public abstract IDesignGroupService designGroupService();
 }

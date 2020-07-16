@@ -95,7 +95,7 @@ public class CourseController {
 		ISurveyService surveyService = SurveyServiceFactory.instance().surveyService();
 		this.survey = surveyService.getSurveyForCourse(course);
 		model.addAttribute("surveyInfo", this.survey);
-		if (null != survey && survey.getQuestionList().size() > 0) {
+		if (null != survey && null != survey.getQuestionList() &&survey.getQuestionList().size() > 0) {
 			boolean userSubmittedResponse = this.courseSurveyService.checkIfSurveySubmitted(this.course.getCourseId(),
 					this.userId);
 			if (userSubmittedResponse) {
