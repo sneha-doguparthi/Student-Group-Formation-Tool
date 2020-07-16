@@ -29,6 +29,8 @@
 			<div class="c-a-form-container">
 				<p class="txt-header">Create a survey</p>
 				<form action="#" th:action="@{/survey/create-survey}" method="GET">
+					<input type="hidden"
+						   name="courseId" th:value="${courseId}" />
 					<button class="btn btn-primary">Create Survey</button>
 				</form>
 			</div>

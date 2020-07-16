@@ -2,9 +2,16 @@ package CSCI5308.GroupFormationTool.Survey;
 
 import java.util.List;
 
+import CSCI5308.GroupFormationTool.Course.ICourse;
+import CSCI5308.GroupFormationTool.QuestionManager.IQuestion;
+import CSCI5308.GroupFormationTool.Survey.Service.ISurveyService;
+
 public class Survey implements ISurvey {
 	private int surveyId;
-	private List<SurveyQuestion> questionList;
+	private List<IQuestion> questionList;
+	private int courseId;
+	private String surveyStatus;
+	private int groupSize;
 
 	@Override
 	public int getSurveyId() {
@@ -17,13 +24,42 @@ public class Survey implements ISurvey {
 	}
 
 	@Override
-	public List<SurveyQuestion> getQuestionList() {
+	public List<IQuestion> getQuestionList() {
 		return questionList;
 	}
 
 	@Override
-	public void setQuestionList(List<SurveyQuestion> questionList) {
+	public void setQuestionList(List<IQuestion> questionList) {
 		this.questionList = questionList;
+	}
+
+	@Override
+	public ISurvey getSurveyForCourse(ICourse course, ISurveyService surveyService) {
+		return surveyService.getSurveyForCourse(course);
+	}
+
+	public int getCourseId() {
+		return courseId;
+	}
+
+	public void setCourseId(int courseId) {
+		this.courseId = courseId;
+	}
+
+	public int getGroupSize() {
+		return groupSize;
+	}
+
+	public void setGroupSize(int groupSize) {
+		this.groupSize = groupSize;
+	}
+
+	public String getSurveyStatus() {
+		return surveyStatus;
+	}
+
+	public void setSurveyStatus(String surveyStatus) {
+		this.surveyStatus = surveyStatus;
 	}
 
 }

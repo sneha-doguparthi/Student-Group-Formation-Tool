@@ -15,22 +15,24 @@ import CSCI5308.GroupFormationTool.DBUtil.CreateDatabaseConnection;
 import CSCI5308.GroupFormationTool.Profile.IUser;
 import CSCI5308.GroupFormationTool.Profile.DAO.IUserDao;
 import CSCI5308.GroupFormationTool.Profile.DAO.ProfileDaoFactory;
-import CSCI5308.GroupFormationTool.Survey.SurveyQuestion;
+import CSCI5308.GroupFormationTool.QuestionManager.IQuestion;
+import CSCI5308.GroupFormationTool.QuestionManager.QuestionFactory;
+import CSCI5308.GroupFormationTool.QuestionManager.QuestionObjectFactory;
 
 public class GetQuestionsDAOImpl implements IGetQuestionsDAO {
 	Logger logger = LogManager.getLogger(GetQuestionsDAOImpl.class);
 
-	public ArrayList<SurveyQuestion> getQuestionByInstructorId() {
+	public ArrayList<IQuestion> getQuestionByInstructorId() {
 		Connection connection = null;
 		Statement statement = null;
-		ArrayList<SurveyQuestion> questions = new ArrayList<>();
+		ArrayList<IQuestion> questions = new ArrayList<>();
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
 			statement = connection.createStatement();
 			String query = "SELECT * FROM question WHERE user_id=" + getUserId();
 			ResultSet rs = statement.executeQuery(query);
 			while (rs.next()) {
-				SurveyQuestion question = new SurveyQuestion();
+				IQuestion question = QuestionFactory.questionObject(new QuestionObjectFactory());
 				question.setQuestionId(rs.getInt("question_id"));
 				question.setQuestionTitle(rs.getString("question_title"));
 				question.setQuestionText(rs.getString("question_text"));
@@ -55,8 +57,8 @@ public class GetQuestionsDAOImpl implements IGetQuestionsDAO {
 		return questions;
 	}
 
-	public SurveyQuestion getQuestionById(int questionId) {
-		SurveyQuestion question = new SurveyQuestion();
+	public IQuestion getQuestionById(int questionId) {
+		IQuestion question = QuestionFactory.questionObject(new QuestionObjectFactory());
 		Connection connection = null;
 		Statement statement = null;
 		try {
@@ -97,4 +99,33 @@ public class GetQuestionsDAOImpl implements IGetQuestionsDAO {
 		return list.get(0).getUserId();
 	}
 
+	public String getSurveyStatus(int couser_id) {
+		Connection connection = null;
+		Statement statement = null;
+		String status = "";
+		try {
+			connection = CreateDatabaseConnection.instance().createConnection();
+			statement = connection.createStatement();
+			String query = "SELECT survey_status from instructor_survey_association where course_id =" + couser_id;
+			ResultSet rs = statement.executeQuery(query);
+			while (rs.next()) {
+				status = rs.getString("course_id");
+			}
+		} catch (SQLException e) {
+			logger.error("Exception occurred while getting all the questions: ", e);
+		} finally {
+			try {
+				if (null != statement) {
+					statement.close();
+				}
+				if (null != connection) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				logger.error("Exception occurred while closing connection/statement: ", e);
+			}
+		}
+		return status;
+
+	}
 }

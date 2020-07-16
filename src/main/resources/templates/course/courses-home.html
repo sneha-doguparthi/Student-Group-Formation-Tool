@@ -111,7 +111,10 @@
 					<td class="center-text">
 						<form method="POST" th:action="@{/course/student-course-home}">
 							<input type="hidden" name="courseName" id="courseName"
-								th:value="${course.courseName}" />
+								th:value="${course.courseName}" /> <input type="hidden"
+								name="courseId" id="courseId" th:value="${course.courseId}" />
+							<input type="hidden" name="userId" id="userId"
+								th:value="${userId}" />
 							<button type="submit" name="submit" value="value"
 								class="btn btn-primary">View Course</button>
 						</form>

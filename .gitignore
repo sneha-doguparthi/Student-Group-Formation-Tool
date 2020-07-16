@@ -10,4 +10,4 @@ application-local.properties
 .classpath
 .project
 .settings/
-
+*.log

@@ -5,6 +5,7 @@ public class CourseDaoFactory extends CourseDaoAbstractFactory {
 	private static CourseDaoFactory instance = null;
 	private ICourseDao courseDao;
 	private ICourseAssociationDao courseAssociationDao;
+	private ICourseSurveyDao courseSurveyDao;
 
 	private CourseDaoFactory() {
 
@@ -31,6 +32,14 @@ public class CourseDaoFactory extends CourseDaoAbstractFactory {
 			courseAssociationDao = new CourseAssociationDAOImpl();
 		}
 		return courseAssociationDao;
+	}
+
+	@Override
+	public ICourseSurveyDao courseSurveyDao() {
+		if (null == courseSurveyDao) {
+			courseSurveyDao = new CourseSurveyDaoImpl();
+		}
+		return courseSurveyDao;
 	}
 
 }
