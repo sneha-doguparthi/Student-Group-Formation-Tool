@@ -6,6 +6,7 @@ public class SurveyServiceFactory extends SurveyServiceAbstractFactory {
 	private IGetQuestionsService getQuestionsService;
 	private ISurveyService surveyService;
 	private ISaveSurveyService saveSurveyService;
+	private IDesignGroupService designGroupService;
 
 	private SurveyServiceFactory() {
 	}
@@ -38,4 +39,10 @@ public class SurveyServiceFactory extends SurveyServiceAbstractFactory {
 		return saveSurveyService;
 	}
 
+	public IDesignGroupService designGroupService() {
+		if (null == designGroupService) {
+			designGroupService = new DesignGroupServiceImpl();
+		}
+		return designGroupService;
+	}
 }

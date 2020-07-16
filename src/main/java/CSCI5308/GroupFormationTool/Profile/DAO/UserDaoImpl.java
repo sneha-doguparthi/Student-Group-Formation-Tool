@@ -37,7 +37,7 @@ public class UserDaoImpl implements IUserDao {
 				String reqQuery = SqlQueryUtil.instance().getQueryByKey("userDetailsById");
 				statement = connection.prepareStatement(reqQuery);
 				statement.setInt(1, userIds.get(i));
-				rs = statement.executeQuery(reqQuery);
+				rs = statement.executeQuery();
 				while (rs.next()) {
 					IUser user = UserFactory.userObject(new UserObjectFactory());
 					user.setUserId(rs.getInt("user_id"));

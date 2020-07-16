@@ -21,6 +21,32 @@
 				document.getElementById("radioField_" + qId).value = radios[i].value;
 			}
 		}
+		debugger;
+		var selectedCheckboxesMapping = {};
+		var checkboxes = document.getElementsByTagName("input");
+		for (i = 0; i < checkboxes.length; i++) {
+			if (checkboxes[i].type == 'checkbox' && checkboxes[i].checked) {
+				var qId = checkboxes[i].name;
+				if(selectedCheckboxesMapping[qId]) {
+					var answers = selectedCheckboxesMapping[qId];
+					var optionChecked = checkboxes[i].value.split(" - ")[1];
+					answers.push(optionChecked);
+					selectedCheckboxesMapping[qId] = answers;
+				} else {
+					var optionChecked = checkboxes[i].value.split(" - ")[1];
+					var answers = [];
+					answers.push(optionChecked);
+					selectedCheckboxesMapping[qId] = answers;
+				}
+			}
+		}
+		if(Object.keys(selectedCheckboxesMapping).length > 0) {
+			var qIds = Object.keys(selectedCheckboxesMapping);
+			for(var qId in selectedCheckboxesMapping) {
+				document.getElementById("mcqField_" + qId).value = qId + " - "+selectedCheckboxesMapping[qId].join("|");
+			}
+		}
+		debugger;
 	}
 </script>
 </head>
@@ -61,11 +87,12 @@
 							</div>
 						</div>
 						<div th:if="${questionModel.questionType.equals('MCQM')}">
+							<input type="hidden" name="questionType"
+								th:id="'mcqField_'+${questionModel.questionId}" />
 							<div th:each="answerModel:${questionModel.answerList}">
 								<input type="checkbox" th:name="${questionModel.questionId}"
-									th:value="${questionModel.questionId}+' - '+${answerModel.storedAs}"
-									th:field="*{questionType}"> <label
-									th:text="${answerModel.answerText}"></label>
+									th:value="${questionModel.questionId}+' - '+${answerModel.storedAs}">
+								<label th:text="${answerModel.answerText}"> </label>
 							</div>
 						</div>
 						<div th:if="${questionModel.questionType == 'NUM'}">
@@ -90,7 +117,8 @@
 						</div>
 					</div>
 					<div>
-						<p style="color:red;" th:if="${errMsg.length() > 0}" th:text="${errMsg}"></p>
+						<p style="color: red;" th:if="${errMsg.length() > 0}"
+							th:text="${errMsg}"></p>
 					</div>
 					<button class="btn btn-primary" th:onclick="updateRadioFields()">Submit</button>
 				</form>

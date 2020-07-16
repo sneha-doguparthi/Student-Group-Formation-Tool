@@ -2,6 +2,7 @@ package CSCI5308.GroupFormationTool.Survey;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,7 +13,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import CSCI5308.GroupFormationTool.Profile.IUser;
 import CSCI5308.GroupFormationTool.QuestionManager.IQuestion;
+import CSCI5308.GroupFormationTool.Survey.Service.IDesignGroupService;
 import CSCI5308.GroupFormationTool.Survey.Service.IGetQuestionsService;
 import CSCI5308.GroupFormationTool.Survey.Service.ISaveSurveyService;
 import CSCI5308.GroupFormationTool.Survey.Service.SurveyServiceFactory;
@@ -77,4 +80,33 @@ public class SurveyController {
 		return ("survey/publish-survey");
 	}
 
+	@GetMapping("/survey/design-group")
+	public String designGroup(HttpServletRequest request, Model model) {
+
+		int courseId = Integer.parseInt(request.getParameter("courseId"));
+		int groupSize = Integer.parseInt(request.getParameter("groupSize"));
+
+		IDesignGroupService designGroupService = SurveyServiceFactory.instance().designGroupService();
+		Map<String, ArrayList<IUser>> groupInformation = designGroupService.designGroup(courseId);
+
+		ArrayList<IUser> groupedUser = groupInformation.get("groupedUser");
+		ArrayList<IUser> unGroupedUser = groupInformation.get("unGroupedUser");
+
+		ArrayList<String> groupedList = new ArrayList<>();
+		ArrayList<String> unGroupedList = new ArrayList<>();
+		for (int i = 0; i < groupedUser.size() / groupSize; i++) {
+			List<IUser> list = groupedUser.subList(i * groupSize, i * groupSize + groupSize);
+			String sameGroup = "";
+			for (IUser user : list) {
+				sameGroup = sameGroup.concat(user.getBannerId() + "--");
+			}
+			groupedList.add(sameGroup);
+		}
+		for (IUser user : unGroupedUser) {
+			unGroupedList.add(user.getBannerId());
+		}
+		model.addAttribute("groupedUser", groupedList.toArray());
+		model.addAttribute("unGroupedUser", unGroupedList.toArray());
+		return "survey/design-group";
+	}
 }

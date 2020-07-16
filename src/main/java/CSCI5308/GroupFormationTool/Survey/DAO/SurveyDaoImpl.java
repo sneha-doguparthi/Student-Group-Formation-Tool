@@ -14,6 +14,7 @@ import CSCI5308.GroupFormationTool.Course.ICourse;
 import CSCI5308.GroupFormationTool.DBUtil.CreateDatabaseConnection;
 import CSCI5308.GroupFormationTool.DBUtil.SqlQueryUtil;
 import CSCI5308.GroupFormationTool.Model.Answer;
+import CSCI5308.GroupFormationTool.Model.SurveyResponse;
 import CSCI5308.GroupFormationTool.QuestionManager.IQuestion;
 import CSCI5308.GroupFormationTool.QuestionManager.QuestionFactory;
 import CSCI5308.GroupFormationTool.QuestionManager.QuestionObjectFactory;
@@ -43,6 +44,7 @@ public class SurveyDaoImpl implements ISurveyDao {
 				resultSet.beforeFirst();
 				while (resultSet.next()) {
 					survey.setSurveyId(resultSet.getInt("survey_id"));
+					survey.setGroupSize(resultSet.getInt("group_size"));
 					int questionId = resultSet.getInt("question_id");
 					IQuestion question = QuestionFactory.questionObject(new QuestionObjectFactory());
 					question.setQuestionId(questionId);
@@ -72,6 +74,44 @@ public class SurveyDaoImpl implements ISurveyDao {
 			}
 		}
 		return survey;
+	}
+
+	@Override
+	public List<SurveyResponse> getResponseForCourse(ICourse course) {
+		PreparedStatement statement = null;
+		Connection connection = null;
+		List<SurveyResponse> surveyResponses = new ArrayList<>();
+
+		try {
+			connection = CreateDatabaseConnection.instance().createConnection();
+			String selectQuery = SqlQueryUtil.instance().getQueryByKey("responseForCourse");
+			statement = connection.prepareStatement(selectQuery);
+			statement.setInt(1, course.getCourseId());
+			ResultSet resultSet = statement.executeQuery();
+
+			while (resultSet.next()) {
+				SurveyResponse response = new SurveyResponse();
+				response.setUserId(resultSet.getInt("user_id"));
+				response.setQuestionId(resultSet.getInt("question_id"));
+				response.setAnswer(resultSet.getString("response_value"));
+				surveyResponses.add(response);
+			}
+		} catch (SQLException e) {
+			logger.error("Exception occured while fetching survey responses", e);
+		} finally {
+			try {
+				if (null != statement) {
+					statement.close();
+				}
+				if (null != connection) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				logger.error("Exception occured while closing connection/statement", e);
+			}
+		}
+
+		return surveyResponses;
 	}
 
 }
