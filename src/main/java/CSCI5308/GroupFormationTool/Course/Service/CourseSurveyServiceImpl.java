@@ -24,7 +24,7 @@ public class CourseSurveyServiceImpl implements ICourseSurveyService {
 				qAnsweredCount++;
 			}
 		}
-		if (qAnsweredCount >= survey.getQuestionList().size()) {
+		if (null != survey.getQuestionList() && qAnsweredCount >= survey.getQuestionList().size()) {
 			logger.info("Survey question responses validated successfilly.");
 			return true;
 		}
