@@ -6,6 +6,7 @@ import CSCI5308.GroupFormationTool.QuestionManager.IQuestion;
 import CSCI5308.GroupFormationTool.Survey.ISurvey;
 
 public interface ISaveSurveyService {
+
 	boolean saveSurveyQuestions(List<IQuestion> questionList, int courseId);
 
 	void saveSurveyDetails(ISurvey survey);
@@ -13,4 +14,7 @@ public interface ISaveSurveyService {
 	List<IQuestion> splitQuestionDetails(String questionDetails);
 
 	boolean updateSurveyStatus(int courseId);
+	
+	void deleteSurveyQuestion(int questionId, int courseId);
+
 }

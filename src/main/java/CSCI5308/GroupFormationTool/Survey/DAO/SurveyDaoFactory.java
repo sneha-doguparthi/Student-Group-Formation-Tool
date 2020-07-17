@@ -24,18 +24,18 @@ public class SurveyDaoFactory extends SurveyDaoAbstractFactory {
 		return getQuestionsDAO;
 	}
 
-	public ISurveyDao surveyDao() {
-		if (null == surveyDao) {
-			surveyDao = new SurveyDaoImpl();
-		}
-		return surveyDao;
-	}
+	 public ISurveyDao surveyDao() {
+	 	if (null == surveyDao) {
+	 		surveyDao = new SurveyDaoImpl();
+	 	}
+	 	return surveyDao;
+	 }
 
-	public ISaveSurveyDAO saveSurveyDAO() {
-		if (null == saveSurveyDAO) {
-			saveSurveyDAO = new SaveSurveyDAOImpl();
-		}
-		return saveSurveyDAO;
-	}
+	 public ISaveSurveyDAO saveSurveyDAO() {
+	 	if (null == saveSurveyDAO) {
+	 		saveSurveyDAO = new SaveSurveyDAOImpl();
+	 	}
+	 	return saveSurveyDAO;
+	 }
 
 }

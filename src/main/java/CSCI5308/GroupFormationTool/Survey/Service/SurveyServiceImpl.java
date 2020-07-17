@@ -22,4 +22,10 @@ public class SurveyServiceImpl implements ISurveyService {
 		return surveyDao.getResponseForCourse(course);
 	}
 
+	@Override
+	public String getSurveyStatusForCourse(ICourse course) {
+		ISurveyDao surveyDao = SurveyDaoFactory.instance().surveyDao();
+		return surveyDao.getSurveyStatusForCourse(course);
+	}
+	
 }

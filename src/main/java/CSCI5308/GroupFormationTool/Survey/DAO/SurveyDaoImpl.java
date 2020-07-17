@@ -40,16 +40,23 @@ public class SurveyDaoImpl implements ISurveyDao {
 			statement.setInt(1, course.getCourseId());
 			ResultSet resultSet = statement.executeQuery();
 			List<IQuestion> surveyQuestions = new ArrayList<IQuestion>();
+			if (!resultSet.next()){
+				survey.setQuestionList(surveyQuestions);
+			}else {
+				resultSet.beforeFirst();
+			}
 			if (resultSet.next()) {
 				resultSet.beforeFirst();
 				while (resultSet.next()) {
 					survey.setSurveyId(resultSet.getInt("survey_id"));
 					survey.setGroupSize(resultSet.getInt("group_size"));
+					survey.setSurveyStatus(resultSet.getString("survey_status"));
 					int questionId = resultSet.getInt("question_id");
 					IQuestion question = QuestionFactory.questionObject(new QuestionObjectFactory());
 					question.setQuestionId(questionId);
 					question.setQuestionText(resultSet.getString("question_text"));
 					question.setQuestionType(resultSet.getString("question_type"));
+					question.setQuestionTitle(resultSet.getString("question_title"));
 					question.setQuestionNo(resultSet.getInt("s_id"));
 					question.setCriteria(resultSet.getString("criteria"));
 					ArrayList<Answer> answerList = QuestionManagerDaoFactory.instance().fetchQuestionDAO()
@@ -81,14 +88,12 @@ public class SurveyDaoImpl implements ISurveyDao {
 		PreparedStatement statement = null;
 		Connection connection = null;
 		List<SurveyResponse> surveyResponses = new ArrayList<>();
-
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
 			String selectQuery = SqlQueryUtil.instance().getQueryByKey("responseForCourse");
 			statement = connection.prepareStatement(selectQuery);
 			statement.setInt(1, course.getCourseId());
 			ResultSet resultSet = statement.executeQuery();
-
 			while (resultSet.next()) {
 				SurveyResponse response = new SurveyResponse();
 				response.setUserId(resultSet.getInt("user_id"));
@@ -110,8 +115,42 @@ public class SurveyDaoImpl implements ISurveyDao {
 				logger.error("Exception occured while closing connection/statement", e);
 			}
 		}
-
 		return surveyResponses;
+	}
+
+	@Override
+	public String getSurveyStatusForCourse(ICourse course) {
+		PreparedStatement statement = null;
+		Connection connection = null;
+		String surveyStatus = "";
+		try {
+			connection = CreateDatabaseConnection.instance().createConnection();
+			String selectQuery = SqlQueryUtil.instance().getQueryByKey("surveyStatusForCourse");
+			System.out.println("Stage-1");
+			statement = connection.prepareStatement(selectQuery);
+			System.out.println("Stage-2");
+			statement.setInt(1, course.getCourseId());
+			System.out.println("Stage-3");
+			ResultSet resultSet = statement.executeQuery();
+			System.out.println("Stage-4");
+			if (resultSet.next()) {
+				surveyStatus = resultSet.getString("survey_status");
+			}
+		} catch (SQLException e) {
+			logger.error("Exception occured while saving question and answers", e);
+		} finally {
+			try {
+				if (null != statement) {
+					statement.close();
+				}
+				if (null != connection) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				logger.error("Exception occured while closing connection/statement", e);
+			}
+		}
+		return surveyStatus;
 	}
 
 }

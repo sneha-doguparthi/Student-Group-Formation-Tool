@@ -17,6 +17,7 @@ public class SaveSurveyServiceImpl implements ISaveSurveyService {
 		String[] details = questionDetails.split(",");
 		for (int i = 0; i < details.length; i++) {
 			IQuestion question = QuestionFactory.questionObject(new QuestionObjectFactory());
+			System.out.println(details[i]);
 			String[] element = details[i].split(" - ");
 			question.setQuestionId(Integer.parseInt(element[0]));
 			question.setCriteria(element[1]);
@@ -37,6 +38,11 @@ public class SaveSurveyServiceImpl implements ISaveSurveyService {
 	public void saveSurveyDetails(ISurvey survey) {
 		ISaveSurveyDAO saveSurveyDAO = SurveyDaoFactory.instance().saveSurveyDAO();
 		saveSurveyDAO.saveSurveyDetails(survey);
+	}
+	
+	public void deleteSurveyQuestion(int questionId, int courseId) {
+		ISaveSurveyDAO saveSurveyDAO = SurveyDaoFactory.instance().saveSurveyDAO();
+		saveSurveyDAO.deleteSurveyQuestion(questionId, courseId);
 	}
 
 	public boolean updateSurveyStatus(int courseId) {

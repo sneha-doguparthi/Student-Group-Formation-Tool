@@ -1,9 +1,13 @@
 package CSCI5308.GroupFormationTool.Survey.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import CSCI5308.GroupFormationTool.Course.ICourse;
 import CSCI5308.GroupFormationTool.Course.DAO.CourseDaoFactory;
@@ -18,13 +22,16 @@ import CSCI5308.GroupFormationTool.Survey.ISurvey;
 
 public class DesignGroupServiceImpl implements IDesignGroupService {
 
-	static ArrayList<StudentResponse> sampleGroup = new ArrayList<>();
-	static List<IQuestion> questions;
-	static int groupSize;
+	private static Logger logger = LogManager.getLogger(DesignGroupServiceImpl.class);
+
+	public static ArrayList<StudentResponse> sampleGroup = new ArrayList<>();
+	public static List<IQuestion> questions;
+	public static int groupSize;
 
 	@Override
-	public Map<String, ArrayList<IUser>> designGroup(int courseId) {
+	public Map<String, ArrayList<String>> designGroup(int courseId) {
 
+		logger.info("Designing group");
 		ICourseDao courseDao = CourseDaoFactory.instance().courseDao();
 		ICourse course = courseDao.getById(courseId);
 
@@ -88,92 +95,141 @@ public class DesignGroupServiceImpl implements IDesignGroupService {
 
 		IUserDao userDao = ProfileDaoFactory.instance().userDao();
 
-		Map<String, ArrayList<IUser>> groupInformation = new HashMap<>();
+		ArrayList<IUser> groupedUserInfo = userDao.getUserByUserID(groupedUser);
+		ArrayList<IUser> unGroupedUserInfo = userDao.getUserByUserID(unGroupedUser);
 
-		groupInformation.put("groupedUser", userDao.getUserByUserID(groupedUser));
-		groupInformation.put("unGroupedUser", userDao.getUserByUserID(unGroupedUser));
+		ArrayList<String> groupedList = new ArrayList<>();
+		ArrayList<String> unGroupedList = new ArrayList<>();
 
+		for (int i = 0; i < groupedUser.size() / groupSize; i++) {
+			List<IUser> list = groupedUserInfo.subList(i * groupSize, i * groupSize + groupSize);
+			String sameGroup = "";
+			for (IUser user : list) {
+				sameGroup = sameGroup.concat(
+						"( " + user.getBannerId() + " | " + user.getLastName() + " | " + user.getFirstName() + " )  ");
+			}
+			groupedList.add(sameGroup);
+		}
+		for (IUser user : unGroupedUserInfo) {
+			unGroupedList.add(user.getBannerId() + " | " + user.getLastName() + " | " + user.getFirstName());
+		}
+
+		Map<String, ArrayList<String>> groupInformation = new HashMap<>();
+
+		groupInformation.put("groupedUser", groupedList);
+		groupInformation.put("unGroupedUser", unGroupedList);
+		logger.info("group design algorithm finished");
 		return groupInformation;
 	}
 
-	static boolean checkPeers(StudentResponse newUser) {
-
+	public static boolean checkPeers(StudentResponse newUser) {
+		logger.info("Checking peer responses");
 		for (StudentResponse user : sampleGroup) {
 
 			for (int j = 0; j < user.getResponseValue().size(); j++) {
 
 				switch (questions.get(j).getQuestionType()) {
-				case "MCQO":
-					if (questions.get(j).getCriteria().equals("SIMILAR")) {
-						if (!user.getResponseValue().get(j).equals(newUser.getResponseValue().get(j))) {
-							return false;
-						}
-					} else if (questions.get(j).getCriteria().equals("DISSIMILAR")) {
-						if (user.getResponseValue().get(j).equals(newUser.getResponseValue().get(j))) {
-							return false;
-						}
-					}
-					break;
-
-				case "FREETEXT":
-					if (questions.get(j).getCriteria().equals("SIMILAR")) {
-						if (distance(user.getResponseValue().get(j), newUser.getResponseValue().get(j)) < 70) {
-							return false;
-						}
-					} else if (questions.get(j).getCriteria().equals("DISSIMILAR")) {
-						if (distance(user.getResponseValue().get(j), newUser.getResponseValue().get(j)) > 70) {
-							return false;
-						}
-					}
-					break;
-
-				case "NUM":
-					if (questions.get(j).getCriteria().equals("SIMILAR")) {
-						if (!user.getResponseValue().get(j).equals(newUser.getResponseValue().get(j))) {
-							return false;
-						}
-					} else if (questions.get(j).getCriteria().equals("DISSIMILAR")) {
-						if (user.getResponseValue().get(j).equals(newUser.getResponseValue().get(j))) {
-							return false;
-						}
-					} else if (questions.get(j).getCriteria().startsWith("GT")) {
-						if (sampleGroup.size() == groupSize - 1) {
-							boolean userWithGT = false;
-							int value = Integer.parseInt(questions.get(j).getCriteria().substring(2));
-
-							for (StudentResponse checkUser : sampleGroup) {
-								if (Integer.parseInt(checkUser.getResponseValue().get(j)) > value) {
-									userWithGT = true;
-									break;
-								}
+					case "MCQO":
+						if (questions.get(j).getCriteria().equals("SIMILAR")) {
+							if (!user.getResponseValue().get(j).equals(newUser.getResponseValue().get(j))) {
+								return false;
 							}
-
-							if (!userWithGT) {
-								if (Integer.parseInt(newUser.getResponseValue().get(j)) <= value) {
-									return false;
-								}
+						} else if (questions.get(j).getCriteria().equals("DISSIMILAR")) {
+							if (user.getResponseValue().get(j).equals(newUser.getResponseValue().get(j))) {
+								return false;
 							}
 						}
-					} else if (questions.get(j).getCriteria().startsWith("LT")) {
-						if (sampleGroup.size() == groupSize - 1) {
-							boolean userWithLT = false;
-							int value = Integer.parseInt(questions.get(j).getCriteria().substring(2));
+						break;
 
-							for (StudentResponse checkUser : sampleGroup) {
-								if (Integer.parseInt(checkUser.getResponseValue().get(j)) < value) {
-									userWithLT = true;
-									break;
+					case "FREETEXT":
+						if (questions.get(j).getCriteria().equals("SIMILAR")) {
+							if (distance(user.getResponseValue().get(j), newUser.getResponseValue().get(j)) < 70) {
+								return false;
+							}
+						} else if (questions.get(j).getCriteria().equals("DISSIMILAR")) {
+							if (distance(user.getResponseValue().get(j), newUser.getResponseValue().get(j)) > 70) {
+								return false;
+							}
+						}
+						break;
+
+					case "NUM":
+						if (questions.get(j).getCriteria().equals("SIMILAR")) {
+							if (!user.getResponseValue().get(j).equals(newUser.getResponseValue().get(j))) {
+								return false;
+							}
+						} else if (questions.get(j).getCriteria().equals("DISSIMILAR")) {
+							if (user.getResponseValue().get(j).equals(newUser.getResponseValue().get(j))) {
+								return false;
+							}
+						} else if (questions.get(j).getCriteria().startsWith("GT")) {
+							if (sampleGroup.size() == groupSize - 1) {
+								boolean userWithGT = false;
+								int value = Integer.parseInt(questions.get(j).getCriteria().substring(2));
+
+								for (StudentResponse checkUser : sampleGroup) {
+									if (Integer.parseInt(checkUser.getResponseValue().get(j)) > value) {
+										userWithGT = true;
+										break;
+									}
+								}
+								if (!userWithGT) {
+									if (Integer.parseInt(newUser.getResponseValue().get(j)) <= value) {
+										return false;
+									}
 								}
 							}
+						} else if (questions.get(j).getCriteria().startsWith("LT")) {
+							if (sampleGroup.size() == groupSize - 1) {
+								boolean userWithLT = false;
+								int value = Integer.parseInt(questions.get(j).getCriteria().substring(2));
 
-							if (!userWithLT) {
-								if (Integer.parseInt(newUser.getResponseValue().get(j)) >= value) {
-									return false;
+								for (StudentResponse checkUser : sampleGroup) {
+									if (Integer.parseInt(checkUser.getResponseValue().get(j)) < value) {
+										userWithLT = true;
+										break;
+									}
+								}
+								if (!userWithLT) {
+									if (Integer.parseInt(newUser.getResponseValue().get(j)) >= value) {
+										return false;
+									}
 								}
 							}
 						}
-					}
-					break;
+						break;
+
+					case "MCQM":
+						List<String> userOptions = Arrays.asList(user.getResponseValue().get(j).split("\\|"));
+						List<String> newUserOptions = Arrays.asList(newUser.getResponseValue().get(j).split("\\|"));
+
+						int similar = 0;
+						int dissimilar = 0;
+
+						for (String option : userOptions) {
+							if (newUserOptions.contains(option)) {
+								similar++;
+							} else {
+								dissimilar++;
+							}
+						}
+
+						for (String option : newUserOptions) {
+							if (!userOptions.contains(option)) {
+								dissimilar++;
+							}
+						}
+
+						if (questions.get(j).getCriteria().equals("SIMILAR")) {
+							if (dissimilar > similar) {
+								return false;
+							}
+						} else if (questions.get(j).getCriteria().equals("DISSIMILAR")) {
+							if (similar > dissimilar) {
+								return false;
+							}
+						}
+						break;
 				}
 			}
 		}
@@ -181,6 +237,7 @@ public class DesignGroupServiceImpl implements IDesignGroupService {
 	}
 
 	public static float distance(String a, String b) {
+		logger.info("Calculating the distance");
 		a = a.toLowerCase();
 		b = b.toLowerCase();
 
