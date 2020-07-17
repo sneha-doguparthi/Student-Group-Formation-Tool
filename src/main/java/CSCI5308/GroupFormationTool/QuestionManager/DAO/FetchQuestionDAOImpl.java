@@ -9,15 +9,11 @@ import java.util.ArrayList;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 import CSCI5308.GroupFormationTool.DBUtil.CreateDatabaseConnection;
 import CSCI5308.GroupFormationTool.DBUtil.SqlQueryUtil;
 import CSCI5308.GroupFormationTool.Model.Answer;
-import CSCI5308.GroupFormationTool.Profile.IUser;
-import CSCI5308.GroupFormationTool.Profile.DAO.IUserDao;
-import CSCI5308.GroupFormationTool.Profile.DAO.ProfileDaoFactory;
+import CSCI5308.GroupFormationTool.Profile.Service.ProfileServiceFactory;
 import CSCI5308.GroupFormationTool.QuestionManager.IQuestion;
 import CSCI5308.GroupFormationTool.QuestionManager.QuestionFactory;
 import CSCI5308.GroupFormationTool.QuestionManager.QuestionObjectFactory;
@@ -34,7 +30,8 @@ public class FetchQuestionDAOImpl implements IFetchQuestionDAO {
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
 			statement = connection.createStatement();
-			String query = SqlQueryUtil.instance().getQueryByKey("questionList") + getUserId();
+			int userId = ProfileServiceFactory.instance().loginService().getUserId();
+			String query = SqlQueryUtil.instance().getQueryByKey("questionList") + userId;
 			ResultSet rs = statement.executeQuery(query);
 			int i = 1;
 			while (rs.next()) {
@@ -63,13 +60,6 @@ public class FetchQuestionDAOImpl implements IFetchQuestionDAO {
 		}
 
 		return questions;
-	}
-
-	public int getUserId() {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		IUserDao userDao = ProfileDaoFactory.instance().userDao();
-		ArrayList<IUser> list = userDao.getByEmail(authentication.getName());
-		return list.get(0).getUserId();
 	}
 
 	@Override

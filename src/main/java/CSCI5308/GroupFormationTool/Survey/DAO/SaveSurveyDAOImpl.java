@@ -9,6 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import CSCI5308.GroupFormationTool.DBUtil.CreateDatabaseConnection;
+import CSCI5308.GroupFormationTool.DBUtil.SqlQueryUtil;
 import CSCI5308.GroupFormationTool.QuestionManager.IQuestion;
 import CSCI5308.GroupFormationTool.Survey.ISurvey;
 
@@ -19,11 +20,10 @@ public class SaveSurveyDAOImpl implements ISaveSurveyDAO {
 		Connection connection = null;
 		PreparedStatement statement = null;
 		int listSize = questions.size();
-
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
 			for (int i = 0; i < listSize; i++) {
-				String query = "INSERT INTO survey_question_association(course_id,question_id,criteria) values(?,?,?)";
+				String query = SqlQueryUtil.instance().getQueryByKey("saveSurveyQuestions");
 				statement = connection.prepareStatement(query);
 				statement.setInt(1, questions.get(i).getCourseId());
 				statement.setInt(2, questions.get(i).getQuestionId());
@@ -31,7 +31,7 @@ public class SaveSurveyDAOImpl implements ISaveSurveyDAO {
 				statement.executeUpdate();
 			}
 		} catch (SQLException e) {
-			logger.error("Exception occurred while adding the user: ", e);
+			logger.error("Exception occurred while saving the survey questions: ", e);
 		} finally {
 			try {
 				if (null != statement) {
@@ -51,17 +51,16 @@ public class SaveSurveyDAOImpl implements ISaveSurveyDAO {
 	public void saveSurveyDetails(ISurvey survey) {
 		Connection connection = null;
 		PreparedStatement statement = null;
-
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
-			String query = "INSERT INTO instructor_survey_association(survey_status,course_id,group_size) values(?,?,?)";
+			String query = SqlQueryUtil.instance().getQueryByKey("saveSurveyDetails");
 			statement = connection.prepareStatement(query);
 			statement.setString(1, "S");
 			statement.setInt(2, survey.getCourseId());
 			statement.setInt(3, survey.getGroupSize());
 			statement.executeUpdate();
 		} catch (SQLException e) {
-			logger.error("Exception occurred while adding the user: ", e);
+			logger.error("Exception occurred while saving the survey: ", e);
 		} finally {
 			try {
 				if (null != statement) {
@@ -80,14 +79,13 @@ public class SaveSurveyDAOImpl implements ISaveSurveyDAO {
 	public boolean publishSurvey(int course_id) {
 		Connection connection = null;
 		PreparedStatement statement = null;
-
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
-			String query = "UPDATE instructor_survey_association SET survey_status=\"A\" where course_id=" + course_id;
+			String query = SqlQueryUtil.instance().getQueryByKey("publishSurvey") + course_id;
 			statement = connection.prepareStatement(query);
 			statement.executeUpdate();
 		} catch (SQLException e) {
-			logger.error("Exception occurred while adding the user: ", e);
+			logger.error("Exception occurred while publishing the survey: ", e);
 		} finally {
 			try {
 				if (null != statement) {
@@ -100,7 +98,6 @@ public class SaveSurveyDAOImpl implements ISaveSurveyDAO {
 				logger.error("Exception occurred while closing connection/statement", e);
 			}
 		}
-
 		return true;
 	}
 

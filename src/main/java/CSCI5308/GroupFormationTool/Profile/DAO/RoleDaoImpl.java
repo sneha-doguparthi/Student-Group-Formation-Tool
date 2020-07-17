@@ -23,14 +23,13 @@ public class RoleDaoImpl implements IRoleDao {
 		Connection connection = null;
 		PreparedStatement statement = null;
 		String query = SqlQueryUtil.instance().getQueryByKey("getRole");
-		;
 		ArrayList<Role> roles = new ArrayList<>();
 
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
 			statement = connection.prepareStatement(query);
 			statement.setString(1, name);
-			ResultSet rs = statement.executeQuery(query);
+			ResultSet rs = statement.executeQuery();
 			while (rs.next()) {
 				Role role = new Role();
 				role.setRoleId(rs.getInt("role_id"));

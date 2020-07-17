@@ -3,6 +3,9 @@ package CSCI5308.GroupFormationTool.Survey.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import CSCI5308.GroupFormationTool.QuestionManager.IQuestion;
 import CSCI5308.GroupFormationTool.QuestionManager.QuestionFactory;
 import CSCI5308.GroupFormationTool.QuestionManager.QuestionObjectFactory;
@@ -12,7 +15,10 @@ import CSCI5308.GroupFormationTool.Survey.DAO.SurveyDaoFactory;
 
 public class SaveSurveyServiceImpl implements ISaveSurveyService {
 
+	private Logger logger = LogManager.getLogger(SaveSurveyServiceImpl.class);
+
 	public List<IQuestion> splitQuestionDetails(String questionDetails) {
+		logger.info("Splitting the question information");
 		List<IQuestion> questionList = new ArrayList<IQuestion>();
 		String[] details = questionDetails.split(",");
 		for (int i = 0; i < details.length; i++) {

@@ -9,6 +9,4 @@ public interface IGetQuestionsDAO {
 
 	public IQuestion getQuestionById(int questionId);
 
-	public int getUserId();
-
 }

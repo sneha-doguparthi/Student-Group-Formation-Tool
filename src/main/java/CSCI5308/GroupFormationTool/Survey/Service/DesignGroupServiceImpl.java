@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import CSCI5308.GroupFormationTool.Course.ICourse;
 import CSCI5308.GroupFormationTool.Course.DAO.CourseDaoFactory;
 import CSCI5308.GroupFormationTool.Course.DAO.ICourseDao;
@@ -19,13 +22,16 @@ import CSCI5308.GroupFormationTool.Survey.ISurvey;
 
 public class DesignGroupServiceImpl implements IDesignGroupService {
 
-	static ArrayList<StudentResponse> sampleGroup = new ArrayList<>();
-	static List<IQuestion> questions;
-	static int groupSize;
+	private static Logger logger = LogManager.getLogger(DesignGroupServiceImpl.class);
+
+	public static ArrayList<StudentResponse> sampleGroup = new ArrayList<>();
+	public static List<IQuestion> questions;
+	public static int groupSize;
 
 	@Override
 	public Map<String, ArrayList<String>> designGroup(int courseId) {
 
+		logger.info("Designing group");
 		ICourseDao courseDao = CourseDaoFactory.instance().courseDao();
 		ICourse course = courseDao.getById(courseId);
 
@@ -112,12 +118,12 @@ public class DesignGroupServiceImpl implements IDesignGroupService {
 
 		groupInformation.put("groupedUser", groupedList);
 		groupInformation.put("unGroupedUser", unGroupedList);
-
+		logger.info("group design algorithm finished");
 		return groupInformation;
 	}
 
-	static boolean checkPeers(StudentResponse newUser) {
-
+	public static boolean checkPeers(StudentResponse newUser) {
+		logger.info("Checking peer responses");
 		for (StudentResponse user : sampleGroup) {
 
 			for (int j = 0; j < user.getResponseValue().size(); j++) {
@@ -167,7 +173,6 @@ public class DesignGroupServiceImpl implements IDesignGroupService {
 									break;
 								}
 							}
-
 							if (!userWithGT) {
 								if (Integer.parseInt(newUser.getResponseValue().get(j)) <= value) {
 									return false;
@@ -185,7 +190,6 @@ public class DesignGroupServiceImpl implements IDesignGroupService {
 									break;
 								}
 							}
-
 							if (!userWithLT) {
 								if (Integer.parseInt(newUser.getResponseValue().get(j)) >= value) {
 									return false;
@@ -233,6 +237,7 @@ public class DesignGroupServiceImpl implements IDesignGroupService {
 	}
 
 	public static float distance(String a, String b) {
+		logger.info("Calculating the distance");
 		a = a.toLowerCase();
 		b = b.toLowerCase();
 

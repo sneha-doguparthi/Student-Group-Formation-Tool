@@ -81,15 +81,11 @@ public class SurveyController {
 
 	@GetMapping("/survey/design-group")
 	public String designGroup(HttpServletRequest request, Model model) {
-
 		int courseId = Integer.parseInt(request.getParameter("courseId"));
-
 		IDesignGroupService designGroupService = SurveyServiceFactory.instance().designGroupService();
-
 		Map<String, ArrayList<String>> groupInformation = designGroupService.designGroup(courseId);
 		ArrayList<String> groupedList = groupInformation.get("groupedUser");
 		ArrayList<String> unGroupedList = groupInformation.get("unGroupedUser");
-
 		model.addAttribute("groupedUser", groupedList.toArray());
 		model.addAttribute("unGroupedUser", unGroupedList.toArray());
 		return "survey/design-group";
