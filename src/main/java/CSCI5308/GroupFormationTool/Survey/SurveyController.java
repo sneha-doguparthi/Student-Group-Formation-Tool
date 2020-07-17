@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import CSCI5308.GroupFormationTool.Course.CourseFactory;
 import CSCI5308.GroupFormationTool.Course.CourseObjectFactory;
 import CSCI5308.GroupFormationTool.Course.ICourse;
-import CSCI5308.GroupFormationTool.Profile.IUser;
 import CSCI5308.GroupFormationTool.QuestionManager.IQuestion;
 import CSCI5308.GroupFormationTool.Survey.Service.IDesignGroupService;
 import CSCI5308.GroupFormationTool.Survey.Service.IGetQuestionsService;
