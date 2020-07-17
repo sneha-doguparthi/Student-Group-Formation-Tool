@@ -27,15 +27,16 @@ public class GetQuestionsServiceImpl implements IGetQuestionsService {
 		return survey;
 	}
 
-	public ISurvey deleteQuestion(ISurvey survey, int questionId) {
-		List<IQuestion> surveyQuestionList = survey.getQuestionList();
-		for (IQuestion question : surveyQuestionList) {
+	 public ISurvey deleteQuestion(ISurvey survey, int questionId) {
+	 	List<IQuestion> surveyQuestionList = survey.getQuestionList();
+	 	for (IQuestion question : surveyQuestionList) {
 			if (question.getQuestionId() == questionId) {
-				surveyQuestionList.remove(question);
-			}
+	 			surveyQuestionList.remove(question);
+	 			break;
+	 		}
 		}
-		survey.setQuestionList(surveyQuestionList);
+	 	survey.setQuestionList(surveyQuestionList);
 		return survey;
-	}
+	 }
 
 }

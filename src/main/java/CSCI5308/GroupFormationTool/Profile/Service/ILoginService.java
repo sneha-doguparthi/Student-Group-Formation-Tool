@@ -6,5 +6,4 @@ public interface ILoginService {
 
 	public String checkAccessService(String email, Model model);
 
-	public int getUserId();
 }

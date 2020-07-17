@@ -5,13 +5,18 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import CSCI5308.GroupFormationTool.DBUtil.CreateDatabaseConnection;
 import CSCI5308.GroupFormationTool.DBUtil.SqlQueryUtil;
-import CSCI5308.GroupFormationTool.Profile.Service.ProfileServiceFactory;
+import CSCI5308.GroupFormationTool.Profile.IUser;
+import CSCI5308.GroupFormationTool.Profile.DAO.IUserDao;
+import CSCI5308.GroupFormationTool.Profile.DAO.ProfileDaoFactory;
 import CSCI5308.GroupFormationTool.QuestionManager.IQuestion;
 
 public class StoreQuestionDAOImpl implements IStoreQuestionDAO {
@@ -32,8 +37,7 @@ public class StoreQuestionDAOImpl implements IStoreQuestionDAO {
 			statement.setString(1, question.getQuestionTitle());
 			statement.setString(2, question.getQuestionText());
 			statement.setString(3, question.getQuestionType());
-			int userId = ProfileServiceFactory.instance().loginService().getUserId();
-			statement.setInt(4, userId);
+			statement.setInt(4, getUserId());
 			statement.executeUpdate();
 			ResultSet resultSet = statement.getGeneratedKeys();
 			resultSet.next();
@@ -57,4 +61,12 @@ public class StoreQuestionDAOImpl implements IStoreQuestionDAO {
 		}
 		return questionId;
 	}
+
+	private int getUserId() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		IUserDao userDao = ProfileDaoFactory.instance().userDao();
+		ArrayList<IUser> list = userDao.getByEmail(authentication.getName());
+		return list.get(0).getUserId();
+	}
+
 }

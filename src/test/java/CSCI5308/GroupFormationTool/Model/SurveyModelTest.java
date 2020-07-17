@@ -52,17 +52,4 @@ class SurveyModelTest {
 		assertEquals(survey.getGroupSize(), 4);
 	}
 
-	@Test
-	void getSurveyStatus() {
-		ISurvey survey = SurveyFactory.surveyObject(new SurveyObjectFactory());
-		survey.setSurveyStatus("Active");
-		assertEquals(survey.getSurveyStatus(), "Active");
-	}
-
-	@Test
-	void setSurveyStatus() {
-		ISurvey survey = SurveyFactory.surveyObject(new SurveyObjectFactory());
-		survey.setSurveyStatus("Active");
-		assertEquals(survey.getSurveyStatus(), "Active");
-	}
 }

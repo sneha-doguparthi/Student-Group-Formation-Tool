@@ -129,107 +129,107 @@ public class DesignGroupServiceImpl implements IDesignGroupService {
 			for (int j = 0; j < user.getResponseValue().size(); j++) {
 
 				switch (questions.get(j).getQuestionType()) {
-				case "MCQO":
-					if (questions.get(j).getCriteria().equals("SIMILAR")) {
-						if (!user.getResponseValue().get(j).equals(newUser.getResponseValue().get(j))) {
-							return false;
-						}
-					} else if (questions.get(j).getCriteria().equals("DISSIMILAR")) {
-						if (user.getResponseValue().get(j).equals(newUser.getResponseValue().get(j))) {
-							return false;
-						}
-					}
-					break;
-
-				case "FREETEXT":
-					if (questions.get(j).getCriteria().equals("SIMILAR")) {
-						if (distance(user.getResponseValue().get(j), newUser.getResponseValue().get(j)) < 70) {
-							return false;
-						}
-					} else if (questions.get(j).getCriteria().equals("DISSIMILAR")) {
-						if (distance(user.getResponseValue().get(j), newUser.getResponseValue().get(j)) > 70) {
-							return false;
-						}
-					}
-					break;
-
-				case "NUM":
-					if (questions.get(j).getCriteria().equals("SIMILAR")) {
-						if (!user.getResponseValue().get(j).equals(newUser.getResponseValue().get(j))) {
-							return false;
-						}
-					} else if (questions.get(j).getCriteria().equals("DISSIMILAR")) {
-						if (user.getResponseValue().get(j).equals(newUser.getResponseValue().get(j))) {
-							return false;
-						}
-					} else if (questions.get(j).getCriteria().startsWith("GT")) {
-						if (sampleGroup.size() == groupSize - 1) {
-							boolean userWithGT = false;
-							int value = Integer.parseInt(questions.get(j).getCriteria().substring(2));
-
-							for (StudentResponse checkUser : sampleGroup) {
-								if (Integer.parseInt(checkUser.getResponseValue().get(j)) > value) {
-									userWithGT = true;
-									break;
-								}
+					case "MCQO":
+						if (questions.get(j).getCriteria().equals("SIMILAR")) {
+							if (!user.getResponseValue().get(j).equals(newUser.getResponseValue().get(j))) {
+								return false;
 							}
-							if (!userWithGT) {
-								if (Integer.parseInt(newUser.getResponseValue().get(j)) <= value) {
-									return false;
-								}
+						} else if (questions.get(j).getCriteria().equals("DISSIMILAR")) {
+							if (user.getResponseValue().get(j).equals(newUser.getResponseValue().get(j))) {
+								return false;
 							}
 						}
-					} else if (questions.get(j).getCriteria().startsWith("LT")) {
-						if (sampleGroup.size() == groupSize - 1) {
-							boolean userWithLT = false;
-							int value = Integer.parseInt(questions.get(j).getCriteria().substring(2));
+						break;
 
-							for (StudentResponse checkUser : sampleGroup) {
-								if (Integer.parseInt(checkUser.getResponseValue().get(j)) < value) {
-									userWithLT = true;
-									break;
-								}
+					case "FREETEXT":
+						if (questions.get(j).getCriteria().equals("SIMILAR")) {
+							if (distance(user.getResponseValue().get(j), newUser.getResponseValue().get(j)) < 70) {
+								return false;
 							}
-							if (!userWithLT) {
-								if (Integer.parseInt(newUser.getResponseValue().get(j)) >= value) {
-									return false;
-								}
+						} else if (questions.get(j).getCriteria().equals("DISSIMILAR")) {
+							if (distance(user.getResponseValue().get(j), newUser.getResponseValue().get(j)) > 70) {
+								return false;
 							}
 						}
-					}
-					break;
+						break;
 
-				case "MCQM":
-					List<String> userOptions = Arrays.asList(user.getResponseValue().get(j).split("\\|"));
-					List<String> newUserOptions = Arrays.asList(newUser.getResponseValue().get(j).split("\\|"));
+					case "NUM":
+						if (questions.get(j).getCriteria().equals("SIMILAR")) {
+							if (!user.getResponseValue().get(j).equals(newUser.getResponseValue().get(j))) {
+								return false;
+							}
+						} else if (questions.get(j).getCriteria().equals("DISSIMILAR")) {
+							if (user.getResponseValue().get(j).equals(newUser.getResponseValue().get(j))) {
+								return false;
+							}
+						} else if (questions.get(j).getCriteria().startsWith("GT")) {
+							if (sampleGroup.size() == groupSize - 1) {
+								boolean userWithGT = false;
+								int value = Integer.parseInt(questions.get(j).getCriteria().substring(2));
 
-					int similar = 0;
-					int dissimilar = 0;
+								for (StudentResponse checkUser : sampleGroup) {
+									if (Integer.parseInt(checkUser.getResponseValue().get(j)) > value) {
+										userWithGT = true;
+										break;
+									}
+								}
+								if (!userWithGT) {
+									if (Integer.parseInt(newUser.getResponseValue().get(j)) <= value) {
+										return false;
+									}
+								}
+							}
+						} else if (questions.get(j).getCriteria().startsWith("LT")) {
+							if (sampleGroup.size() == groupSize - 1) {
+								boolean userWithLT = false;
+								int value = Integer.parseInt(questions.get(j).getCriteria().substring(2));
 
-					for (String option : userOptions) {
-						if (newUserOptions.contains(option)) {
-							similar++;
-						} else {
-							dissimilar++;
+								for (StudentResponse checkUser : sampleGroup) {
+									if (Integer.parseInt(checkUser.getResponseValue().get(j)) < value) {
+										userWithLT = true;
+										break;
+									}
+								}
+								if (!userWithLT) {
+									if (Integer.parseInt(newUser.getResponseValue().get(j)) >= value) {
+										return false;
+									}
+								}
+							}
 						}
-					}
+						break;
 
-					for (String option : newUserOptions) {
-						if (!userOptions.contains(option)) {
-							dissimilar++;
-						}
-					}
+					case "MCQM":
+						List<String> userOptions = Arrays.asList(user.getResponseValue().get(j).split("\\|"));
+						List<String> newUserOptions = Arrays.asList(newUser.getResponseValue().get(j).split("\\|"));
 
-					if (questions.get(j).getCriteria().equals("SIMILAR")) {
-						if (dissimilar > similar) {
-							return false;
+						int similar = 0;
+						int dissimilar = 0;
+
+						for (String option : userOptions) {
+							if (newUserOptions.contains(option)) {
+								similar++;
+							} else {
+								dissimilar++;
+							}
 						}
-					} else if (questions.get(j).getCriteria().equals("DISSIMILAR")) {
-						if (similar > dissimilar) {
-							return false;
+
+						for (String option : newUserOptions) {
+							if (!userOptions.contains(option)) {
+								dissimilar++;
+							}
 						}
-					}
-					break;
+
+						if (questions.get(j).getCriteria().equals("SIMILAR")) {
+							if (dissimilar > similar) {
+								return false;
+							}
+						} else if (questions.get(j).getCriteria().equals("DISSIMILAR")) {
+							if (similar > dissimilar) {
+								return false;
+							}
+						}
+						break;
 				}
 			}
 		}

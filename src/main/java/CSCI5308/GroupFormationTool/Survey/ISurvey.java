@@ -16,7 +16,7 @@ public interface ISurvey {
 	public void setQuestionList(List<IQuestion> questionList);
 
 	public ISurvey getSurveyForCourse(ICourse course, ISurveyService surveyService);
-
+	
 	public int getCourseId();
 
 	public void setCourseId(int courseId);
@@ -26,7 +26,11 @@ public interface ISurvey {
 	public void setGroupSize(int groupSize);
 
 	public String getSurveyStatus();
-
+	
 	public void setSurveyStatus(String surveyStatus);
+
+	List<String> getCriteriaList();
+
+	void setCriteriaList(List<String> criteriaList);
 
 }

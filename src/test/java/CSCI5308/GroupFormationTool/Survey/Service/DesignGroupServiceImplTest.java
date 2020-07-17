@@ -11,17 +11,26 @@ import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
+import CSCI5308.GroupFormationTool.Profile.IUser;
+import CSCI5308.GroupFormationTool.Profile.UserFactory;
+import CSCI5308.GroupFormationTool.Profile.UserObjectFactory;
+
 public class DesignGroupServiceImplTest {
 	IDesignGroupService designGroupServiceMock = mock(DesignGroupServiceImpl.class);
 
 	@Test
 	void designGroupTest() {
-		Map<String, ArrayList<String>> groupInformation = new HashMap<>();
-		ArrayList<String> users = new ArrayList<>();
+		Map<String, ArrayList<IUser>> groupInformation = new HashMap<>();
+		ArrayList<IUser> users = new ArrayList<>();
 
-		users.add("B00123456| First | Last");
-		users.add("B00123456| Hello | World");
-		users.add("B00123456| No | Name");
+		IUser user = UserFactory.userObject(new UserObjectFactory());
+		user.setBannerId("B12345678");
+		user.setFirstName("First");
+		user.setLastName("Last");
+		user.setUserId(1);
+		user.setPassword("password");
+
+		users.add(user);
 
 		groupInformation.put("groupedUser", users);
 

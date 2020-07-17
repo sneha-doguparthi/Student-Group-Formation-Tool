@@ -9,6 +9,8 @@ public interface IFetchQuestionDAO {
 
 	public ArrayList<IQuestion> getQuestionByUserId();
 
+	public int getUserId();
+
 	public ArrayList<Answer> getOptionsForQuestion(int questionId);
 
 }

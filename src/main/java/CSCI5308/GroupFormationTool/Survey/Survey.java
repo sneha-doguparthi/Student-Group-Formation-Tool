@@ -12,6 +12,7 @@ public class Survey implements ISurvey {
 	private int courseId;
 	private String surveyStatus;
 	private int groupSize;
+	private List<String> criteriaList;
 
 	@Override
 	public int getSurveyId() {
@@ -31,6 +32,16 @@ public class Survey implements ISurvey {
 	@Override
 	public void setQuestionList(List<IQuestion> questionList) {
 		this.questionList = questionList;
+	}
+
+	@Override
+	public List<String> getCriteriaList() {
+		return criteriaList;
+	}
+
+	@Override
+	public void setCriteriaList(List<String> criteriaList) {
+		this.criteriaList = criteriaList;
 	}
 
 	@Override

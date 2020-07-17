@@ -25,12 +25,12 @@ public class SurveyServiceFactory extends SurveyServiceAbstractFactory {
 		return getQuestionsService;
 	}
 
-	public ISurveyService surveyService() {
-		if (null == surveyService) {
-			surveyService = new SurveyServiceImpl();
-		}
-		return surveyService;
-	}
+	 public ISurveyService surveyService() {
+	 	if (null == surveyService) {
+	 		surveyService = new SurveyServiceImpl();
+	 	}
+	 	return surveyService;
+	 }
 
 	public ISaveSurveyService saveSurveyService() {
 		if (null == saveSurveyService) {
