@@ -2,15 +2,15 @@ package CSCI5308.GroupFormationTool.QuestionManager.Service;
 
 import java.util.ArrayList;
 
-import CSCI5308.GroupFormationTool.SystemConfig;
 import CSCI5308.GroupFormationTool.Model.Answer;
-import CSCI5308.GroupFormationTool.QuestionManager.DAO.StoreMcqOptionsDAO;
+import CSCI5308.GroupFormationTool.QuestionManager.DAO.IStoreMcqOptionsDAO;
+import CSCI5308.GroupFormationTool.QuestionManager.DAO.QuestionManagerDaoFactory;
 
-public class StoreMcqOptionServiceImpl implements StoreMcqOptionService {
+public class StoreMcqOptionServiceImpl implements IStoreMcqOptionService {
 
 	@Override
 	public String saveMcqOptionsForQuestion(int questionId, ArrayList<Answer> answerList) {
-		StoreMcqOptionsDAO storeMcqOptionsDAO = SystemConfig.instance().getStoreMcqOptionsDAO();
+		IStoreMcqOptionsDAO storeMcqOptionsDAO = QuestionManagerDaoFactory.instance().storeMcqOptionsDAO();
 		return storeMcqOptionsDAO.saveMcqOptionsForQuestion(questionId, answerList);
 	}
 

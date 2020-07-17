@@ -11,7 +11,7 @@ import org.springframework.ui.Model;
 
 public class LoginServiceImplTest {
 
-	LoginService loginServiceImplMock = mock(LoginServiceImpl.class);
+	ILoginService loginServiceImplMock = mock(LoginServiceImpl.class);
 
 	@Test
 	void testCheckAccessService() {

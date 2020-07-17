@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Survey</title>
+    <script>
+      var i, text;
+
+      function onChangeCriteria(questionId) {
+        var selectDrpDwn = document.getElementById("criteria_" + questionId);
+        var option = selectDrpDwn.options[selectDrpDwn.selectedIndex].value;
+        if (option == "LT" || option == "GT") {
+          option = option + document.getElementById("numericValue").value;
+        }
+        document.getElementById("selectedQuestionId_" + questionId).value =
+          questionId + " - " + option;
+      }
+
+      function addQuestion() {
+        var groupSize = document.getElementById("group-size");
+        groupSize = groupSize.options[groupSize.selectedIndex].value;
+        var form = document.getElementById("addQuestionForm");
+        var input = document.createElement("input");
+        input.setAttribute("name", "groupSize");
+        input.setAttribute("value", groupSize);
+        input.setAttribute("type", "hidden");
+        form.appendChild(input);
+      }
+
+      function publishQuestion() {
+        var groupSize = document.getElementById("group-size");
+        groupSize = groupSize.options[groupSize.selectedIndex].value;
+        var form = document.getElementById("publishForm");
+        var input = document.createElement("input");
+        input.setAttribute("name", "groupSize");
+        input.setAttribute("value", groupSize);
+        input.setAttribute("type", "hidden");
+        form.appendChild(input);
+        return confirm("Are you sure to publish the survey?");
+      }
+
+      function deleteQuestion() {
+        var groupSize = document.getElementById("group-size");
+        groupSize = groupSize.options[groupSize.selectedIndex].value;
+        var form = document.getElementById("saveQuestionForm");
+        var input = document.createElement("input");
+        input.setAttribute("name", "groupSize");
+        input.setAttribute("value", groupSize);
+        input.setAttribute("type", "hidden");
+        form.appendChild(input);
+        return confirm("Confirm delete?");
+      }
+    </script>
+  </head>
+  <body>
+    <ul lang="en" th:replace="fragments/course-header :: course-header"></ul>
+    <div class="container">
+      <form
+        id="addQuestionForm"
+        th:action="@{/survey/addQuestions}"
+        method="POST"
+        th:if="${surveyModel.surveyStatus!='Available'}"
+      >
+        <p>
+          Add Questions from question bank
+        </p>
+        <select
+          class="selectQuestions"
+          id="questionSelected"
+          name="questionSelected"
+        >
+          <option value=""
+            >------------------------------ Select
+            ---------------------------</option
+          >
+          <option
+            th:each="ques : ${questions}"
+            th:value="${ques.questionId}"
+            th:text=" ${ques.questionText}"
+          ></option>
+        </select>
+        <button
+          th:if="${surveyModel.surveyStatus!='Available'}"
+          onclick="addQuestion()"
+          class="btn btn-primary"
+        >
+          Add Question to Survey
+        </button>
+      </form>
+
+      <br />
+
+      <form th:action="@{/survey/publish}" method="POST">
+        <button
+          id="publishForm"
+          class="btn btn-info"
+          onclick="publishQuestion()"
+          th:if="${surveyModel.surveyStatus!='Available'}"
+        >
+          Publish Survey
+        </button>
+      </form>
+
+      <form th:action="@{/survey/design-group}" method="GET">
+        <input type="hidden"
+               name="courseId" th:value="${courseId}" />
+        <button
+                id="viewGroup"
+                class="btn btn-info"
+                onclick="publishQuestion()"
+                th:if="${surveyModel.surveyStatus=='Available'}"
+        >
+          Form Groups
+        </button>
+      </form>
+
+      <br />
+
+      <form
+        id="saveQuestionForm"
+        th:object="${surveyModel}"
+        th:action="@{/survey/save-survey}"
+        method="POST"
+      >
+        <fieldset th:disabled="${surveyModel.surveyStatus == 'Available'}">
+          Group Size
+
+          <select
+            style="width: 200px;"
+            class="custom-select"
+            id="group-size"
+            name="group"
+            th:field="*{groupSize}"
+          >
+            <option value="2" th:selected="${groupSize==2}">2</option>
+            <option value="3" th:selected="${groupSize==3}">3</option>
+            <option value="4" th:selected="${groupSize==4}">4</option>
+            <option value="5" th:selected="${groupSize==5}">5</option>
+          </select>
+
+          <button
+            id="save"
+            type="submit"
+            class="btn btn-primary float-right"
+            th:if="${surveyModel.surveyStatus!='Available'}"
+          >
+            Save Survey
+          </button>
+
+          <br />
+          <br />
+
+          <table class="table table-bordered table-striped" id="questions">
+            <thead class="thead-dark">
+              <tr>
+                <th class="center-text">Question Type</th>
+                <th class="center-text">Question Title</th>
+                <th class="center-text">Question Text</th>
+                <th class="center-text">Logic Detail</th>
+                <th class="center-text">Numeric Value</th>
+                <th
+                  class="center-text"
+                  th:if="${surveyModel.surveyStatus!='Available'}"
+                >
+                  Action
+                </th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr th:each="question, i : ${surveyModel.questionList}">
+                <input
+                  type="hidden"
+                  th:name="selectedQuestionInfo"
+                  th:id="'selectedQuestionId_'+${question.questionId}"
+                />
+                <td><span th:text="${question.questionType}"> Type </span></td>
+                <td>
+                  <span th:text="${question.questionTitle}"> Title </span>
+                </td>
+                <td><span th:text="${question.questionText}"> Text </span></td>
+                <td>
+                  <span>
+                    <select
+                      class="select"
+                      th:id="'criteria_'+${question.questionId}"
+                      required
+                      th:onChange="|onChangeCriteria('${question.questionId}')|"
+                    >
+                      <option value="">------ Select ------</option>
+                      <option
+                        value="SIMILAR"
+                        th:selected="${question.criteria=='SIMILAR'}"
+                        >Group Similar</option
+                      >
+                      <option
+                        value="DISSIMILAR"
+                        th:selected="${question.criteria=='DISSIMILAR'}"
+                        >Group Dissimilar</option
+                      >
+                      <option
+                        th:if="${question.questionType} == 'NUM'"
+                        value="GT"
+                      >
+                        Greater than(>)
+                      </option>
+                      <option
+                        th:if="${question.questionType} == 'NUM'"
+                        value="LT"
+                        >Lesser than(<)
+                      </option>
+                    </select>
+                  </span>
+                </td>
+                <td>
+                  <span
+                    ><input
+                      type="text"
+                      th:if="${question.questionType} == 'NUM'"
+                      id="numericValue"
+                  /></span>
+                </td>
+                <td
+                  class="center-text"
+                  th:if="${surveyModel.surveyStatus!='Available'}"
+                >
+                  <input
+                    type="hidden"
+                    name="deleteQuestionId"
+                    id="questionId"
+                    th:value="${question.questionId}"
+                    th:if="${surveyModel.surveyStatus!='Available'}"
+                  />
+                  <a
+                    th:href="@{'/survey/delete-question/'+${question.questionId}}"
+                    onclick="deleteQuestion()"
+                    class="btn btn-primary"
+                    style="background-color: #ff2222;"
+                    th:if="${surveyModel.surveyStatus!='Available'}"
+                    >Delete</a
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </fieldset>
+      </form>
+    </div>
+  </body>
+</html>

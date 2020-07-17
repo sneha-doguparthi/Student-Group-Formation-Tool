@@ -8,9 +8,10 @@ import java.util.ArrayList;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import CSCI5308.GroupFormationTool.DBConnection.CreateDatabaseConnection;
+import CSCI5308.GroupFormationTool.DBUtil.CreateDatabaseConnection;
+import CSCI5308.GroupFormationTool.DBUtil.SqlQueryUtil;
 
-public class DeleteCourseImpl implements DeleteCourse {
+public class DeleteCourseImpl implements IDeleteCourse {
 
 	private Logger logger = LogManager.getLogger(DeleteCourseImpl.class);
 
@@ -26,7 +27,7 @@ public class DeleteCourseImpl implements DeleteCourse {
 			String deleteQueryCourseAssociation = "";
 			String deleteQueryCourse = "";
 			for (int i = 0; i < courseToDelete.size(); i++) {
-				deleteQueryCourseAssociation = "DELETE FROM course_association WHERE course_id=(SELECT course_id FROM course WHERE course_code=?);";
+				deleteQueryCourseAssociation = SqlQueryUtil.instance().getQueryByKey("deleteCourse");
 				statement = connection.prepareStatement(deleteQueryCourseAssociation);
 				statement.setString(1, courseToDelete.get(i));
 				statement.executeUpdate();

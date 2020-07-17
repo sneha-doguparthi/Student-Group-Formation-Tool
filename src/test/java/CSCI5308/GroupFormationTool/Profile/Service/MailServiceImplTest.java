@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 public class MailServiceImplTest {
 
-	MailService mailServiceImplMock = mock(MailServiceImpl.class);
+	IMailService mailServiceImplMock = mock(MailServiceImpl.class);
 
 	@Test
 	void testSendMailTrue() {

@@ -4,16 +4,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import CSCI5308.GroupFormationTool.DBConnection.CreateDatabaseConnection;
+import CSCI5308.GroupFormationTool.DBUtil.CreateDatabaseConnection;
+import CSCI5308.GroupFormationTool.DBUtil.SqlQueryUtil;
 import CSCI5308.GroupFormationTool.Model.CourseAssociation;
 
-public class CourseAssociationDAOImpl implements CourseAssociationDAO {
+public class CourseAssociationDAOImpl implements ICourseAssociationDao {
 
 	private Logger logger = LogManager.getLogger(CourseAssociationDAOImpl.class);
 
@@ -21,14 +21,15 @@ public class CourseAssociationDAOImpl implements CourseAssociationDAO {
 	public ArrayList<Integer> getUserID(Integer courseId) {
 
 		Connection connection = null;
-		Statement statement = null;
+		PreparedStatement statement = null;
 		ArrayList<Integer> userIds = new ArrayList<>();
 
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
-			statement = connection.createStatement();
-			String query = "SELECT user_id FROM course_association WHERE course_id = '" + courseId + "'";
-			ResultSet rs = statement.executeQuery(query);
+			String getUserId = SqlQueryUtil.instance().getQueryByKey("getUserByCourse");
+			statement = connection.prepareStatement(getUserId);
+			statement.setInt(1, courseId);
+			ResultSet rs = statement.executeQuery();
 			while (rs.next()) {
 				int userId;
 				userId = rs.getInt("user_id");
@@ -62,7 +63,7 @@ public class CourseAssociationDAOImpl implements CourseAssociationDAO {
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
 			for (int i = 0; i < listSize; i++) {
-				String reqQuery = "INSERT INTO course_association (user_id, course_id, role_id) values(?,?,?);";
+				String reqQuery = SqlQueryUtil.instance().getQueryByKey("addByUser");
 				statement = connection.prepareStatement(reqQuery);
 				statement.setInt(1, userIds.get(i));
 				statement.setInt(2, courseId);
@@ -70,7 +71,7 @@ public class CourseAssociationDAOImpl implements CourseAssociationDAO {
 				statement.executeUpdate();
 			}
 		} catch (SQLException e) {
-			logger.error("Exception occured while adding the user by id: ", e);
+			logger.error("Exception occurred while adding the user by id: ", e);
 		} finally {
 			try {
 				if (null != statement) {
@@ -80,7 +81,7 @@ public class CourseAssociationDAOImpl implements CourseAssociationDAO {
 					connection.close();
 				}
 			} catch (SQLException e) {
-				logger.error("Exception occured while closing connection/statement", e);
+				logger.error("Exception occurred while closing connection/statement", e);
 			}
 		}
 
@@ -95,7 +96,7 @@ public class CourseAssociationDAOImpl implements CourseAssociationDAO {
 
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
-			String insertQuery = "INSERT INTO course_association (user_id,course_id,role_id) values(?,?,?);";
+			String insertQuery = SqlQueryUtil.instance().getQueryByKey("insertAssociation");
 			statement = connection.prepareStatement(insertQuery);
 			statement.setInt(1, association.getUserId());
 			statement.setInt(2, association.getCourseId());
@@ -103,7 +104,7 @@ public class CourseAssociationDAOImpl implements CourseAssociationDAO {
 			statement.executeUpdate();
 			return true;
 		} catch (SQLException e) {
-			logger.error("Exception occured while inserting the user: ", e);
+			logger.error("Exception occurred while inserting the user: ", e);
 			return false;
 		} finally {
 			try {
@@ -114,7 +115,7 @@ public class CourseAssociationDAOImpl implements CourseAssociationDAO {
 					connection.close();
 				}
 			} catch (SQLException e) {
-				logger.error("Exception occured while closing connection/statement", e);
+				logger.error("Exception occurred while closing connection/statement", e);
 			}
 		}
 	}
@@ -123,14 +124,15 @@ public class CourseAssociationDAOImpl implements CourseAssociationDAO {
 	public ArrayList<CourseAssociation> getByUserId(Integer userId) {
 
 		Connection connection = null;
-		Statement statement = null;
+		PreparedStatement statement = null;
 		ArrayList<CourseAssociation> list = new ArrayList<>();
 
 		try {
-			String query = "SELECT * FROM course_association WHERE user_id = " + userId;
 			connection = CreateDatabaseConnection.instance().createConnection();
-			statement = connection.createStatement();
-			ResultSet rs = statement.executeQuery(query);
+			String query = SqlQueryUtil.instance().getQueryByKey("getCourseAssociation");
+			statement = connection.prepareStatement(query);
+			statement.setInt(1, userId);
+			ResultSet rs = statement.executeQuery();
 			while (rs.next()) {
 				CourseAssociation association = new CourseAssociation();
 				association.setRegistrationId(rs.getInt("registration_id"));
@@ -140,7 +142,7 @@ public class CourseAssociationDAOImpl implements CourseAssociationDAO {
 				list.add(association);
 			}
 		} catch (SQLException e) {
-			logger.error("Exception occured while getting the user by id: ", e);
+			logger.error("Exception occurred while getting the user by id: ", e);
 		} finally {
 			try {
 				if (null != statement) {
@@ -150,7 +152,7 @@ public class CourseAssociationDAOImpl implements CourseAssociationDAO {
 					connection.close();
 				}
 			} catch (SQLException e) {
-				logger.error("Exception occured while closing connection/statement", e);
+				logger.error("Exception occurred while closing connection/statement", e);
 			}
 		}
 

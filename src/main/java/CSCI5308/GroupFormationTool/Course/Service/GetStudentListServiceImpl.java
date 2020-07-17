@@ -9,22 +9,21 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import CSCI5308.GroupFormationTool.DBConnection.CreateDatabaseConnection;
+import CSCI5308.GroupFormationTool.DBUtil.CreateDatabaseConnection;
+import CSCI5308.GroupFormationTool.DBUtil.SqlQueryUtil;
 import CSCI5308.GroupFormationTool.Model.Student;
-import CSCI5308.GroupFormationTool.Model.User;
+import CSCI5308.GroupFormationTool.Profile.IUser;
 
-public class GetStudentListServiceImpl implements GetStudentListService {
+public class GetStudentListServiceImpl implements IGetStudentListService {
 
 	private Logger logger = LogManager.getLogger(GetStudentListServiceImpl.class);
 
 	@Override
-	public List<Student> getNewToCourseStudentList(List<Student> studentsFromCsv, ArrayList<User> specificUserList) {
-
+	public List<Student> getNewToCourseStudentList(List<Student> studentsFromCsv, ArrayList<IUser> specificUserList) {
 		List<Student> students = new ArrayList<Student>(studentsFromCsv);
-		List<User> users = new ArrayList<User>(specificUserList);
+		List<IUser> users = new ArrayList<IUser>(specificUserList);
 		int studentsSize = students.size();
 		int usersSize = users.size();
-
 		for (int i = 0; i < usersSize; i++) {
 			for (int j = 0; j < studentsSize; j++) {
 				if (students.get(j).getbId().equals(users.get(i).getBannerId())) {
@@ -34,26 +33,24 @@ public class GetStudentListServiceImpl implements GetStudentListService {
 				}
 			}
 		}
-
 		return students;
 	}
 
 	@Override
-	public List<Student> getNewToPortalStudentList(List<Student> newToCourseList, ArrayList<User> allUserList) {
+	public List<Student> getNewToPortalStudentList(List<Student> newToCourseList, ArrayList<IUser> allUserList) {
 
 		List<Student> students = new ArrayList<Student>(newToCourseList);
-		List<User> users = new ArrayList<User>(allUserList);
+		List<IUser> users = new ArrayList<IUser>(allUserList);
 		int studentsSize = students.size();
 		int usersSize = users.size();
 		Connection connection = null;
 		PreparedStatement statement = null;
-
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
 			for (int i = 0; i < usersSize; i++) {
 				for (int j = 0; j < studentsSize; j++) {
 					if (students.get(j).getbId().equals(users.get(i).getBannerId())) {
-						String reqQuery = "UPDATE user SET user_type='S' WHERE banner_id=?";
+						String reqQuery = SqlQueryUtil.instance().getQueryByKey("markUserAsStudent");
 						statement = connection.prepareStatement(reqQuery);
 						statement.setString(1, users.get(i).getBannerId());
 						statement.executeUpdate();

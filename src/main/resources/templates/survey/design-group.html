@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Survey</title>
+  </head>
+  <body>
+    <ul lang="en" th:replace="fragments/course-header :: course-header"></ul>
+    <div class="container">
+      <div style="text-align: center;">
+        <h2>Group Formation</h2>
+      </div>
+
+      <h4>Tightly coupled groups</h4>
+
+      <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+          <tr>
+            <th class="center-text">#</th>
+            <th class="center-text">Banner ID</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr th:each="group, id : ${groupedUser}">
+            <td th:text="${id.index + 1}"></td>
+            <td th:text="${group}"></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4>No match found for this students</h4>
+
+      <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+          <th class="center-text">#</th>
+          <th class="center-text">Banner ID</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="group, id : ${unGroupedUser}">
+          <td th:text="${id.index + 1}"></td>
+          <td th:text="${group}"></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>

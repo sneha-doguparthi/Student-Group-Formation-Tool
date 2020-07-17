@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 public class OtpServiceImplTest {
 
-	OtpService otpServiceImplMock = mock(OtpServiceImpl.class);
+	IOtpService otpServiceImplMock = mock(OtpServiceImpl.class);
 
 	@Test
 	void testSendOtp() {

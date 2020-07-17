@@ -1,15 +1,15 @@
 package CSCI5308.GroupFormationTool.Profile.Service;
 
-import CSCI5308.GroupFormationTool.SystemConfig;
-import CSCI5308.GroupFormationTool.Model.User;
-import CSCI5308.GroupFormationTool.Profile.DAO.PasswordHistoryDao;
-import CSCI5308.GroupFormationTool.Profile.DAO.UserDao;
+import CSCI5308.GroupFormationTool.Profile.IUser;
+import CSCI5308.GroupFormationTool.Profile.DAO.IPasswordHistoryDao;
+import CSCI5308.GroupFormationTool.Profile.DAO.IUserDao;
+import CSCI5308.GroupFormationTool.Profile.DAO.ProfileDaoFactory;
 
-public class RegistrationServiceImpl implements RegistrationService {
+public class RegistrationServiceImpl implements IRegistrationService {
 
-	public boolean registerUserService(User u) {
-		UserDao userDao = SystemConfig.instance().getUserDao();
-		PasswordHistoryDao passwordHistoryDao = SystemConfig.instance().getPasswordHistoryDao();
+	public boolean registerUserService(IUser u) {
+		IUserDao userDao = ProfileDaoFactory.instance().userDao();
+		IPasswordHistoryDao passwordHistoryDao = ProfileDaoFactory.instance().passwordHistoryDao();
 
 		boolean userInsert = userDao.registerUser(u);
 		boolean historyInsert = passwordHistoryDao.insert(u.getEmail(), u.getPassword());

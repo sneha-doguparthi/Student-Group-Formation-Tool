@@ -8,24 +8,25 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import CSCI5308.GroupFormationTool.SystemConfig;
-import CSCI5308.GroupFormationTool.Model.Course;
-import CSCI5308.GroupFormationTool.Model.User;
-import CSCI5308.GroupFormationTool.ToolAdmin.Service.AssignInstructorService;
-import CSCI5308.GroupFormationTool.ToolAdmin.Service.ViewCoursesService;
+import CSCI5308.GroupFormationTool.Course.ICourse;
+import CSCI5308.GroupFormationTool.Profile.IUser;
+import CSCI5308.GroupFormationTool.Profile.User;
+import CSCI5308.GroupFormationTool.ToolAdmin.Service.IAssignInstructorService;
+import CSCI5308.GroupFormationTool.ToolAdmin.Service.IViewCoursesService;
+import CSCI5308.GroupFormationTool.ToolAdmin.Service.ToolAdminServiceFactory;
 import CSCI5308.GroupFormationTool.Utilities.ApplicationConstants;
 
 @Controller
 public class AssignInstructorController {
 
-	ArrayList<Course> courseList;
-	ArrayList<User> userList;
-	ViewCoursesService viewCourseService;
-	AssignInstructorService assignInstructorService;
+	ArrayList<ICourse> courseList;
+	ArrayList<IUser> userList;
+	IViewCoursesService viewCourseService;
+	IAssignInstructorService assignInstructorService;
 
 	public AssignInstructorController() {
-		viewCourseService = SystemConfig.instance().getViewCoursesService();
-		assignInstructorService = SystemConfig.instance().getAssignInstructorService();
+		viewCourseService = ToolAdminServiceFactory.instance().viewCourseService();
+		assignInstructorService = ToolAdminServiceFactory.instance().assignInstructorService();
 	}
 
 	@GetMapping("admin/assign-instructor")

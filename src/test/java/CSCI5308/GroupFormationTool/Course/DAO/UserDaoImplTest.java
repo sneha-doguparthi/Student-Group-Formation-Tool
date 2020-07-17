@@ -9,19 +9,21 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
-import CSCI5308.GroupFormationTool.Model.User;
-import CSCI5308.GroupFormationTool.Profile.DAO.UserDao;
+import CSCI5308.GroupFormationTool.Profile.IUser;
+import CSCI5308.GroupFormationTool.Profile.UserFactory;
+import CSCI5308.GroupFormationTool.Profile.UserObjectFactory;
+import CSCI5308.GroupFormationTool.Profile.DAO.IUserDao;
 import CSCI5308.GroupFormationTool.Profile.DAO.UserDaoImpl;
 
 public class UserDaoImplTest {
 
-	UserDao userDaoImplMock = mock(UserDaoImpl.class);
+	IUserDao userDaoImplMock = mock(UserDaoImpl.class);
 
 	@Test
 	void testGetAll() {
-		ArrayList<User> list = new ArrayList<>();
+		ArrayList<IUser> list = new ArrayList<>();
 
-		User user = new User();
+		IUser user = UserFactory.userObject(new UserObjectFactory());
 		user.setBannerId("B00851234");
 		user.setFirstName("Bob");
 		user.setLastName("Builder");

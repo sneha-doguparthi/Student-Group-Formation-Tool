@@ -12,26 +12,27 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import CSCI5308.GroupFormationTool.SystemConfig;
-import CSCI5308.GroupFormationTool.DBConnection.CreateDatabaseConnection;
-import CSCI5308.GroupFormationTool.Model.Question;
-import CSCI5308.GroupFormationTool.Model.User;
-import CSCI5308.GroupFormationTool.Profile.DAO.UserDao;
+import CSCI5308.GroupFormationTool.DBUtil.CreateDatabaseConnection;
+import CSCI5308.GroupFormationTool.DBUtil.SqlQueryUtil;
+import CSCI5308.GroupFormationTool.Profile.IUser;
+import CSCI5308.GroupFormationTool.Profile.DAO.IUserDao;
+import CSCI5308.GroupFormationTool.Profile.DAO.ProfileDaoFactory;
+import CSCI5308.GroupFormationTool.QuestionManager.IQuestion;
 
-public class StoreQuestionDAOImpl implements StoreQuestionDAO {
+public class StoreQuestionDAOImpl implements IStoreQuestionDAO {
 
 	private Logger logger = LogManager.getLogger(StoreQuestionDAOImpl.class);
 	Connection connection;
 
 	@Override
-	public int saveQuestionDetails(Question question) {
+	public int saveQuestionDetails(IQuestion question) {
 
 		int questionId = -1;
 		PreparedStatement statement = null;
 
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
-			String insertQuery = "INSERT INTO question (question_title,question_text,question_type, user_id) values(?,?,?,?);";
+			String insertQuery = SqlQueryUtil.instance().getQueryByKey("createQuestion");
 			statement = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
 			statement.setString(1, question.getQuestionTitle());
 			statement.setString(2, question.getQuestionText());
@@ -58,17 +59,13 @@ public class StoreQuestionDAOImpl implements StoreQuestionDAO {
 				logger.error("Exception occured while closing connection/statement", e);
 			}
 		}
-
 		return questionId;
 	}
 
 	private int getUserId() {
-
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		UserDao userDao = SystemConfig.instance().getUserDao();
-
-		ArrayList<User> list = userDao.getByEmail(authentication.getName());
-
+		IUserDao userDao = ProfileDaoFactory.instance().userDao();
+		ArrayList<IUser> list = userDao.getByEmail(authentication.getName());
 		return list.get(0).getUserId();
 	}
 

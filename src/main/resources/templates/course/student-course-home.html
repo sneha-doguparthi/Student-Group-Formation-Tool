@@ -2,12 +2,127 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>Student Course Home</title>
+<script type="text/javascript">
+	function onBlurNumField(data) {
+		var element = document.getElementById("num_" + data);
+		element.value = data + " - "
+				+ document.getElementById("num_ip_" + data).value;
+	}
+	function onBlurFreeTextField(data) {
+		var element = document.getElementById("freetext_" + data);
+		element.value = data + " - "
+				+ document.getElementById("freetext_ip_" + data).value;
+	}
+	function updateRadioFields() {
+		var radios = document.getElementsByTagName('input');
+		for (i = 0; i < radios.length; i++) {
+			if (radios[i].type == 'radio' && radios[i].checked) {
+				var qId = radios[i].name;
+				document.getElementById("radioField_" + qId).value = radios[i].value;
+			}
+		}
+		debugger;
+		var selectedCheckboxesMapping = {};
+		var checkboxes = document.getElementsByTagName("input");
+		for (i = 0; i < checkboxes.length; i++) {
+			if (checkboxes[i].type == 'checkbox' && checkboxes[i].checked) {
+				var qId = checkboxes[i].name;
+				if(selectedCheckboxesMapping[qId]) {
+					var answers = selectedCheckboxesMapping[qId];
+					var optionChecked = checkboxes[i].value.split(" - ")[1];
+					answers.push(optionChecked);
+					selectedCheckboxesMapping[qId] = answers;
+				} else {
+					var optionChecked = checkboxes[i].value.split(" - ")[1];
+					var answers = [];
+					answers.push(optionChecked);
+					selectedCheckboxesMapping[qId] = answers;
+				}
+			}
+		}
+		if(Object.keys(selectedCheckboxesMapping).length > 0) {
+			var qIds = Object.keys(selectedCheckboxesMapping);
+			for(var qId in selectedCheckboxesMapping) {
+				document.getElementById("mcqField_" + qId).value = qId + " - "+selectedCheckboxesMapping[qId].join("|");
+			}
+		}
+		debugger;
+	}
+</script>
 </head>
 <body>
 	<ul lang="en" th:replace="fragments/course-header :: course-header"></ul>
 	<div class="container">
 		<div class="course-title">
 			<h1 th:text="'Welcome to '+ ${courseName}"></h1>
+		</div>
+		<div
+			th:if="${!courseHasActiveSurvey && surveySubmissionResponse.length() == 0}">
+			<p>No active surveys. Please check back later.</p>
+		</div>
+		<div
+			th:if="${!courseHasActiveSurvey && surveySubmissionResponse.length() > 0}">
+			<h4>Survey Submission:</h4>
+			<p th:text="${surveySubmissionResponse}"></p>
+
+		</div>
+
+		<div th:if="${courseHasActiveSurvey}">
+			<p>Please answer the following questions:</p>
+			<div>
+				<form th:action="@{/course/student-survey-response}" method="POST"
+					th:object="${question}">
+					<input type="hidden" name="userId" th:value="${userId}" />
+					<div th:each="questionModel: ${surveyInfo.questionList}">
+						<p class="" th:text="${questionModel.questionText}"></p>
+						<input type="hidden" name="questionId"
+							th:value="${questionModel.getQuestionId()}" />
+						<div th:if="${questionModel.questionType.equals('MCQO')}">
+							<div th:each="answerModel:${questionModel.answerList}">
+								<input type="radio" th:name="${questionModel.questionId}"
+									th:value="${questionModel.questionId}+' - '+${answerModel.storedAs}"
+									required> <label th:text="${answerModel.answerText}">
+								</label> <input type="hidden" name="questionType"
+									th:id="'radioField_'+${questionModel.questionId}" />
+							</div>
+						</div>
+						<div th:if="${questionModel.questionType.equals('MCQM')}">
+							<input type="hidden" name="questionType"
+								th:id="'mcqField_'+${questionModel.questionId}" />
+							<div th:each="answerModel:${questionModel.answerList}">
+								<input type="checkbox" th:name="${questionModel.questionId}"
+									th:value="${questionModel.questionId}+' - '+${answerModel.storedAs}">
+								<label th:text="${answerModel.answerText}"> </label>
+							</div>
+						</div>
+						<div th:if="${questionModel.questionType == 'NUM'}">
+							<input type="number" th:min="1"
+								th:max="${questionModel.criteria}"
+								th:name="${questionModel.questionId}"
+								th:id="'num_ip_'+${questionModel.questionId}"
+								th:onblur="|onBlurNumField('${questionModel.questionId}')|"
+								required> <input type="hidden"
+								th:id="'num_'+${questionModel.questionId}"
+								th:field="*{questionType}" th:name="${questionModel.questionId}"
+								required>
+						</div>
+						<div th:if="${questionModel.questionType == 'FREETEXT'}">
+							<input type="text" th:name="${questionModel.questionId}"
+								th:id="'freetext_ip_'+${questionModel.questionId}"
+								th:onblur="|onBlurFreeTextField('${questionModel.questionId}')|"
+								required> <input type="hidden"
+								th:id="'freetext_'+${questionModel.questionId}"
+								th:field="*{questionType}" th:name="${questionModel.questionId}"
+								required>
+						</div>
+					</div>
+					<div>
+						<p style="color: red;" th:if="${errMsg.length() > 0}"
+							th:text="${errMsg}"></p>
+					</div>
+					<button class="btn btn-primary" th:onclick="updateRadioFields()">Submit</button>
+				</form>
+			</div>
 		</div>
 	</div>
 </body>

@@ -11,18 +11,20 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
-import CSCI5308.GroupFormationTool.Model.User;
+import CSCI5308.GroupFormationTool.Profile.IUser;
+import CSCI5308.GroupFormationTool.Profile.UserFactory;
+import CSCI5308.GroupFormationTool.Profile.UserObjectFactory;
 
 public class AssignTaServiceImplTest {
 
-	AssignTaService assignTaServiceImplMock = mock(AssignTaServiceImpl.class);
+	IAssignTaService assignTaServiceImplMock = mock(AssignTaServiceImpl.class);
 
 	@Test
 	void testGetAllUsers() {
 
-		ArrayList<User> list = new ArrayList<>();
+		ArrayList<IUser> list = new ArrayList<>();
 
-		User user = new User();
+		IUser user = UserFactory.userObject(new UserObjectFactory());
 		user.setBannerId("B00851234");
 		user.setFirstName("Bob");
 		user.setLastName("Builder");

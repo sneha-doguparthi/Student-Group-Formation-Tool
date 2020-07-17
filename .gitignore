@@ -1,6 +1,7 @@
 ## MacOS file ##
 .DS_Store
 
+.idea/
 .gradle
 build/
 bin/
@@ -9,4 +10,4 @@ application-local.properties
 .classpath
 .project
 .settings/
-
+*.log

@@ -13,14 +13,15 @@ import org.springframework.web.multipart.MultipartFile;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 
-import CSCI5308.GroupFormationTool.SystemConfig;
-import CSCI5308.GroupFormationTool.Course.DAO.CourseAssociationDAO;
+import CSCI5308.GroupFormationTool.Course.DAO.CourseDaoFactory;
+import CSCI5308.GroupFormationTool.Course.DAO.ICourseAssociationDao;
 import CSCI5308.GroupFormationTool.Model.Student;
-import CSCI5308.GroupFormationTool.Model.User;
-import CSCI5308.GroupFormationTool.Profile.DAO.UserDao;
+import CSCI5308.GroupFormationTool.Profile.IUser;
+import CSCI5308.GroupFormationTool.Profile.DAO.IUserDao;
+import CSCI5308.GroupFormationTool.Profile.DAO.ProfileDaoFactory;
 import CSCI5308.GroupFormationTool.Utilities.ApplicationConstants;
 
-public class UploadCsvFileServiceImpl implements UploadCsvFileService {
+public class UploadCsvFileServiceImpl implements IUploadCsvFileService {
 
 	private Logger logger = LogManager.getLogger(UploadCsvFileServiceImpl.class);
 	private String resMessage;
@@ -29,10 +30,10 @@ public class UploadCsvFileServiceImpl implements UploadCsvFileService {
 
 	@Override
 	public boolean uploadCsvFile(MultipartFile file, Integer courseId, String courseCode, String courseName) {
-		UserDao userDao = SystemConfig.instance().getUserDao();
-		GetStudentListService getStudentListService = SystemConfig.instance().getGetStudentListService();
-		SendInvitationEmailService sendEmailService = SystemConfig.instance().getSendInvitationEmailService();
-		CourseAssociationDAO courseAssociationDao = SystemConfig.instance().getCourseAssociationDAO();
+		IUserDao userDao = ProfileDaoFactory.instance().userDao();
+		IGetStudentListService getStudentListService = CourseServiceFactory.instance().getStudentListService();
+		ISendInvitationEmailService sendEmailService = CourseServiceFactory.instance().sendInvitationEmailService();
+		ICourseAssociationDao courseAssociationDao = CourseDaoFactory.instance().courseAssociationDao();
 
 		if (file.isEmpty()) {
 			resMessage = ApplicationConstants.FILE_EMPTY;
@@ -42,10 +43,10 @@ public class UploadCsvFileServiceImpl implements UploadCsvFileService {
 				List<Student> students = parseCsv(file);
 
 				ArrayList<Integer> userIdsFromCourseAssociation = courseAssociationDao.getUserID(courseId);
-				ArrayList<User> userList = userDao.getUserByUserID(userIdsFromCourseAssociation);
+				ArrayList<IUser> userList = userDao.getUserByUserID(userIdsFromCourseAssociation);
 
 				List<Student> newToCourseList = getStudentListService.getNewToCourseStudentList(students, userList);
-				ArrayList<User> allUserList = userDao.getAll();
+				ArrayList<IUser> allUserList = userDao.getAll();
 
 				List<Student> newToPortalList = getStudentListService.getNewToPortalStudentList(newToCourseList,
 						allUserList);

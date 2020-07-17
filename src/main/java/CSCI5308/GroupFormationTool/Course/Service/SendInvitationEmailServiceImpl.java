@@ -4,16 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 import CSCI5308.GroupFormationTool.Model.Student;
+import CSCI5308.GroupFormationTool.Utilities.ApplicationConstants;
 
-public class SendInvitationEmailServiceImpl implements SendInvitationEmailService {
+public class SendInvitationEmailServiceImpl implements ISendInvitationEmailService {
+	Logger logger = LogManager.getLogger(SendInvitationEmailServiceImpl.class);
 
 	@Override
 	public boolean sendUserInvitationEmail(List<Student> newToPortalList, ArrayList<String> passwords) {
-
 		JavaMailSenderImpl mailSender = initializeMailSender();
 		SimpleMailMessage message = new SimpleMailMessage();
 		int listSize = newToPortalList.size();
@@ -26,7 +29,7 @@ public class SendInvitationEmailServiceImpl implements SendInvitationEmailServic
 					+ "Password: " + passwords.get(i));
 			mailSender.send(message);
 		}
-
+		logger.info("User registration invitation mail sent.");
 		return true;
 	}
 
@@ -44,16 +47,16 @@ public class SendInvitationEmailServiceImpl implements SendInvitationEmailServic
 					+ "! " + courseName);
 			mailSender.send(message);
 		}
-
+		logger.info("Course invitation mail sent to the users.");
 		return true;
 	}
 
 	private JavaMailSenderImpl initializeMailSender() {
 		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-		mailSender.setHost("smtp.gmail.com");
-		mailSender.setPort(587);
-		mailSender.setUsername("dalmcproject@gmail.com");
-		mailSender.setPassword("ccsezaisrrtwpdzh");
+		mailSender.setHost(ApplicationConstants.MAIL_HOST);
+		mailSender.setPort(ApplicationConstants.MAIL_PORT);
+		mailSender.setUsername(ApplicationConstants.MAIL_SENDER_ID);
+		mailSender.setPassword(ApplicationConstants.MAIL_SENDER_PASSWORD);
 
 		Properties props = mailSender.getJavaMailProperties();
 		props.put("mail.transport.protocol", "smtp");

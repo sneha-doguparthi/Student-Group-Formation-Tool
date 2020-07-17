@@ -11,17 +11,19 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import CSCI5308.GroupFormationTool.Model.Student;
-import CSCI5308.GroupFormationTool.Model.User;
+import CSCI5308.GroupFormationTool.Profile.IUser;
+import CSCI5308.GroupFormationTool.Profile.UserFactory;
+import CSCI5308.GroupFormationTool.Profile.UserObjectFactory;
 
 public class GetStudentListServiceImplTest {
 
-	GetStudentListService getStudentListServiceImplMock = mock(GetStudentListServiceImpl.class);
+	IGetStudentListService getStudentListServiceImplMock = mock(GetStudentListServiceImpl.class);
 
 	@Test
 	void testGetNewToCourseStudentList() {
 
 		List<Student> studentList = new ArrayList<>();
-		ArrayList<User> userList = new ArrayList<>();
+		ArrayList<IUser> userList = new ArrayList<>();
 		List<Student> result = new ArrayList<>();
 
 		Student student = new Student();
@@ -29,10 +31,9 @@ public class GetStudentListServiceImplTest {
 		student.setFirstName("Tony");
 		student.setLastName("Stark");
 		student.setEmail("ts@marveldal.ca");
-
 		studentList.add(student);
 
-		User user = new User();
+		IUser user = UserFactory.userObject(new UserObjectFactory());
 		user.setUserId(5);
 		user.setBannerId("B00123457");
 		user.setFirstName("Captain");
@@ -40,7 +41,6 @@ public class GetStudentListServiceImplTest {
 		user.setEmail("ca@marveldal.ca");
 		user.setPassword("iamfrombrooklyn");
 		user.setUserType("G");
-
 		userList.add(user);
 
 		result.add(student);
@@ -55,7 +55,7 @@ public class GetStudentListServiceImplTest {
 	void testGetNewToPortalStudentList() {
 
 		List<Student> studentList = new ArrayList<>();
-		ArrayList<User> userList = new ArrayList<>();
+		ArrayList<IUser> userList = new ArrayList<>();
 		List<Student> result = new ArrayList<>();
 
 		Student student = new Student();
@@ -63,10 +63,9 @@ public class GetStudentListServiceImplTest {
 		student.setFirstName("Tony");
 		student.setLastName("Stark");
 		student.setEmail("ts@marveldal.ca");
-
 		studentList.add(student);
 
-		User user = new User();
+		IUser user = UserFactory.userObject(new UserObjectFactory());
 		user.setUserId(5);
 		user.setBannerId("B00123457");
 		user.setFirstName("Captain");

@@ -1,18 +1,19 @@
 package CSCI5308.GroupFormationTool.Profile.DAO;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import CSCI5308.GroupFormationTool.DBConnection.CreateDatabaseConnection;
+import CSCI5308.GroupFormationTool.DBUtil.CreateDatabaseConnection;
+import CSCI5308.GroupFormationTool.DBUtil.SqlQueryUtil;
 import CSCI5308.GroupFormationTool.Model.Role;
 
-public class RoleDaoImpl implements RoleDao {
+public class RoleDaoImpl implements IRoleDao {
 
 	private Logger logger = LogManager.getLogger(RoleDaoImpl.class);
 
@@ -20,13 +21,15 @@ public class RoleDaoImpl implements RoleDao {
 	public ArrayList<Role> findByName(String name) {
 
 		Connection connection = null;
-		Statement statement = null;
-		String query = "SELECT * FROM role WHERE role_name = '" + name + "'";
+		PreparedStatement statement = null;
+		String query = SqlQueryUtil.instance().getQueryByKey("getRole");
+		;
 		ArrayList<Role> roles = new ArrayList<>();
 
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
-			statement = connection.createStatement();
+			statement = connection.prepareStatement(query);
+			statement.setString(1, name);
 			ResultSet rs = statement.executeQuery(query);
 			while (rs.next()) {
 				Role role = new Role();

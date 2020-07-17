@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -13,22 +12,21 @@ import java.util.Date;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import CSCI5308.GroupFormationTool.DBConnection.CreateDatabaseConnection;
+import CSCI5308.GroupFormationTool.DBUtil.CreateDatabaseConnection;
+import CSCI5308.GroupFormationTool.DBUtil.SqlQueryUtil;
 import CSCI5308.GroupFormationTool.Model.Otp;
 
-public class OtpDaoImpl implements OtpDao {
+public class OtpDaoImpl implements IOtpDao {
 
 	private Logger logger = LogManager.getLogger(OtpDaoImpl.class);
 
 	@Override
 	public Boolean insertOtp(Otp otp) {
-
 		Connection connection = null;
 		PreparedStatement statement = null;
-
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
-			String insertQuery = "INSERT INTO otp (email,otp,date) values(?,?,?);";
+			String insertQuery = SqlQueryUtil.instance().getQueryByKey("addOtp");
 			statement = connection.prepareStatement(insertQuery);
 			statement.setString(1, otp.getEmail());
 			statement.setInt(2, otp.getOtp());
@@ -59,14 +57,14 @@ public class OtpDaoImpl implements OtpDao {
 	public ArrayList<Otp> getOtpByEmail(String email) {
 
 		Connection connection = null;
-		Statement statement = null;
-		String query = "SELECT * FROM otp WHERE email = '" + email + "' ORDER BY id DESC";
+		PreparedStatement statement = null;
+		String query = SqlQueryUtil.instance().getQueryByKey("getOtp");
 		ArrayList<Otp> otpList = new ArrayList<>();
-
 		try {
 			connection = CreateDatabaseConnection.instance().createConnection();
-			statement = connection.createStatement();
-			ResultSet rs = statement.executeQuery(query);
+			statement = connection.prepareStatement(query);
+			statement.setString(1, email);
+			ResultSet rs = statement.executeQuery();
 
 			while (rs.next()) {
 				Otp otp = new Otp();
